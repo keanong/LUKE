@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    tools:context="com.xdel.luke.ViewNotificationActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        android:background="#fffffae0">
+
+        <TextView android:text="" android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/lblNoti"
+            android:textSize="15dp"/>
+    </ScrollView>
+
+</RelativeLayout>

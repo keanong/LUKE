@@ -1,0 +1,67 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xdel.luke.JobInfoActivity">
+
+    <item
+        android:id="@+id/tl"
+        android:orderInCategory="88"
+        android:icon="@mipmap/ic_stat_device_thermostat"
+        android:title="TL"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/waze"
+        android:orderInCategory="89"
+        android:icon="@mipmap/ic_waze_icon"
+        android:title="WAZE"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/promiseOpt"
+        android:icon="@mipmap/ic_stat_access_time"
+        android:orderInCategory="90"
+        android:title="reqExt"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/extOpt"
+        android:icon="@mipmap/ic_ext"
+        android:orderInCategory="91"
+        android:title="reqExt"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/resetotp"
+        android:icon="@mipmap/ic_resetotp"
+        android:orderInCategory="92"
+        android:title="Locker"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/qr"
+        android:icon="@mipmap/ic_action_qr2"
+        android:orderInCategory="93"
+        android:title="QR"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/verifyme"
+        android:icon="@mipmap/acct_verified"
+        android:orderInCategory="94"
+        android:title="Verify Me"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/map"
+        android:icon="@mipmap/ic_map"
+        android:orderInCategory="95"
+        android:title="@string/menu_dashboard2scan"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuTag"
+        android:orderInCategory="9"
+        android:title="@string/taggingTag"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/switchmode"
+        android:icon="@mipmap/ic_action_compare"
+        android:orderInCategory="98"
+        android:title="@string/action_logfile"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/logs"
+        android:icon="@mipmap/ic_action_article"
+        android:orderInCategory="99"
+        android:title="@string/action_logfile"
+        app:showAsAction="always"
+        />
+
+</menu>

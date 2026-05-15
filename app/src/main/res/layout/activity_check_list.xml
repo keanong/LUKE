@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context="com.xdel.luke.CheckListActivity">
+
+    <LinearLayout
+        android:id="@+id/LLCheckList"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9.8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:choiceMode="singleChoice"
+            android:clickable="false"
+            android:descendantFocusability="beforeDescendants" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnCheckListCANCEL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCheckListCANCEL_OnClick"
+            android:text="@string/buttontext_cancel"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCheckListNext"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnNextClick_OnClick"
+            android:text="@string/buttontext_next"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <!--<Button
+            android:id="@+id/btnCheckListCANCEL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1"
+            android:background="@color/menu_bg"
+            android:focusable="false"
+            android:onClick="btnCheckListCANCEL_OnClick"
+            android:text="@string/buttontext_cancel"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCheckListNext"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/menu_bg"
+            android:focusable="false"
+            android:onClick="btnNextClick_OnClick"
+            android:text="@string/buttontext_next"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />-->
+
+    </LinearLayout>
+
+</LinearLayout>

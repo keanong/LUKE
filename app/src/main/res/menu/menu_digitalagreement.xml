@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xdel.luke.ACI.DigitalAgreementActivity">
+
+    <item
+        android:id="@+id/refresh"
+        android:icon="@mipmap/ic_action_refresh"
+        android:orderInCategory="99"
+        android:title="@string/menu_dashboard2refresh"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/digiALanguage"
+        android:icon="@mipmap/ic_action_translate"
+        android:title="@string/action_language"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        />
+</menu>

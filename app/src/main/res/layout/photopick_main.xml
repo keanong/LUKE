@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="10"
+    android:background="#ffffffff">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffffff">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:text="@string/pick_photo"
+            android:id="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:background="@color/menu_bg"
+            android:textColor="#ffffff"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="#ffffffff">
+        <Button
+            android:layout_below="@id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_photo_without_camera"
+            android:id="@+id/button_no_camera"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:layout_below="@id/button_no_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_one_photo"
+            android:id="@+id/button_one_photo"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:layout_below="@id/button_one_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_photo_gif"
+            android:id="@+id/button_photo_gif"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8.9"
+        android:layout_gravity="top"
+        android:background="#ffffffff">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+</LinearLayout>
+
+<!--
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+    <Button
+        android:layout_marginTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_photo"
+        android:id="@+id/button"
+        android:layout_centerHorizontal="true"
+
+        />
+
+    <Button
+        android:layout_below="@id/button"
+        android:layout_marginTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_photo_without_camera"
+        android:id="@+id/button_no_camera"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        />
+
+    <Button
+        android:layout_below="@id/button_no_camera"
+        android:layout_marginTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_one_photo"
+        android:id="@+id/button_one_photo"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        />
+
+    <Button
+        android:layout_below="@id/button_one_photo"
+        android:layout_marginTop="10dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_photo_gif"
+        android:id="@+id/button_photo_gif"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_below="@id/button_photo_gif"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</RelativeLayout>
+-->

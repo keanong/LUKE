@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xdel.luke.Messaginglist"
+    android:background="#ffffffff">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:focusableInTouchMode="false"
+        android:focusable="false">
+
+        <TextView android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_height="2dp"
+            android:layout_width="2dp"
+            android:visibility="gone"></TextView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:layout_gravity="top">
+
+            <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/messaginglist"
+                android:choiceMode="singleChoice"
+                android:clickable="true"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

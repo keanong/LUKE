@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/lblStatusCodesDesc"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="5"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="DESC"
+            android:textColor="#040404"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/lblStatusCodesIDX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IDX"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblStatusCodesDescEN"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IDX"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</RelativeLayout>

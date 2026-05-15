@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setDeliveredMassStatuslinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top|center"
+        android:layout_weight="0.5"
+        android:visibility="gone"
+        android:background="#ffe4f4ff"
+        android:gravity="center">
+
+        <TextView android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_height="2dp"
+            android:layout_width="2dp"
+            android:visibility="gone"></TextView>
+
+        <TextView
+            android:id="@+id/lblsetDeliveredMassStatustextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:gravity="left|center"
+            android:text="@string/lblreceiver"
+            android:textAllCaps="true"
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="#ffffffff">
+
+        <Spinner
+            android:id="@+id/ddlsetDeliveredMassStatusReceiver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.75"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:prompt="@string/receiver_prompt" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLspecific01"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="#ffe4f4ff"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lblspecific"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:gravity="left|center"
+            android:text="@string/lblbspecific"
+            android:textAllCaps="true"
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLspecific02"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/ddlSpecific"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.75"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:prompt="@string/relation_prompt" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.5"
+        android:background="#ffe4f4ff"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/lbl_remarks"
+            android:textAllCaps="true"
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1.5"
+        android:background="#ffe4f4ff">
+
+        <EditText
+            android:id="@+id/txtReason"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="@drawable/txtbox_def"
+            android:editable="false"
+            android:gravity="top"
+            android:hint="@string/hintenterremarks"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:minLines="4"
+            android:paddingLeft="10dp"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLhiddenNote"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1.5"
+        android:background="#ffe4f4ff"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblRequirePhotoNote"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#ffff0000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLhidden"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="#ffe4f4ff"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffe4f4ff"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnGetReview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:background="@drawable/button_normal_style"
+            android:onClick="btnbtnGetReviewClick"
+            android:text="@string/lblgetreviewlink"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <CheckBox
+            android:id="@+id/cbReview"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="@drawable/txtbox_def"
+            android:buttonTint="@color/menu_bg"
+            android:text="@string/selectreviewcb"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffe4f4ff"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSign"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="1dp"
+            android:background="@drawable/button_normal_style"
+            android:onClick="btnSign_Click"
+            android:text="@string/buttontext_sign"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setDeliveredMassStatuslinearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffe4f4ff"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnsetDeliveredMassStatusViewImg"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:onClick="btnViewImgClick"
+            android:text="@string/buttontext_browse"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsetDeliveredMassStatusCamera"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:onClick="btnCameraClick"
+            android:text="@string/buttontext_cam"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setDeliveredMassStatuslinearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffe4f4ff"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnsetDeliveredMassStatusCancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:onClick="CancelsetDeliveredStatus"
+            android:text="@string/buttontext_cancel"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsetDeliveredMassStatusNext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:onClick="btnNextClick"
+            android:text="@string/buttontext_next"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnsetDeliveredMassStatusSubmit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:onClick="btnSubmitClick"
+            android:text="@string/buttontext_submit"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

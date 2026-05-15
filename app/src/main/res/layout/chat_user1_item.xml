@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <LinearLayout
+        android:background="@drawable/balloon_incoming_normal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:id="@+id/chat_company_reply_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="4">
+
+            <TextView
+                android:id="@+id/chat_company_reply_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="8dp"
+                android:paddingTop="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                android:text="XDel"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/message_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                style="@style/chat_text_message_style"
+                android:paddingLeft="20dp"
+
+                android:autoLink="web"
+                android:maxWidth="280dp"
+                android:text="hello... how r u??? are u there??? can reply me???" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/chat_company_reply_text"
+            style="@style/chat_timings"
+            android:paddingRight="5dp"
+            android:textColor="#606060"
+            android:paddingBottom="5dp"
+            android:layout_toRightOf="@id/chat_company_reply_text"
+            android:text="17:10"
+            android:layout_weight="1"
+            android:layout_gravity="bottom" />
+    </LinearLayout>
+
+    <!--<RelativeLayout
+        android:layout_width="wrap_content"
+        android:background="@drawable/balloon_incoming_normal"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/chat_company_reply_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/chat_company_reply_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="8dp"
+                android:paddingTop="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                android:text="XDel"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/message_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                style="@style/chat_text_message_style"
+                android:paddingLeft="20dp"
+
+                android:autoLink="web"
+                android:maxWidth="280dp"
+                android:text="XDel Singapore Pte Ltd" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/chat_company_reply_text"
+            android:layout_marginLeft="10sp"
+            style="@style/chat_timings"
+            android:paddingRight="10sp"
+            android:textColor="#606060"
+            android:paddingBottom="5sp"
+            android:layout_toRightOf="@id/chat_company_reply_text"
+            android:text="17:10" />
+
+    </RelativeLayout>-->
+
+</RelativeLayout>

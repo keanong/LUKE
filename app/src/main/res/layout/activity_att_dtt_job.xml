@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblAttDttJobLoggerID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblAttDttJobLoggerIDval"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:focusable="false"
+            android:gravity="center"
+            android:text="TEMP LOGGER ID"
+            android:textColor="#ffff0000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/ddlAttDttJobLogger"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:visibility="gone"></TextView>
+
+        <TextView
+            android:id="@+id/lblAttDttJobSubmitMANUALENTRY"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="0.5"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/lblentry"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtAttDttJobSubmitMANUALENTRY"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:imeOptions="actionGo"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold"></EditText>
+
+        <Button
+            android:id="@+id/btnAttDttJobSubmitENTER"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnJobsheetSubmitENTERClick"
+            android:text="@string/buttontext_enter"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.5"
+        android:background="#ffffffff"
+        android:gravity="right"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblAttDttJobSubmitMISC"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="1dp"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_clicktodelete"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="ID:"
+            android:id="@+id/lblAttDttJobDriverIDX"
+            android:textSize="14sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:focusable="false"
+            android:gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="DRIVERIDX"
+            android:id="@+id/lblAttDttJobDriverIDXval"
+            android:textSize="14sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:focusable="false"
+            android:gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="COUNT"
+            android:id="@+id/lblAttDttJobSubmitCOUNT"
+            android:textSize="14sp"
+            android:textColor="#ffff0000"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:focusable="false"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:choiceMode="singleChoice"
+                android:clickable="true"
+                android:focusable="false" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnAttDttJobSubmitCANCEL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnAttDttJobSubmitCANCELClick"
+            android:text="@string/buttontext_cancel"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btnAttDttJobSCAN"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnAttDttJobSCANClick"
+            android:text="@string/action_scan"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAttDttJobSubmitSUBMIT"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnAttDttJobSubmitSUBMITClick"
+            android:text="@string/buttontext_submit"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

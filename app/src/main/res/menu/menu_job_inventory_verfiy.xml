@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xdel.luke.JobInventoryVerify.JobInventoryVerifyActivity">
+
+    <item
+        android:id="@+id/menuReset"
+        android:orderInCategory="9"
+        android:icon="@mipmap/ic_action_refresh"
+        android:title="@string/reset_text"
+        app:showAsAction="always" />
+</menu>

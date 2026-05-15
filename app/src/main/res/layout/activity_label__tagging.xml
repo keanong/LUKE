@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="10"
+    android:background="#ffffffff">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/lbltaggingJobNoText"
+            android:text="@string/taggingjobno"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/lbltaggingJobNoValue"
+            android:text=""
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/v7"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/lbltaggingCNNoText"
+            android:text="@string/taggingcnno"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/lbltaggingCNNoValue"
+            android:text=""
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:layout_marginRight="1dp"
+            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/v3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3"
+        android:gravity="right"
+        android:layout_gravity="top">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/lbltaggingSwitchText"
+            android:text="@string/taggingswitch"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_weight="1.5"
+            android:gravity="center_vertical"/>
+
+        <Switch
+            android:id="@+id/taggingSwitch"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/taggingAdd"
+            android:layout_weight="1.5"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="1dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/v6"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:id="@+id/lbltaggingJobIDX"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="ENTRY"
+            android:id="@+id/lbltaggingMANUALENTRY"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="#040404"
+            android:textStyle="bold"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:focusable="false"
+            android:layout_marginRight="0.5dp" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/txttaggingMANUALENTRY"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:textStyle="bold"
+            android:layout_weight="1.5"
+            android:imeOptions="actionGo"
+            android:focusable="true"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:textAllCaps="true"
+            android:maxLength="10"
+            android:inputType="text">
+        </EditText>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="@string/buttontext_enter"
+            android:id="@+id/btntaggingENTER"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:onClick="btnTaggingENTERClick"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_normal_style"
+            android:textSize="18sp"
+            android:layout_margin="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/v4"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/taggingCount"
+            android:id="@+id/lbltaggingCOUNT"
+            android:textSize="16sp"
+            android:textColor="#ffff0000"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:focusable="false"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/v5"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5.1"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="false">
+            <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/tagginglistView"
+                android:choiceMode="singleChoice"
+                android:clickable="true"
+                android:focusable="false"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_cancel"
+            android:id="@+id/btntaggingCANCEL"
+            android:onClick="btnTaggingCANCELClick"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="1dp"
+            android:textSize="18sp"
+            android:layout_gravity="top" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_clear"
+            android:id="@+id/btntaggingCLEARALL"
+            android:onClick="btnTaggingCLEARALLClick"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="2dp"
+            android:textSize="18sp"
+            android:layout_gravity="top" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_submit"
+            android:id="@+id/btntaggingSUBMIT"
+            android:onClick="btnTaggingSUBMITClick"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="1dp"
+            android:textSize="18sp"
+            android:layout_gravity="top" />
+    </LinearLayout>
+
+</LinearLayout>

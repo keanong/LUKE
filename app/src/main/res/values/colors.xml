@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="mainorange">#F29D3D</color>
+    <color name="lightorange">#EFC68F</color>
+    <color name="numbering_blue">#0026ff</color>
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="menu_bg">#101F2D</color>
+    <color name="menu_red">#ff0000</color>
+    <color name="light_gray">#AA808080</color>
+    <color name="gray">#dddddd</color>
+    <color name="tab_bg">#142029</color>
+    <color name="bg_light_blue">#EBF5FF</color>
+    <color name="light_black">#CC000000</color>
+    <color name="light_black_AA">#AA000000</color>
+    <color name="light_black_">#33000000</color>
+    <color name="light_white_">#33FFFFFF</color>
+    <color name="dialog_bg">#f0f0f0</color>
+    <color name="transparent">@android:color/transparent</color>
+    <drawable name="light_black_">#33000000</drawable>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="holo_blue_light">@android:color/holo_blue_light</color>
+    <color name="orange">@android:color/holo_blue_light</color>
+    <color name="red">#FF4081</color>
+    <color name="cold">#84d8ff</color>
+
+    <color name="picker_pager_bg">#CA000000</color>
+    <color name="picker_selected_bg">#44000000</color>
+    <color name="picker_black_40">#282828</color>
+    <color name="picker_common_primary">#f3f3f3</color>
+
+    <color name="picker_text_40">#282828</color>
+    <color name="picker_text_80">#505050</color>
+    <color name="picker_text_120">#787878</color>
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#ffe4f4ff</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="White">#FFFFFF</color>
+    <color name="yellow">#EEB211</color>
+    <color name="green">#009925</color>
+    <color name="tickgreen">#00ff56</color>
+    <color name="brightergreen">#00ff00</color>
+    <color name="brightgreen">#68d16d</color>
+    <color name="lightergreen">#9ACE96</color>
+    <color name="bluishgreen">#6ECCBD</color>
+    <color name="blue">#3369E8</color>
+    <color name="black">#000</color>
+
+    <item name="gray_holo_dark" type="color">#ff464646</item>
+    <item name="gray_holo_light" type="color">#ffd0d0d0</item>
+
+    <color name="album_text_color">#000000</color>
+    <color name="artist_text_color">#888888</color>
+    <color name="card_highlighted_color">#80bdbdbd</color>
+    <color name="pink">#f1b5c9</color>
+    <color name="instructions_orange">#FFD800</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color">@color/colorPrimary</color>
+</resources>

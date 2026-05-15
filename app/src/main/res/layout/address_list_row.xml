@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/list_selector"
+    android:weightSum="3">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="top|bottom">
+
+            <TextView
+                android:id="@+id/lblCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="COMPANY"
+                android:textColor="#0026ff"
+                android:textSize="18sp"
+                android:gravity="center|left"
+                android:singleLine="false"
+                android:minLines="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:textStyle="bold"
+                android:textAllCaps="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/AddressListLockimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_lock"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/AddressListDNFimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_toggle_star" />
+        </LinearLayout>
+
+        <!--<TextView
+            android:id="@+id/lblCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COMPANY"
+            android:textColor="#0026ff"
+            android:textSize="18sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="2sp"
+            android:textStyle="bold"
+            android:textAllCaps="true" />-->
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/lblBuilding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Building"
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:gravity="top|bottom">
+
+            <TextView
+                android:id="@+id/lblTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADDRESS"
+                android:textColor="#040404"
+                android:textSize="16sp"
+                android:gravity="center|left"
+                android:singleLine="false"
+                android:minLines="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hfPostal"
+                android:visibility="visible"
+                android:text="Postal"
+                android:textColor="#040404"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hfJobsInfoArrJsonStr"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblTitle2"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblLAT"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblLNG"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:gravity="center_vertical|right|center_horizontal">
+
+            <TextView
+                android:id="@+id/lblCount"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:paddingRight="20dp"
+                android:gravity="center|right"
+                android:text="0"
+                android:textSize="30sp"
+                android:textColor="#0026ff"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="top"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/v3"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/lblAddress1"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+
+</LinearLayout>
+<!--<LinearLayout android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100sp"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/list_selector"
+    android:weightSum="4">
+
+    <LinearLayout
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:gravity="top|bottom">
+
+        <TextView
+            android:id="@+id/lblCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COMPANY"
+            android:textColor="#0026ff"
+            android:textSize="18sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="2sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/lblTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADDRESS"
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="2sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hfPostal"
+            android:visibility="visible"
+            android:text="Postal"
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hfJobsInfoArrJsonStr"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblTitle2"
+            android:visibility="gone"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0sp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <TextView
+            android:id="@+id/lblCount"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center|right"
+            android:text="0"
+            android:textSize="30sp"
+            android:textColor="#0026ff"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>-->
+

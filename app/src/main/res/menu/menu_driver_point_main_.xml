@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xdel.luke.DriverPointMain_Activity">
+    <item
+        android:id="@+id/refresh"
+        android:icon="@mipmap/ic_action_refresh"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2refresh"
+        app:showAsAction="always" />
+</menu>

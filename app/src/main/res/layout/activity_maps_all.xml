@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/MapsAllMainlinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <fragment xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.xdel.luke.MapsAllActivity">
+
+        <TextView
+            android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:visibility="gone"></TextView>
+
+        <!--<android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="@dimen/fab_margin"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:fabSize="mini"
+            app:srcCompat="@mipmap/ic_help" />
+
+        <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fabWaze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="@dimen/fab_margin"
+            android:backgroundTint="#44A2A9"
+            android:src="@drawable/waze_fab_bg_shape"
+            android:visibility="gone"
+            app:fabSize="mini" />-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@drawable/round_corner_rect_faded_white"
+            android:gravity="center"
+            android:minWidth="70dp"
+            android:weightSum="2">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#1FFF"
+                android:outlineAmbientShadowColor="@color/transparent"
+                android:outlineProvider="none"
+                android:src="@mipmap/ic_help_blue"
+                app:borderWidth="0px"
+                app:fabSize="mini" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fabWaze"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="#1FFF"
+                android:outlineAmbientShadowColor="@color/transparent"
+                android:outlineProvider="none"
+                android:src="@mipmap/ic_waze_icon2"
+                android:visibility="gone"
+                app:borderWidth="0px"
+                app:fabSize="mini" />
+
+
+            <!--<LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#1FFF"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineProvider="none"
+                    android:src="@mipmap/ic_help_blue"
+                    app:borderWidth="0px"
+                    app:fabSize="mini" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fabWaze"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#1FFF"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineProvider="none"
+                    android:src="@mipmap/ic_waze_icon2"
+                    android:visibility="gone"
+                    app:borderWidth="0px"
+                    app:fabSize="mini" />
+
+            </LinearLayout>-->
+
+        </LinearLayout>
+
+    </fragment>
+</LinearLayout>
+
+
+

@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/DriverPointlinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:layout_margin="5dp"
+        android:background="@drawable/rect_border_grey"
+        android:orientation="vertical"
+        android:weightSum="2.5">
+
+        <LinearLayout
+            android:id="@+id/LLDriverPointSummaryFilterFrom"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:gravity="left|center"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="10">
+
+            <TextView android:id="@+id/lblIsDefaultVRPpage"
+                android:layout_height="2dp"
+                android:layout_width="2dp"
+                android:visibility="gone"></TextView>
+
+            <TextView
+                android:id="@+id/lblDriverPointSummaryDateFromtxt"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:gravity="left|center"
+                android:text="@string/pointsummarydatefrom"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDateFrom"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:background="@drawable/txtbox_def"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLDriverPointSummaryFilterTo"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:gravity="left|center"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/lblDriverPointSummaryDateTotxt"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:gravity="left|center"
+                android:text="@string/pointsummarydateto"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDateTo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:background="@drawable/txtbox_def"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/DriverPointSummaryDateFromToLinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.5"
+            android:background="#ffffff"
+            android:gravity="right|center"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="10">
+
+            <Button
+                android:id="@+id/btnDriverPointSummaryReset"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_normal_style"
+                android:text="@string/buttontext_reset_date"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:onClick="btnReset_Click"
+                android:textStyle="bold"
+                android:layout_marginRight="20dp"/>
+
+            <Button
+                android:id="@+id/btnDriverPointSummaryFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_normal_style"
+                android:text="@string/pointsummaryinquire"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:onClick="btnInquire_Click"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--=========================================================================================-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7.5"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp">
+
+        <ExpandableListView
+            android:id="@+id/expListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice"
+            android:clickable="true"
+            android:transcriptMode="disabled" />
+
+    </LinearLayout>
+
+</LinearLayout>

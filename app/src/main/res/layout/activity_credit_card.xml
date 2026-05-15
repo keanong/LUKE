@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:visibility="gone"></TextView>
+
+        <Button
+            android:id="@+id/btnJCreditCardCiti"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:background="@drawable/button_ok_style"
+            android:focusable="false"
+            android:onClick="btnCreditCardCitiClick"
+            android:text="@string/buttontext_citi"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnJCreditCarddbs"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_disabled_style"
+            android:enabled="false"
+            android:focusable="false"
+            android:onClick="btnCreditCardDbsClick"
+            android:text="@string/buttontext_dbs"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <!--<Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_citi"
+            android:id="@+id/btnJCreditCardCiti"
+            android:onClick="btnCreditCardCitiClick"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:background="#00ff00"
+            android:textColor="#000000"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginLeft="1dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_dbs"
+            android:id="@+id/btnJCreditCarddbs"
+            android:onClick="btnCreditCardDbsClick"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:background="#808080"
+            android:textColor="#000000"
+            android:layout_marginRight="1dp"
+            android:layout_marginLeft="0.5dp" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardCNNO"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.5"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/lblccCN"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtCreditCardCNNO"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:imeOptions="actionNext"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardPOSTAL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5sp"
+            android:layout_weight="1.5"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:text="@string/lblccPOSTAL"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtCreditCardPOSTAL"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="6"
+            android:numeric="integer"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardName"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.5"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/cc_receiver_name"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtCreditCardName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:imeOptions="actionNext"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardUnit"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.5"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/cc_unit"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtCreditCardUnit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:imeOptions="actionNext"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardContactNo"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.5"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/cc_contactnum"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtCreditCardContactNo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.6"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <CheckBox
+            android:id="@+id/cbCreditCardHOUR"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="3.5HR"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblCreditCardblock2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:text=""
+            android:textColor="#040404"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCreditCardENTER"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCreditCardENTERClick"
+            android:text="@string/buttontext_enter"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!--<Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="@string/buttontext_enter"
+            android:id="@+id/btnCreditCardENTER"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:onClick="btnCreditCardENTERClick"
+            android:textColor="#ffffff"
+            android:background="@color/menu_bg"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="0.5dp" />-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="#ffffffff"
+        android:gravity="right"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardMISC"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_clicktodelete"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="0.5"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCreditCardQUE"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="@string/lblccq"
+            android:textColor="#040404"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblCreditCardQUEVal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textColor="#ffff0000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="3.4"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true">
+
+            <ListView
+                android:id="@+id/listViewCreditCard"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:choiceMode="singleChoice"
+                android:clickable="true"
+                android:focusable="false" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnJCreditCardCANCEL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnJCreditCardCANCELClick"
+            android:text="@string/buttontext_cancel"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCreditCardCLEARALL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCreditCardCLEARALLClick"
+            android:text="@string/buttontext_cleardata"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCreditCardSUBMIT"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCreditCardSUBMITClick"
+            android:text="@string/buttontext_submit"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!--<Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_cancel"
+            android:id="@+id/btnJCreditCardCANCEL"
+            android:onClick="btnJCreditCardCANCELClick"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:background="@color/menu_bg"
+            android:textColor="#ffffff"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginLeft="1dp" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_cleardata"
+            android:id="@+id/btnCreditCardCLEARALL"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:onClick="btnCreditCardCLEARALLClick"
+            android:background="@color/menu_bg"
+            android:textColor="#ffffff"
+            android:layout_marginRight="0.5dp"
+            android:layout_marginLeft="0.5dp" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/buttontext_submit"
+            android:id="@+id/btnCreditCardSUBMIT"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:onClick="btnCreditCardSUBMITClick"
+            android:background="@color/menu_bg"
+            android:textColor="#ffffff"
+            android:layout_marginRight="1dp"
+            android:layout_marginLeft="0.5dp" />-->
+    </LinearLayout>
+</LinearLayout>

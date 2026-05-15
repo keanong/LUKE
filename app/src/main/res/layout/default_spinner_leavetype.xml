@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/bg_light_blue"
+        android:gravity="center"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/lblIDX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IDX"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblDescription"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="5"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="DESC"
+            android:textColor="#040404"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/lblIsPaid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IDX"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblCanExceed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Flag"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblAttendanceAffected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="callAttemptsCount"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblAllowedDays"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="callAttemptsCount"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblFlag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="callAttemptsCount"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblBalance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="leaveBalance"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblBalanceToDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="leaveBalanceToDate"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblEntitled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="leaveEntitled"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblBalanceBroughtOver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="leaveBalanceBroughtOver"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

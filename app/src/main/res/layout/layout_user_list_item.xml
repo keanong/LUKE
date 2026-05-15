@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lluserlistitem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector_white">
+
+    <RelativeLayout
+        android:id="@+id/RLcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/v"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_above="@+id/LLcontainer"
+            android:background="@color/light_gray"></View>
+
+        <LinearLayout
+            android:id="@+id/LLcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:weightSum="5">
+
+            <!--<ImageView
+                android:id="@+id/imageview_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:src="@android:drawable/ic_menu_gallery" />-->
+
+            <TextView
+                android:id="@+id/textview_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="4.3"
+                android:textColor="@color/numbering_blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Lorem Ipsum dolor set amet, Lorem odi gat haks barughy. Lorem Ipsum dolor set amet, Lorem odi gat haks barughy" />
+
+            <ImageView
+                android:id="@+id/imageview_reorder"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:layout_weight="0.7"
+                android:src="@mipmap/ic_action_dehaze" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/LLcontainer"
+            android:background="@color/light_gray"></View>
+
+    </RelativeLayout>
+
+</RelativeLayout><!--<android.support.constraint.ConstraintLayout
+    android:id="@+id/lluserlistitem"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?selectableItemBackground"
+    android:background="#f5f5f5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageview_profile"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <TextView
+        android:id="@+id/textview_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageview_reorder"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageview_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Lorem Ipsum dolor set amet, Lorem odi gat haks barughy" />
+
+    <ImageView
+        android:id="@+id/imageview_reorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_action_dehaze" />
+</android.support.constraint.ConstraintLayout>-->

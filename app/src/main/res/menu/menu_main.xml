@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/act_gps"
+        android:orderInCategory="98"
+        android:icon="@mipmap/ic_action_location_update"
+        android:title="@string/action_language"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/act_language"
+        android:orderInCategory="99"
+        android:title="@string/action_language"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/exit"
+        android:orderInCategory="100"
+        android:title="@string/action_exit"
+        app:showAsAction="always" />
+</menu>

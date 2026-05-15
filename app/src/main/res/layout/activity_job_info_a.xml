@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="1dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginRight="1dp"
+    android:layout_marginBottom="1dp"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context="com.xdel.luke.JobInfoActivity">
+
+    <LinearLayout
+        android:id="@+id/LLiArriveBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_height="2dp"
+            android:layout_width="2dp"
+            android:visibility="gone"></TextView>
+
+        <Button
+            android:id="@+id/btnarr"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:background="@drawable/button_ok_style"
+            android:gravity="center"
+            android:onClick="btnIARRclick"
+            android:text="@string/buttontext_arr"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.0">
+
+        <!--<LinearLayout
+            android:id="@+id/LLScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <include layout="@layout/activity_job_info_b" />
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fabsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:backgroundTint="#1FFF"
+            android:outlineAmbientShadowColor="@color/transparent"
+            android:outlineProvider="none"
+            android:src="@mipmap/ic_downdown"
+            android:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            android:layout_margin="5dp"
+            app:borderWidth="0px"
+            app:fabSize="mini" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/LLsubmission"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:weightSum="2.0">
+
+        <Button
+            android:id="@+id/btnFail"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_fail_style"
+            android:gravity="center"
+            android:onClick="btnFAILclick"
+            android:text="@string/buttontext_fail"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnsubmit"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_ok_style"
+            android:gravity="center"
+            android:onClick="btnPUOKPclickNew"
+            android:text="@string/buttontext_pu"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btndip"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:background="@drawable/button_ok_style"
+            android:gravity="center"
+            android:onClick="btnDIPclick"
+            android:text="@string/buttontext_dip"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnRtnCallActivity"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:background="@drawable/button_ok_style"
+            android:gravity="center"
+            android:onClick="returnCallActivity"
+            android:text="@string/buttontext_RtnCallActivity"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLextra"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:id="@+id/LLimgJobChange"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgJobChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:src="@mipmap/ic_action_no_noti" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lblExtras"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="7.5"
+            android:drawableLeft="@mipmap/ic_action_call"
+            android:text="@string/lblextras"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

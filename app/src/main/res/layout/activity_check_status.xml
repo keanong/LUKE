@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="10"
+    android:background="#ffffffff"
+    android:gravity="top">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:id="@+id/txtInput"
+            android:layout_margin = "1dp"
+            android:singleLine="true"
+            android:paddingLeft="10dp"
+            android:background="@drawable/txtbox_def"
+            android:inputType="textCapCharacters"
+            android:focusable="true"
+            android:imeOptions="actionGo"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="top">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="@string/alert_Search"
+            android:id="@+id/btnSubmit"
+            android:layout_margin="1dp"
+            android:focusable="false"
+            android:textColor="#ffffff"
+            android:background="@drawable/button_normal_style"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_weight="1"  />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:gravity="left|center"
+        android:orientation="horizontal"
+        android:layout_weight="8"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusableInTouchMode="false"
+            android:focusable="false">
+            <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/listView"
+                android:choiceMode="singleChoice"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

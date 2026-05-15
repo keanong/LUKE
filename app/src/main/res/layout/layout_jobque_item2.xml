@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lljobquelistitem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector_white">
+
+    <RelativeLayout
+        android:id="@+id/RLcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/v"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_above="@+id/LLcontainer"
+            android:background="@color/light_gray"></View>
+
+        <LinearLayout
+            android:id="@+id/LLcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:id="@+id/lblVrpAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="4.25"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Lorem Ipsum dolor set amet, Lorem odi gat haks barughy. Lorem Ipsum dolor set amet, Lorem odi gat haks barughy" />
+
+                <!--<ImageView
+                    android:id="@+id/imageview_recall"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0.75"
+                    android:src="@mipmap/ic_action_low_priority" />-->
+
+                <ImageView
+                    android:id="@+id/imageview_reorder"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0.75"
+                    android:src="@mipmap/ic_action_dehaze" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/lblCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLcontainer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LLcontainer"
+            android:gravity="left|center"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/lblVrpPostal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="7"
+                android:gravity="left|center"
+                android:text="ETA"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblpNum_dNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="3"
+                android:gravity="right|center"
+                android:text="P: 0 D: 0"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLcontainer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LLcontainer2"
+            android:layout_marginLeft="3dp"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/lblVrpCold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="left|center"
+                android:text="@string/icontxt_cold"
+                android:textColor="@color/menu_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblVrpNets"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="left|center"
+                android:text="@string/icontxt_nets"
+                android:textColor="@color/menu_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblVrpVisa"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="left|center"
+                android:text="@string/icontxt_visa"
+                android:textColor="@color/menu_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblVrpTradein"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="left|center"
+                android:text="@string/icontxt_tradein"
+                android:textColor="@color/menu_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+
+            <!--<ImageView
+                android:id="@+id/imgnets"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_action_nets2"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imgcc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_action_cc2"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imgtradein"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_action_add_shopping_cart2"
+                android:visibility="visible" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLcontainer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LLcontainer3"
+            android:layout_marginLeft="3dp"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/lblVrpTW"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="7"
+                android:gravity="left|center"
+                android:text="TW"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblpVrpLunch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="3"
+                android:gravity="right|center"
+                android:text="LUNCH TIME"
+                android:textColor="@color/menu_red"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/LLcontainer4"
+            android:background="@color/light_gray"></View>
+
+    </RelativeLayout>
+
+</RelativeLayout>

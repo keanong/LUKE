@@ -1,0 +1,1166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xdel.luke"
+    android:versionCode="503"
+    android:versionName="5.0.3">
+    <!-- <uses-sdk android:targetSdkVersion="28" /> -->
+    <!--
+        <uses-sdk
+        android:minSdkVersion="23"
+        android:targetSdkVersion="26" />
+    -->
+    <!--
+    <permission
+        android:name="com.xdel.luke.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.xdel.luke.permission.C2D_MESSAGE" />
+    -->
+    <!-- Note: the above 2 permissions is not required on 4.1 or above. -->
+    <!-- App receives GCM messages. -->
+    <!-- <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /> -->
+    <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.use_credentials" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission
+        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+        tools:ignore="ProtectedPermissions" /> <!-- start Google Map -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission
+        android:name="android.permission.BATTERY_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Contacts permissions -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" /> <!-- File and storage permissions -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Android 13+ media permissions -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> <!-- Location permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Background location permission for "Allow all the time" (Android 10+) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- Microphone permission -->
+    <!-- voip -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> -->
+    <!-- Nearby devices permission (Android 13+) -->
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" /> <!-- Phone permissions -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--
+<uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    -->
+    <!-- Install unknown apps permission -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <queries>
+        <package android:name="com.waze" />
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" /> <!-- end Google Map -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        required="false"
+        tools:ignore="UnsupportedChromeOsHardware" />
+
+    <application
+        android:name=".objClasses.myApp"
+        android:allowBackup="true"
+        android:configChanges="locale"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher_adaptive_round"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_adaptive_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:roundIcon">
+        <activity
+            android:name=".ShpmtVerification.ShpmtV2Activity"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ppReader.ui.CaptureActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ppReader.ui.ppMainActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ppReader.pptestActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".JobInventoryVerify.JobInventoryVerifyActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label="@string/item_jobinventoryverification"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ShpmtVerification.ShpmtVActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label=""
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".BackendRun2_IntentService"
+            android:exported="false" />
+
+        <activity
+            android:name=".temploggerWhse.TempLoggerWhseScanActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".test.DeviceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".test.ScanActivity"
+            android:exported="true" />
+        <activity
+            android:name=".test.bluetoothActivity"
+            android:exported="true" />
+        <activity
+            android:name=".templogger.AttDttJobActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HRM_GC_Schedule.GCScheduleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".templogger.TempLoggerRegActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".HandTakeOver.TakeoverActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".HandTakeOver.HandoverActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".DOCOD.CODupdate2"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".checklist.MainCheckListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Locker.ShipmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Locker.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Locker.LockerProfileActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.xdel.luke"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <!--
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        -->
+        <!--
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".DrawerMainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_dashboard2"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.DrawerMainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".DrawerMain2Activity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.DrawerMain2Activity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".PieceByPiecePU.StartQueryActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".JobsListGroupActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".JobInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_job_info"
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+        </activity>
+        <activity
+            android:name=".setDeliveredStatusActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_set_delivered_status"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".setFailStatusActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".Camera5Activity"
+            android:exported="true"
+            android:label="@string/title_activity_camera"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".camera.CameraViewActivity"
+            android:exported="true"
+            android:label="@string/title_activity_camera"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".ViewImageActivity"
+            android:exported="true"
+            android:label="@string/title_activity_view_image"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".JobsheetActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label="@string/item_dashboard2JOBSHEEThomes"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".JobsheetSubmitActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label="@string/title_activity_jobsheet_submit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".CheckStatusActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label="@string/title_activity_check_status"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".CreditCardActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label="@string/title_activity_credit_card"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".ViewNotificationActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_view_notification"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.ViewNotificationActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MapsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutActivity"
+            android:exported="true"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CustomGalleryActivity"
+            android:exported="true"
+            android:label="@string/title_activity_custom_gallery"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BulkPickUpActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|screenSize|screenLayout|navigation"
+            android:exported="true"
+            android:label="@string/title_activity_bulk_pick_up"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".CustomGallery2Activity"
+            android:exported="true"
+            android:label="@string/title_activity_custom_gallery2"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="xdel.ACTION_PICK" />
+                <action android:name="xdel.ACTION_MULTIPLE_PICK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".QRReaderActivity"
+            android:exported="true"
+            android:label="@string/title_activity_qrreader"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QRBarcodeReader"
+            android:exported="true"
+            android:label="@string/title_activity_qrbarcode_reader"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Messaging"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_messaging"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.Messaging" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Messaginglist"
+            android:exported="true"
+            android:label="@string/title_activity_messaginglist"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MassUpdateOKPwP2"
+            android:exported="true"
+            android:label="@string/title_activity_mass_update_okpw_p2"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".setDeliveredMassStatusActivity"
+            android:exported="true"
+            android:label="@string/title_activity_set_delivered_mass_status"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".MainCODActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main_cod"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".Label_Tagging_Activity"
+            android:exported="true"
+            android:label="@string/taggingTag"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".UpdateCOD_List"
+            android:exported="true"
+            android:label="@string/title_activity_update_cod__list"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DashboardSubActivity"
+            android:exported="true"
+            android:label="@string/title_activity_dashboard_sub"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".setDunningDeliveredStatusActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_set_dunning_delivered_status"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".MapsAllActivity"
+            android:exported="true"
+            android:label="@string/title_activity_maps_all"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OtpActivity"
+            android:exported="true"
+            android:label="@string/title_activity_otp"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".OtpErrActivityActivity"
+            android:exported="true"
+            android:label="@string/title_activity_otp_err" />
+        <activity
+            android:name=".AddressListNewActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_address_list_new"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".SignatureNameActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/lbl_plsreceiverinfo"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".DriverPointMain_Activity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_driver_point_main_"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".DriverPointSummaryActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_driver_point_summary"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".DOinvCheckActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ItemGroupCheck"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_item_group_check"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".samplehorizontallistview"
+            android:exported="true"
+            android:label="@string/title_activity_samplehorizontallistview" />
+        <activity
+            android:name=".CODupdate"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_codupdate"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".CheckListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_check_list"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".AddressListRoutingActivity"
+            android:exported="true"
+            android:label="@string/title_activity_address_list_routing"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Jobs_Retrieval_Activity"
+            android:exported="true"
+            android:label="@string/title_activity_jobs__retrieval_"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.NDEF_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".SecuritySealActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_securitysealcheck"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".MPD_CheckOutActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".CustomDateActivity"
+            android:exported="true"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Voip.WalkieTalkieActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Voip.SipSettings"
+            android:exported="true"
+            android:label="set_preferences" />
+        <activity
+            android:name=".Vrp.VrpListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
+            android:label="VRP"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Voip.CallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HRM.ProfileActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".HRM_Leave.LeaveActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".HRM_Leave.LeaveApplicationActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Caging.CageInOutActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:label="@string/title_activity_cage_in_out"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Caging.CageScanActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".mpd.MPDMainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".inventory.InventoryMainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".inventory.InventorySummaryActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".test.testActivity" />
+        <activity
+            android:name=".HRM.ChangePwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".HRM.StaffPassActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".JobInfoP2Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ACI.DigitalAgreementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".AddressListDeliveryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" /> <!-- Add service Intent. -->
+        <!-- <service android:name=".GcmIntentService" /> -->
+        <service
+            android:name=".FCM.FCMservice"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service> <!-- Add service Intent. -->
+        <!--
+        <receiver
+            android:name=".SMSReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        -->
+        <service
+            android:name=".templogger.btReportGeneratorIntentService"
+            android:exported="false" />
+        <service
+            android:name=".BackendRun_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".changeOfJobInfoDetails_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".ProcessCOD_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".GrabLogFileOnDemand_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".objClasses.LocationService"
+            android:exported="false" />
+        <service
+            android:name=".JobScheduler.WifiService"
+            android:exported="false" />
+        <service
+            android:name=".objClasses.WifiIntentService"
+            android:exported="false" />
+        <service
+            android:name=".BattLvl_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".objClasses.UploadGPSIntentService"
+            android:exported="false" />
+        <service
+            android:name=".objClasses.ShutdownService"
+            android:exported="false" />
+        <service
+            android:name=".objClasses.BootupService"
+            android:exported="false" />
+        <service
+            android:name=".messagingClasses.GetAllMsg_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".BCnSVC.ActiveService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".JobScheduler.LocationJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".JobScheduler.WifiJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".JobScheduler.NewPerMinJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".JobScheduler.NewPerMinService"
+            android:exported="false" /> <!-- BroadcastReceiver. -->
+        <service
+            android:name=".JobScheduler.btLoggerJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".JobScheduler.btLoggerService"
+            android:exported="true" />
+        <!--
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.xdel.luke" />
+            </intent-filter>
+        </receiver>
+        -->
+        <!-- unstoppable service -->
+        <!-- <receiver android:name=".Common_BroadcastReceiver" /> -->
+        <!--
+        <receiver android:name=".NetworkChanged_BroadcastReceiver">
+
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        -->
+        <receiver
+            android:name=".BCnSVC.MpdRefreshReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".BCnSVC.ScreenOnOffReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".PerMinuteRun_BroadcastReceiver"
+            android:exported="true" />
+        <receiver
+            android:name=".BackendRun_BroadcastReceiver"
+            android:exported="true" />
+        <receiver
+            android:name=".BackendRun2_BroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".changeOfJobInfoDetails_BroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".ProcessCOD_BroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".GrabLogFileOnDemand_BroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".objClasses.LocationService_Receiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".JobScheduler.NewPerMinBCR"
+            android:enabled="true"
+            android:exported="true" />
+        <!--
+        <receiver
+            android:name=".objClasses.WifiBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+        -->
+        <receiver
+            android:name=".BattLvl_Receiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".objClasses.UploadGPSReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".objClasses.ShutdownReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".objClasses.BootupReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".messagingClasses.GetAllMsg_Receiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name=".JobScheduler.NetworkSchedulerService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver
+            android:name=".Voip.IncomingCallReceiver"
+            android:exported="true"
+            android:label="Call Receiver" />
+        <receiver
+            android:name=".BCnSVC.Download_Data_BroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".BCnSVC.Download_Data_IntentService"
+            android:exported="false" />
+        <service
+            android:name=".BCnSVC.CountdownTimerService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".BCnSVC.SendQueuedEmail_Receiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".BCnSVC.MpdRefreshIntentService"
+            android:exported="false" />
+        <service
+            android:name=".BCnSVC.SendQueuedEmail_IntentService"
+            android:exported="false" />
+    </application>
+
+</manifest>

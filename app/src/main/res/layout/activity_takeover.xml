@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/lblHODriverIDX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"></TextView>
+
+    <TextView android:id="@+id/lblIsDefaultVRPpage"
+        android:layout_height="2dp"
+        android:layout_width="2dp"
+        android:visibility="gone"></TextView>
+
+    <LinearLayout
+        android:id="@+id/LLTOQR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblTOtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/totext_1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7.5"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgQR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="60dp"
+                android:onClick="btnbtnTOSCANClick"
+                android:src="@drawable/xdel_brandsig_rgb">
+
+            </ImageView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="#ffffffff"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnTOCANCEL"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="2"
+                android:background="@drawable/button_normal_style"
+                android:focusable="false"
+                android:onClick="btnTOCANCELClick"
+                android:text="@string/buttontext_cancel"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTOCANCELsubmit"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_normal_style"
+                android:focusable="false"
+                android:onClick="btnTOCANCELClick"
+                android:text="@string/buttontext_cancel"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTOSUBMIT"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_ok_style"
+                android:focusable="false"
+                android:onClick="btnTOSUBMITClick"
+                android:text="@string/buttontext_submit"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLTOItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="#ffffffff"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/lblTOMANUALENTRY"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="0.5"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="@string/lblentry"
+                android:textColor="#040404"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtTOMANUALENTRY"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_margin="1dp"
+                android:layout_weight="1.5"
+                android:background="@drawable/txtbox_def"
+                android:focusable="true"
+                android:imeOptions="actionGo"
+                android:inputType="textCapCharacters"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTOENTER"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_normal_style"
+                android:focusable="false"
+                android:onClick="btnTOENTERClick"
+                android:text="@string/buttontext_enter"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="0.5"
+            android:background="#ffffffff"
+            android:gravity="right"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/lblTOMISC"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="2dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="@string/lbl_clicktodelete"
+                android:textColor="#040404"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="0.5"
+            android:background="#ffffffff"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/lblTOID"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="ID:"
+                android:textColor="#040404"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblTOIDval"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="IDX|USERNAME"
+                android:textColor="#040404"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblTOCOUNT"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="COUNT"
+                android:textColor="#ffff0000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="/"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblTOCOUNTscan"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="0"
+                android:textColor="#ffff0000"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="7"
+            android:background="#ffffffff"
+            android:weightSum="3">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="true">
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:choiceMode="singleChoice"
+                    android:clickable="true"
+                    android:focusable="false" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="#ffffffff"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/btnTOCANCEL2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_normal_style"
+                android:focusable="false"
+                android:onClick="btnTOCANCEL2Click"
+                android:text="@string/buttontext_cancel"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTOSCAN"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_normal_style"
+                android:focusable="false"
+                android:onClick="btnbtnTOSCANClick"
+                android:text="@string/action_scan"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTOPREPARE"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_normal_style"
+                android:focusable="false"
+                android:onClick="btnTOPREPAREClick"
+                android:text="@string/prepare"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

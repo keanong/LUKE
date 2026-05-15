@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "17277152085",
+    "firebase_url": "https://focused-sentry-93105.firebaseio.com",
+    "project_id": "focused-sentry-93105",
+    "storage_bucket": "focused-sentry-93105.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17277152085:android:14e8b77417b57ef4",
+        "android_client_info": {
+          "package_name": "com.xdel.luke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17277152085-vv3jd2as5lrep2e2u45la510117e8p18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xdel.luke",
+            "certificate_hash": "9d775746d95697b3f893105549c879a2fef26232"
+          }
+        },
+        {
+          "client_id": "17277152085-n2eelvbqpumeqet76mn7fd3k61o99q12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBttgypIKT20rGaImdM1gx3PQcvisRfZlk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17277152085-n2eelvbqpumeqet76mn7fd3k61o99q12.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

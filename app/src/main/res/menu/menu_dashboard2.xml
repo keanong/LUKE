@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xdel.luke.Dashboard2Activity">
+
+    <!--<item
+        android:id="@+id/test"
+        android:icon="@mipmap/ic_action_refresh"
+        android:orderInCategory="97"
+        android:title="@string/menu_dashboard2refresh"
+        app:showAsAction="always" />-->
+    <item
+        android:id="@+id/refresh"
+        android:icon="@mipmap/ic_action_refresh"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2refresh"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/qrscan"
+        android:icon="@mipmap/ic_action_barcode"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2scan"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/dashboard2Language"
+        android:title="@string/action_language"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/logout"
+        android:icon="@mipmap/ic_logout"
+        android:title="@string/menu_dashboard2LOGOUT"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/about"
+        android:icon="@mipmap/ic_action_action_android"
+        android:title="@string/menu_dashboard2ABOUT"
+        app:showAsAction="never"
+        />
+</menu>

@@ -1,0 +1,9 @@
+<me.dm7.barcodescanner.zxing.ZXingScannerView
+
+    android:layout_width="fill_parent"
+
+    android:layout_height="fill_parent"
+
+    android:id="@+id/scanner_view"
+
+    xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="clTB">
+        <attr name="cbMainChecked" format="boolean"/>
+        <attr name="cbChecked" format="boolean"/>
+        <attr name="android:text"/>
+        <attr name="android:textColor"/> />
+    </declare-styleable>
+</resources>

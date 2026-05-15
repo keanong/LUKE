@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="0.5"
+        android:background="#ffffffff">
+
+        <TextView
+            android:id="@+id/lblCageBarcodeVal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:text="OPS-CG08"
+            android:textColor="#ffff0000"
+            android:textSize="16sp"
+            android:textStyle="bold"></TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="0.5"
+        android:background="#ffffffff">
+
+        <TextView
+            android:id="@+id/lblItemsScheduledDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:text="dd/MM/yyyy AMPM"
+            android:textColor="#ffff0000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible"></TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="2">
+
+
+
+        <Button
+            android:id="@+id/btnCageAccept"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_ok_style"
+            android:focusable="false"
+            android:onClick="btnbtnCageAcceptClick"
+            android:text="@string/buttontext_accept"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCageReject"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_disabled_style"
+            android:focusable="false"
+            android:onClick="btnCageRejectClick"
+            android:text="@string/buttontext_reject"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCageInOutSubmitIsHomesUser"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/txtCageBarcodeMANUALENTRY"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="2"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="@string/cagebarcode"
+            android:imeOptions="actionGo"
+            android:inputType="textCapCharacters"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold"></EditText>
+
+        <Button
+            android:id="@+id/btnCageBarcodeSubmitENTER"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCageBarcodeSubmitENTERClick"
+            android:text="@string/buttontext_enter"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="0.5"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCageItemTotalAllocatedCOUNT"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/totalallocated"
+            android:textColor="#ffff0000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblCageItemTotalAllocatedScannedCOUNT"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/totalallocatedscanned"
+            android:textColor="#ffff0000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="0.5"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblCageItemTotalSubmitCOUNTtext"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="@string/taggingCount"
+            android:textColor="#ffff0000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblCageItemTotalSubmitCOUNT"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="COUNT"
+            android:textColor="#ffff0000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="5"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:choiceMode="singleChoice"
+                android:clickable="true"
+                android:focusable="false" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnCageSubmitCANCEL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCageSubmitCANCELClick"
+            android:text="@string/buttontext_cancel"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCageSubmitCLEARALL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:onClick="btnCageSubmitCLEARALLClick"
+            android:text="@string/buttontext_cleardata"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCageSubmitSUBMIT"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_ok_style"
+            android:focusable="false"
+            android:onClick="btnCageSubmitSUBMITClick"
+            android:text="@string/cagein"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

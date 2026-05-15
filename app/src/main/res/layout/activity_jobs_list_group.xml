@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/JobsListGrouplinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:id="@+id/JobsListGroupUnreadMsgLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_height="2dp"
+            android:layout_width="2dp"
+            android:visibility="gone"></TextView>
+
+        <Button
+            android:id="@+id/JobsListGroupUnreadMsgtextBtn"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/button_fail_style"
+            android:gravity="center"
+            android:onClick="JobsListGroupUnreadMsgtextClick"
+            android:text="@string/buttontext_unreadmsg"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.0"
+            android:gravity="left|center"
+            android:minLines="1"
+            android:singleLine="false"
+            android:text="CN No."
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtInput"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="2.0"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:imeOptions="actionGo"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/JobsListGroupListviewLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="1dp"
+        android:layout_weight="9"
+        android:background="#ffffff"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="vertical"
+        android:weightSum="9">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8">
+
+            <ExpandableListView
+                android:id="@+id/expListView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="singleChoice"
+                android:clickable="true"
+                android:transcriptMode="disabled" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnFail"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_fail_style"
+                android:gravity="center"
+                android:onClick="submitMassFPFD"
+                android:text="@string/buttontext_fail"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnPU"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_ok_style"
+                android:gravity="center"
+                android:onClick="submitMassPU"
+                android:text="@string/buttontext_pu"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnOKP"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_ok_style"
+                android:gravity="center"
+                android:onClick="submitMassOKPNew"
+                android:text="@string/buttontext_okp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnOKPdummy"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_disabled_style"
+                android:gravity="center"
+                android:onClick="OKPdummyClick"
+                android:text="@string/buttontext_okp"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnDIP"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="2"
+                android:background="@drawable/button_ok_style"
+                android:gravity="center"
+                android:onClick="submitMassDIP"
+                android:text="@string/buttontext_dip"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

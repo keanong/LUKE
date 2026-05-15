@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/maincod_row_linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="30dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/darker_gray">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:id="@+id/maincod_row_CNrow"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/lblmaincodCNtext"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="CON NOTE: "
+            android:textColor="#ffff0000"
+            android:textSize="16sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/lblmaincodCN"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="CN"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:id="@+id/maincod_row_Invoicerow"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lblInvoicetext"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:minLines="1"
+            android:singleLine="false"
+            android:text="D/O:"
+            android:textAllCaps="true"
+            android:textColor="#0026ff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblInvoice"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:text="INVOICE"
+            android:textColor="#0026ff"
+            android:textSize="16sp"
+            android:gravity="center|left"
+            android:singleLine="false"
+            android:minLines="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:id="@+id/maincod_row_statusrow">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            android:layout_gravity="top"
+            android:orientation="horizontal"
+            android:gravity="top|bottom">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+
+                <TextView
+                    android:id="@+id/lblmaincodAmt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Amount"
+                    android:textColor="#ffff0000"
+                    android:textSize="16sp"
+                    android:gravity="center|left"
+                    android:singleLine="false"
+                    android:minLines="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+
+                <TextView
+                    android:id="@+id/lblmaincodCashCheq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Cash"
+                    android:textColor="#0026ff"
+                    android:textSize="16sp"
+                    android:gravity="center|left"
+                    android:singleLine="false"
+                    android:minLines="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_gravity="top"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgmaincodStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:src="@mipmap/ic_action_unknownblue"
+                    android:layout_marginTop="0.5dp"
+                    android:layout_marginRight="0.5dp"
+                    android:layout_marginBottom="0.5dp"
+                    android:layout_marginLeft="1dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="New Text"
+                    android:id="@+id/hfJobsInfoJsonStr"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="New Text"
+                    android:id="@+id/hfmaincod_row_clickableBooleanVal"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblLAT"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblLNG"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblPIPDIP"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:id="@+id/maincod_row_lastBreakrow">
+
+        <View
+            android:id="@+id/v3"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/lblAddress1"
+            android:background="#ff000000"></View>
+
+    </LinearLayout>
+</LinearLayout>

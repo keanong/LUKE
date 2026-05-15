@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xdel.luke.JobsListGroupActivity">
+
+    <item
+        android:id="@+id/waze"
+        android:orderInCategory="91"
+        android:icon="@mipmap/ic_waze_icon"
+        android:title="WAZE"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/map"
+        android:orderInCategory="95"
+        android:icon="@mipmap/ic_map"
+        android:title="@string/menu_googlemap"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/qrscan"
+        android:icon="@mipmap/ic_action_barcode"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2scan"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/massFail"
+        android:orderInCategory="97"
+        android:title="@string/action_massFail"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/massPU"
+        android:orderInCategory="98"
+        android:icon="@mipmap/ic_action_refresh"
+        android:title="@string/action_massPU"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/massDIP"
+        android:orderInCategory="99"
+        android:title="@string/action_massDIP"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/massOKP"
+        android:orderInCategory="100"
+        android:title="@string/action_massOKP"
+        app:showAsAction="never" />
+
+</menu>

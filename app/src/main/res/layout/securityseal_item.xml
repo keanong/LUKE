@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/list_selector_white_gray"
+    android:gravity="bottom"
+    android:layout_margin="3dp"
+    android:weightSum="10">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/btnScanSeal"
+        android:text="@string/buttontext_scanSecuritySeal2"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/button_normal_style"
+        android:textColor="#ffffffff"
+        android:onClick="scanTag"
+        android:textStyle="bold"
+        android:layout_margin="1dp"
+        android:textSize="13sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/lblenterseal"
+        android:text="@string/lbl_entersealnumber"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_margin="1dp"
+        android:textSize="13sp"/>
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/txtSealVal"
+        android:layout_weight="4"
+        android:layout_marginRight="1dp"
+        android:layout_marginLeft="1dp"
+        android:background="@drawable/edittextstyle"
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:longClickable="false"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="AD"
+        android:inputType="textCapCharacters"
+        android:imeOptions="actionDone"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/btnVerify"
+        android:text="@string/otpbuttontext_verify"
+        android:layout_weight="3"
+        android:layout_margin ="1dp"
+        android:gravity="center"
+        android:background="@drawable/button_normal_style"
+        android:textColor="#ffffffff"
+        android:onClick="updateBarcode"
+        android:textStyle="bold"
+        android:textSize="13sp" />
+
+</LinearLayout>

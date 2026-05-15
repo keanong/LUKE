@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context="com.xdel.luke.SecuritySealActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0sp"
+        android:gravity="center"
+        android:layout_weight="1.5"
+        android:background="#ffffffff">
+
+        <TextView
+            android:id="@+id/VerifySealtext"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:minLines="1"
+            android:singleLine="false"
+            android:text="Enter and verify\nSecurity Seal Number\n输入并验证安全封条号码"
+            android:textColor="#ffff0000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/VerifySealListviewLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0sp"
+        android:layout_weight="7.5"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="1"
+        android:focusableInTouchMode="false"
+        android:focusable="false">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"></ListView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout3"
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:background="#ffe4f4ff">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btnCancel"
+            android:layout_weight="1"
+            android:text="@string/buttontext_cancel"
+            android:onClick="CancelsetDeliveredStatus"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="1dp"
+            android:layout_gravity="bottom" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btnNext"
+            android:layout_weight="1"
+            android:text="@string/buttontext_next"
+            android:onClick="btnNextClick"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="1dp"
+            android:layout_gravity="bottom" />
+
+    </LinearLayout>
+
+</LinearLayout>

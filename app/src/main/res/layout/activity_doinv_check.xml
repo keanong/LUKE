@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="#ffffffff"
+    tools:context="com.xdel.luke.DOinvCheckActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:layout_gravity="top"
+        android:background="#ffffffff">
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:text="@string/title_activity_doinv_check"
+            android:id="@+id/DOinvChecktext"
+            android:layout_marginLeft="5sp"
+            android:singleLine="false"
+            android:minLines="1"
+            android:textColor="#ffff0000"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/DOinvCheckListviewLinearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0sp"
+        android:layout_weight="8"
+        android:layout_gravity="top"
+        android:background="#ffffffff"
+        android:weightSum="1"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:layout_marginTop="5sp">
+
+        <ExpandableListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expListView"
+            android:choiceMode="singleChoice"
+            android:clickable="true"
+            android:transcriptMode="disabled"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout3"
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:background="#ffe4f4ff">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:layout_weight="1"
+            android:text="@string/buttontext_cancel"
+            android:onClick="CancelsetDeliveredStatus"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="1dp"
+            android:layout_gravity="bottom" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNext"
+            android:layout_weight="1"
+            android:text="@string/buttontext_next"
+            android:onClick="btnNextClick"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/button_normal_style"
+            android:layout_margin="1dp"
+            android:layout_gravity="bottom" />
+
+        <!--<Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:layout_weight="1"
+            android:text="@string/buttontext_cancel"
+            android:onClick="CancelsetDeliveredStatus"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@color/menu_bg"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_gravity="bottom" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNext"
+            android:layout_weight="1"
+            android:text="@string/buttontext_next"
+            android:onClick="btnNextClick"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@color/menu_bg"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="1dp"
+            android:layout_gravity="bottom" />-->
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/lblStatusCodesDesc"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="5"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:text="DESC"
+            android:textColor="#040404"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/lblStatusCodesDescEN"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:text="DESC"
+            android:textColor="#040404"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblStatusCodesIDX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="IDX"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblName_Required"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Name_Required"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblIsHuman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ishuman"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblInstructions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Instructions"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblsubcatEN"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblsubcatZH"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblFlag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,325 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.xdel.luke.OtpActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="top|center"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top|center"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/otplblOTP"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblJobsIDX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblPins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblMassOKPbool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblJobsIDXs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblJobsNos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lblj1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5">
+
+            <EditText
+                android:id="@+id/edittext0"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/txtbox_def"
+                android:gravity="center"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="20"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:visibility="gone"
+                tools:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:layout_margin="3dp"
+            android:weightSum="6">
+
+            <EditText
+                android:id="@+id/txt01"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/txtbox_def"
+                android:inputType="number|textNoSuggestions"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:singleLine="true"
+                android:text="1"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/txt02"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/txtbox_def"
+                android:inputType="number|textNoSuggestions"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:singleLine="true"
+                android:text="2"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/txt03"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/txtbox_def"
+                android:inputType="number|textNoSuggestions"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:singleLine="true"
+                android:text="3"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/txt04"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/txtbox_def"
+                android:inputType="number|textNoSuggestions"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:singleLine="true"
+                android:text="4"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/txt05"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/txtbox_def"
+                android:inputType="number|textNoSuggestions"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:singleLine="true"
+                android:text="5"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/txt06"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/txtbox_def"
+                android:inputType="number|textNoSuggestions"
+                android:longClickable="false"
+                android:maxLength="1"
+                android:singleLine="true"
+                android:text="6"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/lbtnResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:onClick="btnResendClick"
+                android:text="@string/otpbuttontext_resend"
+                android:textColor="#4760ff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top|center"
+            android:layout_weight="0.5"
+            android:gravity="left|center">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top|center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="top"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_normal_style"
+                android:onClick="btnBack_Click"
+                android:text="@string/buttontext_back"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnMVerify"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="top"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_fail_style"
+                android:onClick="btnSkip"
+                android:text="@string/otpbuttontext_Mverify"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnVerify"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="top"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_ok_style"
+                android:onClick="btnVerifyClick2"
+                android:text="@string/otpbuttontext_verify"
+                android:textColor="#000000"
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top|center"
+            android:layout_weight="3"
+            android:gravity="center">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- NOTE No need to develop a system service for keyboard, there is a standard View for that (well, not completely standard, its in a funny package 'android.inputmethodservice'. -->
+    <!-- NOTE The graphical layout does not know the package ('java.lang.NoClassDefFoundError: Could not initialize class android.inputmethodservice.KeyboardView') so the keyboard is not shown. -->
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboardview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+
+</RelativeLayout>

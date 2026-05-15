@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="1dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginRight="1dp"
+    android:layout_marginBottom="1dp"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context="com.xdel.luke.mpd.MPDMainActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/lblIsDefaultVRPpage"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblMPDMainMPDGroupIDX"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblMPDMainSubmitIsHomesUser"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblMPDMainUserIDX"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/lblMPDMainDriverIDX"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/txtMPDMainBarcodeMANUALENTRY"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="2"
+            android:background="@drawable/txtbox_def"
+            android:focusable="true"
+            android:gravity="center"
+            android:imeOptions="actionGo"
+            android:inputType="textCapCharacters"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold"></EditText>
+
+        <Button
+            android:id="@+id/btnMPDMainBarcodeSubmitENTER"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:text="@string/buttontext_enter"
+            android:textColor="#ffffff"
+            android:onClick="btnMPDMainBarcodeSubmitENTER_Click"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLMPDMainBlank"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:layout_weight="8"
+        android:background="#ffffffff"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/lblinstructions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/lblscaneqtostart"
+            android:textColor="@color/menu_red"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLMPDMainShown"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:layout_weight="8"
+        android:background="#ffffffff"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:weightSum="8">
+
+        <LinearLayout
+            android:id="@+id/LLMPDMainSwitch"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#ffffffff"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnMPDMainEq"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button_tabstyle_selected"
+                android:focusable="false"
+                android:text="@string/lblequipment"
+                android:textColor="#ffffff"
+                android:onClick="btnMPDMainEq_Click"
+                android:visibility="visible"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnMPDMainJob"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:background="@drawable/button_tabstyle_unselected"
+                android:focusable="false"
+                android:text="@string/lblJob"
+                android:textColor="#ffffff"
+                android:onClick="btnMPDMainJob_Click"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLMPDMainEquipments"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="7"
+            android:background="#ffffffff"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffffff"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/lbleqlog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/menu_red"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="6"
+                android:background="#ffffffff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true">
+
+                    <ListView
+                        android:id="@+id/lvMPDMainEquipments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:choiceMode="singleChoice"
+                        android:clickable="false"></ListView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLMPDMainJobs"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            android:layout_weight="7"
+            android:background="#ffffffff"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffffff"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/lbljoblog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/menu_red"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="6"
+                android:background="#ffffffff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true">
+
+                    <ListView
+                        android:id="@+id/lvMPDMainJobs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:choiceMode="singleChoice"
+                        android:clickable="false"></ListView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="top"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="#ffffffff"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnMPDMainCANCEL"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:text="@string/buttontext_cancel"
+            android:onClick="btnMPDMainCANCEL_Click"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnMPDMainScanMPD"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:background="@drawable/button_normal_style"
+            android:focusable="false"
+            android:text="@string/action_scan"
+            android:visibility="visible"
+            android:onClick="btnMPDMainScanMPD_Click"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:id="@+id/LLmodeop"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_margin="1dp"
+            android:background="#ffffffff"
+            android:weightSum="3"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="1dp"
+                android:background="#ffffffff"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/lblmode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/mode_op"
+                    android:textColor="@color/menu_red"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="top"
+                android:layout_margin="1dp"
+                android:background="#ffffffff"
+                android:orientation="horizontal"
+                android:layout_weight="2">
+
+                <Button
+                    android:id="@+id/btnMPDMainAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="top"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_normal_style"
+                    android:focusable="false"
+                    android:text="@string/buttontext_add"
+                    android:visibility="visible"
+                    android:onClick="btnMPDMainAdd_Click"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnMPDMainDel"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_normal_style"
+                    android:focusable="false"
+                    android:text="@string/buttontext_del"
+                    android:visibility="visible"
+                    android:onClick="btnMPDMainDel_Click"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

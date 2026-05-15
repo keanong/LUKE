@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context="com.xdel.luke.DrawerMainActivity">
+
+    <item
+        android:id="@+id/vrp"
+        android:icon="@mipmap/ic_action_list"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2vrp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/refresh"
+        android:icon="@mipmap/ic_action_refresh"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2refresh"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/qrscan"
+        android:icon="@mipmap/ic_action_barcode"
+        android:orderInCategory="98"
+        android:title="@string/menu_dashboard2scan"
+        android:visible="false"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/dashboard2Language"
+        android:icon="@mipmap/ic_action_translate"
+        android:title="@string/action_language"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        />
+
+</menu>

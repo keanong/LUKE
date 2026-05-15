@@ -1,0 +1,84 @@
+package com.xdel.luke.inventory;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.xdel.luke.JobsHandler;
+import com.xdel.luke.R;
+import com.xdel.luke.objClasses.objGlobalMethods;
+
+import java.util.ArrayList;
+
+public class Inventory_Summary_Adapter extends ArrayAdapter<InventoryLite> {
+    private ArrayList<InventoryLite> list;
+    private Context ct;
+
+    public Inventory_Summary_Adapter(Context ctx, ArrayList<InventoryLite> data) {
+        super(ctx, 0, data);
+        list = data;
+        ct = ctx;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder v;
+
+        try {
+            InventoryLite d = getItem(position);
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.inventory_item_row, parent, false);
+                v = new ViewHolder();
+                v.linearLayout1 = convertView.findViewById(R.id.linearLayout1);
+                v.lblInventoryIDX = convertView.findViewById(R.id.lblInventoryIDX);
+                v.lblInventoryDetailsIDX = convertView.findViewById(R.id.lblInventoryDetailsIDX);
+                v.lblSN = convertView.findViewById(R.id.lblSN);
+                v.lblStockCode = convertView.findViewById(R.id.lblStockCode);
+                v.lblDesc = convertView.findViewById(R.id.lblDesc);
+                v.lblBal = convertView.findViewById(R.id.lblBal);
+                convertView.setTag(v);
+            } else {
+                v = (ViewHolder) convertView.getTag();
+            }
+
+            v.lblInventoryIDX.setText(String.valueOf(d.IDX));
+            //v.lblInventoryDetailsIDX.setText(String.valueOf(d.Device_Type));
+            int sn = position +1;
+            v.lblSN.setText(String.valueOf(sn));
+            v.lblStockCode.setText(d.StockCode);
+            v.lblDesc.setText(d.Description);
+            v.lblBal.setText(String.valueOf(d.vBalance) + "/" + String.valueOf(d.Balance));
+            /*v.linearLayout1.setBackground(ct.getDrawable(
+                    ((d.vBalance > 0) && (d.vBalance < d.Balance)) ? R.drawable.tabstyle_base_black_bg_pink
+                            : d.VFlag > 0 ? R.drawable.tabstyle_base_black_bg_green
+                            : R.drawable.tabstyle_base_black_bg_white));*/
+            v.linearLayout1.setBackground(ct.getDrawable(
+                    ((d.vBalance > 0) && (d.vBalance < d.Balance)) ? R.drawable.tabstyle_base_black_bg_pink
+                            : d.vBalance >= d.Balance ? R.drawable.tabstyle_base_black_bg_green
+                            : R.drawable.tabstyle_base_black_bg_white));
+        } catch (Exception e) {
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at Inventory_Summary_Adapter getView. Exception: " + e.getMessage() + "\nStack: " + s,"","","","");
+        } finally {
+            return convertView;
+        }
+    }
+
+    public final class ViewHolder {
+        LinearLayout linearLayout1;
+        TextView lblInventoryIDX;
+        TextView lblInventoryDetailsIDX;
+        TextView lblSN;
+        TextView lblStockCode;
+        TextView lblDesc;
+        TextView lblBal;
+    }
+
+
+
+}
