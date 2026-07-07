@@ -2960,8 +2960,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                 res = "";
             } catch (Exception e) {
-                String s = e.getMessage();
-                objGlobalMethods.writeToFile("Exception at MainActivity DownloadTask_akinori doInBackground. Exception: " + s, "", "", "", "");
+                String s = JobsHandler.getStackTraceString(e);
+                objGlobalMethods.writeToFile("Exception at MainActivity DownloadTask_akinori doInBackground. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
                 res = null;
             } finally {
                 try {

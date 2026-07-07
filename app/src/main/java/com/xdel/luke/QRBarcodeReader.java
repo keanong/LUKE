@@ -17,8 +17,11 @@ import com.xdel.luke.PieceByPiecePU.StartQueryActivity;
 import com.xdel.luke.ShpmtVerification.ShpmtVActivity;
 import com.xdel.luke.inventory.InventoryMainActivity;
 import com.xdel.luke.mpd.MPDMainActivity;
+import com.xdel.luke.objClasses.checklist_PostData;
 import com.xdel.luke.objClasses.objGlobalMethods;
 import com.xdel.luke.templogger.temploggerclass;
+
+import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -63,6 +66,7 @@ public class QRBarcodeReader extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         back();
     }
 
@@ -176,6 +180,13 @@ public class QRBarcodeReader extends AppCompatActivity implements ZXingScannerVi
                             && SecuritySealActivity.al.size()-1 >= SecuritySealActivity.itemIndex && SecuritySealActivity.itemIndex > -1) {
                      SecuritySealActivity.al.get(SecuritySealActivity.itemIndex).setEnteredValue(result.getText());
                      SecuritySealActivity.itemIndex = null;
+                    }
+                } else if (requestIntentName.equals("chklist"))  {
+                    if (CheckListActivity.al != null && CheckListActivity.al.size() > 0
+                            && CheckListActivity.itemIndex != null && CheckListActivity.itemIndex > -1
+                            && CheckListActivity.al.size() - 1 >= CheckListActivity.itemIndex) {
+                        int index = CheckListActivity.itemIndex;
+                        CheckListActivity.al.get(index).OptionValue = new ArrayList<String>(){{add(result.getText());}};
                     }
                 } else {
                     cameraScannedCode = result.getText();

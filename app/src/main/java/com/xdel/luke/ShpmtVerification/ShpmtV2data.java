@@ -29,7 +29,10 @@ public class ShpmtV2data {
     }
 
     public void setActualc(int actualc) {
-        this.actualc += actualc;
+        if (verified)
+            this.actualc += actualc;
+        else
+            this.actualc = actualc;
         verified = !ji.isAlps ? (this.actualc > 0) : (this.actualc >= expectedc);
     }
 

@@ -1781,6 +1781,7 @@ public class CheckListActivity extends AppCompatActivity {
         boolean hasIMEIVerification = false;
         boolean hasSerialNumVerification = false;
         boolean hasVoucherVerification = false;
+        boolean iscda = JobsHandler.isCDA(null);
 
         String hasOtpStr = objGlobalMethods.getGCMPrefs(gcmp, "hasOtpStr");
         Boolean hasOTP = !objGlobalMethods.IsEmptyString(hasOtpStr);
@@ -1924,6 +1925,7 @@ public class CheckListActivity extends AppCompatActivity {
                             CheckListList.add(0, fullchecklist);
                             ji.CheckList = CheckListList.toArray(new String[CheckListList.size()]);
                         }*/
+
 
                         /*//purposely insert new item to e bottom
                         CheckListList = new ArrayList<String>(Arrays.asList(ji.CheckList));
@@ -2127,6 +2129,7 @@ public class CheckListActivity extends AppCompatActivity {
                                             }*/
                                             }
 
+                                            //if (ControlCode.equals("PH") || ControlCode.equals("PR") || ControlCode.equals("SO") || ControlCode.equals("RD") || ControlCode.toUpperCase().contains("LB") || ControlCode.toUpperCase().contains("TB")) {
                                             if (ControlCode.equals("PH") || ControlCode.equals("PR") || ControlCode.equals("SO") || ControlCode.equals("RD")) {
                                                 CurrData.setIsChecked(true);
                                                 if (CurrData.OptionValue != null) {
@@ -2134,7 +2137,12 @@ public class CheckListActivity extends AppCompatActivity {
                                                 } else {
                                                     CurrData.OptionValue = new ArrayList<String>();
                                                 }
-                                                CurrData.OptionValue.add(ControlCode.equals("RD") ? "NO" : "YES");
+                                                /*if (ControlCode.toUpperCase().contains("TB"))
+                                                    CurrData.OptionValue = null;
+                                                else if (ControlCode.toUpperCase().contains("LB"))
+                                                    CurrData.OptionValue.add("ACKNOWLEDGED");
+                                                else*/
+                                                    CurrData.OptionValue.add(ControlCode.equals("RD") ? "NO" : "YES");
                                             }
 
                                             if (ControlCode.equals("OT")) {
@@ -2324,6 +2332,50 @@ public class CheckListActivity extends AppCompatActivity {
         }
     }
 
+    private String getArticleTagValue() {
+        String ArticleTagValue = "";
+        checklist_PostData d = null;
+        try {
+            if (al != null && al.size() > 0) {
+                for (int i = 0; i <= al.size() - 1; i++) {
+                    d = al.get(i);
+                    if (d.ControlCode.equals("AT") && (d.OptionValue2 != null && d.OptionValue2.size() > 0)) {
+                        ArticleTagValue = d.OptionValue2.get(0).trim();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            String s = e.getMessage();
+            objGlobalMethods.writeToFile("Exception at CheckListActivity getCheckListValueNew. Exception: " + s, "", "", "", "");
+            ArticleTagValue = "";
+        } finally {
+            return ArticleTagValue;
+        }
+    }
+
+    private String getNumberOfPiecesValue() {
+        String Value = "";
+        checklist_PostData d = null;
+        try {
+            if (al != null && al.size() > 0) {
+                for (int i = 0; i <= al.size() - 1; i++) {
+                    d = al.get(i);
+                    if (d.ControlCode.equals("QT") && (d.OptionValue != null && d.OptionValue.size() > 0)) {
+                        Value = d.OptionValue.get(0).trim().toUpperCase();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            String s = e.getMessage();
+            objGlobalMethods.writeToFile("Exception at CheckListActivity getNumberOfPiecesValue. Exception: " + s, "", "", "", "");
+            Value = "";
+        } finally {
+            return Value;
+        }
+    }
+
     private String getCheckListValueNew() {
         String chklsval = "";
         String txt = "";
@@ -2354,6 +2406,22 @@ public class CheckListActivity extends AppCompatActivity {
                                             }
                                             dataTlist.add(cg);
                                         }
+                                    }
+                                }
+                            }
+                        } else if (d.ControlCode.equals("AT")) {
+                            if (d.OptionValue2 != null && d.OptionValue2.size() > 0) {
+                                chklsval += d.getDisplayText().trim() + ":\n";
+                                chklsval += d.OptionValue2.get(0).trim() + "\n\n";
+                            }
+                        } else if (d.ControlCode.equals("QT")) {
+                            if (d.OptionValue != null && d.OptionValue.size() > 0) {
+                                chklsval += d.getDisplayText().trim() + ":";
+                                for (int x = 0; x <= d.OptionValue.size() - 1; x++) {
+                                    if (x == 0) {
+                                        chklsval += " " + d.OptionValue.get(x).trim().toUpperCase() + "\n\n";
+                                    } else {
+                                        chklsval += ", " + d.OptionValue.get(x).trim().toUpperCase() + "\n\n";
                                     }
                                 }
                             }
@@ -2639,6 +2707,8 @@ public class CheckListActivity extends AppCompatActivity {
                     String currJobInfoIDXStr = objGlobalMethods.getGCMPrefs(gcmp, objGlobalVariables.currJobInfoIDX);
                     long JobsIDX = !objGlobalMethods.IsEmptyString(currJobInfoIDXStr) ? Long.parseLong(currJobInfoIDXStr) : 0;
                     final String fchecklistvalue = checklistvalue;
+                    final String ArticleTagVal = (StatusCodeIDX == 103) && !(isLockerJob && StatusCodeIDX == 103) ? getArticleTagValue() : "";
+                    final String NumberOfPiecesValue = (StatusCodeIDX == 103) && !(isLockerJob && StatusCodeIDX == 103) ? getNumberOfPiecesValue() : "";
 
                     if ((isLockerJob && StatusCodeIDX == 103) || (StatusCodeIDX == 103)) {
                         Context ctx = myApp.getAppContext();
@@ -2649,7 +2719,7 @@ public class CheckListActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //if user pressed "yes", update job status
-                                UpdateJobStatusPU(JobsIDX, fchecklistvalue);
+                                UpdateJobStatusPU(JobsIDX, fchecklistvalue, ArticleTagVal, NumberOfPiecesValue);
                             }
                         });
                         builder.setNegativeButton(ctx.getString(R.string.buttontext_cancel), new DialogInterface.OnClickListener() {
@@ -2739,7 +2809,19 @@ public class CheckListActivity extends AppCompatActivity {
                             asd = false;
                             break outer;
                         }
-                    } else if (d.FinalManOptCode.equals("MD") && (d.ControlCode.equals("TL"))) {
+                    } else if (d.FinalManOptCode.equals("MD") && (d.ControlCode.equals("AT"))) {
+                        breakIndex = i;
+                        if (
+                                (d.OptionValue2 == null)
+                                        ||
+                                (d.OptionValue2 != null && d.OptionValue2.size() > 0 && objGlobalMethods.IsEmptyString(d.OptionValue2.get(0)))
+                                ) {
+                            al.get(breakIndex).setAltColor(true);
+                            asd = false;
+                            break outer;
+                        }
+                    }
+                    else if (d.FinalManOptCode.equals("MD") && (d.ControlCode.equals("TL"))) {
                         breakIndex = i;
                         //manual record: 0, auto record: 1
                         if (d.OptionValue != null && d.OptionValue.size() > 0 && d.OptionValue.get(0).equals("0")) {
@@ -2753,7 +2835,6 @@ public class CheckListActivity extends AppCompatActivity {
                                 asd = false;
                                 break outer;
                             }
-
                         }
                     } else if (d.FinalManOptCode.equals("MD") && !d.getIsChecked() && (d.OptionValue == null || d.OptionValue.size() == 0)) {
                         breakIndex = i;
@@ -3138,7 +3219,7 @@ public class CheckListActivity extends AppCompatActivity {
         }
     }
 
-    private void UpdateJobStatusPU(Long JobsIDX, String checklistvalue) {
+    private void UpdateJobStatusPU(Long JobsIDX, String checklistvalue, String ArticleTagVal, String NumberOfPiecesValue) {
         try {
             GcmPreferences = objGlobalMethods.getGcmPreferences();
             UpdateJobInfoPreferences = objGlobalMethods.getUpdateJobInfoPreferences();
@@ -3148,6 +3229,23 @@ public class CheckListActivity extends AppCompatActivity {
             Location lastknownlocation = objGlobalMethods.getLastKnownLocationForJobUpdate();
             int Accuracy = Math.round(lastknownlocation.getAccuracy() * 100);
             String RegID = objGlobalMethods.getRegistrationIdOnly();
+
+            if(!objGlobalMethods.IsEmptyString(ArticleTagVal)) {
+                objJobInfo currJobInfo = new Gson().fromJson(GcmPreferences.getString("hfJobInfoJsonStr", ""), objJobInfo.class);
+                JobsHandler.processBarcodeTagUpdate(currJobInfo, ArticleTagVal);
+            }
+
+            if (!objGlobalMethods.IsEmptyString(NumberOfPiecesValue)) {
+                int Pieces = 0;
+                try {
+                    Pieces = Integer.parseInt(NumberOfPiecesValue);
+                } catch (Exception exx) {
+                    String exxs = JobsHandler.getStackTraceString(exx);
+                    objGlobalMethods.writeToFile("Exception at CheckListActivity UpdateJobStatusPU converting Pieces. Exception: " + exx.getMessage() + "\nStack: " + exxs,"","","","");
+                }
+                JobsHandler.addUpdateJobPiecesQueALPrefs(UpdateJobInfoPreferences, RegID, JobsIDX, Pieces);
+            }
+
             JobsHandler.addUpdateJobInfoStatusWithGPSQueALPrefs(UpdateJobInfoPreferences, RegID, JobsIDX, 49, timestampstr, checklistvalue, "",
                     lastknownlocation.getLatitude(), lastknownlocation.getLongitude(), Accuracy, "");
 

@@ -333,14 +333,17 @@
     <string name="alert_cfmupdatestatusFailOKP">Confirm to update job status to Fail Delivery??</string>
     <string name="alert_cfmupdateCN">Confirm update Consignment Note Number?</string>
     <string name="alert_cfmupdateBarcodeLabel">Confirm update Article Tag?</string>
+    <string name="alert_cfmupdateJobPieces">Confirm update number of pieces collected?</string>
     <string name="alert_cfmupdateSecuritySeal">Confirm update Security Seal number?</string>
     <string name="alert_plsenterCN">Please enter Consignment Note Number!</string>
     <string name="alert_CNdatasubmitted">Consignment Note Number submitted.</string>
     <string name="alert_plsenterBarcode">Please enter Barcode!</string>
+    <string name="alert_plsenterpieces">Please enter number of pieces!</string>
     <string name="alert_plsenterSecuritySeal">Please enter Seal Number!</string>
     <string name="alert_InvalidBarcode">Invalid Barcode!</string>
     <string name="alert_InvalidSecuritySeal">Invalid Seal Number!</string>
     <string name="alert_ErrorBarcode">Error submitting Barcode!</string>
+    <string name="alert_ErrorBarcodeUpdate">Error updating Barcode!</string>
     <string name="alert_ErrorCN">Error submitting Consignment Number!</string>
     <string name="alert_PUprompt0">For this job, please scan and update either one of the following:\n\n- XDel Article Tag\n- Consignment Note.</string>
     <string name="alert_PUprompt">Scanning one of the following:\n- XDel Article Tag\n- Consignment Note\n\nis required to update the job status to Picked Up.</string>
@@ -371,6 +374,10 @@
     <string name="lblSI_1_5_5_5">Put In Shoes Cabinet</string>
     <string name="lblSI_1_6_6_6">Leave @ Doorstep</string>
     <string name="alert_ErrorJobsIDX">Unable to submit. Error retrieving JobsIDX!</string>
+    <string name="alert_ErrorJobsIDXupdate">Unable to update. Error retrieving JobsIDX!</string>
+    <string name="alert_ErrorUpdatePiecesJobsIDX">Unable to update number of pieces. Error retrieving JobsIDX!</string>
+    <string name="alert_ErrorUpdatePieces">Error updating number of pieces.</string>
+    <string name="alert_ErrorVerifyJobsIDX">Unable to verify. Error retrieving JobsIDX!</string>
     <string name="alert_thisistag">This is a Barcode Tag. Please scan/enter consignment note number.</string>
     <string name="alert_thisissecuritytag">This is a Security Seal Number. Please scan/enter consignment note number.</string>
     <string name="alertThisJob">This job </string>
@@ -570,6 +577,8 @@
     <string name="taggingRemove">REMOVE TAG</string>
     <string name="alert_submitTagging">Confirm to submit Tagging data?</string>
     <string name="alert_Taggingdatasubmitted">Tagging data submitted.</string>
+    <string name="alert_Taggingdataupdated">Tagging data updated.</string>
+    <string name="alert_Piecesdatasubmitted">Number of pieces updated.</string>
     <string name="taggingInvalidBarcode">Invalid Barcode. Please try again.</string>
     <string name="taggingAtLeastOneBarcode">Please enter 1 Barcode of 10 characters.</string>
     <!--Label Tagging-->
@@ -1193,6 +1202,8 @@
     <string name="tobedeliveredto">Shipment(s) to be delivered to following address</string>
     <string name="reminder">REMINDER</string>
     <string name="tonote">PLEASE TAKE NOTE!</string>
+    <string name="update_articletag">PLEASE UPDATE XDEL ARTICLE TAG.</string>
+    <string name="update_articletagzh">请先上传标签.</string>
     <string name="idverifynotrequireden">NO NEED TO VERIFY LAST 4 CHARACTERS of NRIC OR OTP.\n\n</string>
     <string name="idverifynotrequiredzh">无需验证身份证号码最后4个字或一次性密码.\n\n</string>
     <string name="idverifynotrequired">NO NEED TO VERIFY LAST 4 CHARACTERS of NRIC or OTP.</string>

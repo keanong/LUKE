@@ -15197,17 +15197,47 @@ public class JobsHandler {
                                 asd = true;
                                 break;
                             }
-                        } else {
-                            continue;
                         }
-                    } else {
-                        continue;
                     }
                 }
             }
         } catch (Exception e) {
             String s = getStackTraceString(e);
             objGlobalMethods.writeToFile("Exception caught at JobsHandler HasCheckList. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
+            asd = false;
+        } finally {
+            return asd;
+        }
+    }
+
+    public static boolean CheckListHasCtrl(String[] checklist, String ActionCode, String ControlCode) {
+        boolean asd = false;
+        String FullCode = "";
+        String[] codesArr = null;
+        String ActionCode_A = "";
+        String ControlCode_A = "";
+        int index = 0;
+        try {
+            if (checklist != null && checklist.length > 0) {
+                for (int i = 0; i <= checklist.length - 1; i++) {
+                    index = checklist[i].indexOf("|");
+                    if (index >= 0) {
+                        FullCode = checklist[i].substring(0, index);
+                        if (FullCode != "") {
+                            codesArr = FullCode.split("\\.");
+                            ActionCode_A = codesArr[1];
+                            ControlCode_A = codesArr[2];
+                            if (ActionCode_A.equals(ActionCode) && ControlCode_A.equals(ControlCode)) {
+                                asd = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            String s = getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception caught at JobsHandler CheckListHasCtrl. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
             asd = false;
         } finally {
             return asd;
@@ -17044,6 +17074,19 @@ public class JobsHandler {
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
             objGlobalMethods.writeToFile("Exception at JobsHandler isAlpsTTSH. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
+            asd = false;
+        } finally {
+            return asd;
+        }
+    }
+
+    public static boolean isCDA(objJobInfo ji) {
+        boolean asd = false;
+        try {
+            asd = true;
+        } catch (Exception e) {
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at JobsHandler isCDA. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
             asd = false;
         } finally {
             return asd;

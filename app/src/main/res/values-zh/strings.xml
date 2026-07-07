@@ -333,14 +333,17 @@
     <string name="alert_cfmupdatestatusFailOKP">确定上传工作为"送货失败"?</string>
     <string name="alert_cfmupdateCN">确定上传单号?</string>
     <string name="alert_cfmupdateBarcodeLabel">确定上传条码数据?</string>
+    <string name="alert_cfmupdateJobPieces">确定更新货物已取的数量?</string>
     <string name="alert_cfmupdateSecuritySeal">确定上传安全封条号码?</string>
     <string name="alert_plsenterCN">请输入单号!</string>
     <string name="alert_CNdatasubmitted">单号已上传.</string>
     <string name="alert_plsenterBarcode">请输入标签数据!</string>
+    <string name="alert_plsenterpieces">请输入数量!</string>
     <string name="alert_plsenterSecuritySeal">请输入封条号码!</string>
     <string name="alert_InvalidBarcode">标签数据不正确!</string>
     <string name="alert_InvalidSecuritySeal">封条号码不正确!</string>
     <string name="alert_ErrorBarcode">上传标签数据失败!</string>
+    <string name="alert_ErrorBarcodeUpdate">添加标签数据失败!</string>
     <string name="alert_ErrorCN">上传单号数据失败!</string>
     <string name="alert_PUprompt0">请给这工作上传以下任一项:\n\n- 标签\n- 单号.</string>
     <string name="alert_PUprompt">上传工作为"货物已取"之前得先扫描以下任一项:\n\n- 标签\n- 单号.</string>
@@ -371,6 +374,10 @@
     <string name="lblSI_1_5_5_5">放进鞋柜</string>
     <string name="lblSI_1_6_6_6">放在门口</string>
     <string name="alert_ErrorJobsIDX">无法上传. 系统搜索不到此工作指数!</string>
+    <string name="alert_ErrorJobsIDXupdate">无法上传. 系统搜索不到此工作指数!</string>
+    <string name="alert_ErrorUpdatePiecesJobsIDX">无法上传最新数量. 系统搜索不到此工作指数!</string>
+    <string name="alert_ErrorUpdatePieces">上传最新数量失败.</string>
+    <string name="alert_ErrorVerifyJobsIDX">无法验证. 系统搜索不到此工作指数!</string>
     <string name="alert_thisistag">这是标签.请扫描/输入单号.</string>
     <string name="alert_thisissecuritytag">这是封条号码.请扫描/输入单号.</string>
     <string name="alertThisJob">这份工作 </string>
@@ -570,6 +577,8 @@
     <string name="taggingRemove">去掉标签</string>
     <string name="alert_submitTagging">确定上传标签?</string>
     <string name="alert_Taggingdatasubmitted">标签已上传.</string>
+    <string name="alert_Taggingdataupdated">已添加标签.</string>
+    <string name="alert_Piecesdatasubmitted">最新数量已上传.</string>
     <string name="taggingInvalidBarcode">条形码不正确.请再试一次.</string>
     <string name="taggingAtLeastOneBarcode">请输入10个字符的条形码.</string>
     <!--Label Tagging-->
@@ -1193,6 +1202,8 @@
     <string name="tobedeliveredto">货件要送到以下地址</string>
     <string name="reminder">提醒</string>
     <string name="tonote">请注意!</string>
+    <string name="update_articletag">PLEASE UPDATE XDEL ARTICLE TAG.</string>
+    <string name="update_articletagzh">请先上传标签.</string>
     <string name="idverifynotrequireden">NO NEED TO VERIFY LAST 4 CHARACTERS of NRIC OR OTP.\n\n</string>
     <string name="idverifynotrequiredzh">无需验证身份证号码最后4个字或一次性密码.\n\n</string>
     <string name="idverifynotrequired">无需验证身份证号码最后4个字或一次性密码.</string>

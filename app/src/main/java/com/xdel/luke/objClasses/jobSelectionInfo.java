@@ -690,7 +690,7 @@ public class jobSelectionInfo {
                     .map(String::toUpperCase)
                     .toArray(String[]::new);
 
-            asd =  Arrays.equals(listA, listB);
+            asd = Arrays.equals(listA, listB);
 
             /*if (Arrays.equals(CHECKLIST, cl)) {
                 // They are the same

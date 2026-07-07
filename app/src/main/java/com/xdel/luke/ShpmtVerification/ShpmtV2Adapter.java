@@ -90,13 +90,20 @@ public class ShpmtV2Adapter extends ArrayAdapter<ShpmtV2data> {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     try {
                         if (s.length() == 0) {
-                            d.setActualc2(0);
-                            d.setVerified(false);
+                            /*d.setActualc2(0);
+                            d.setVerified(false);*/
                         } else {
                             try {
                                 int val = Integer.parseInt(s.toString());
-                                d.setActualc2(val);
-                                d.setVerified(!d.ji.isAlps ? (val > 0) : (val >= d.expectedc));
+                                if (d.verified) {
+                                    d.setActualc2(val);
+                                    d.setVerified(!d.ji.isAlps ? (val > 0) : (val >= d.expectedc));
+                                } else {
+                                    d.setActualc2(val);
+                                    d.setVerified(false);
+                                }
+                                /*d.setActualc2(val);
+                                d.setVerified(!d.ji.isAlps ? (val > 0) : (val >= d.expectedc));*/
                             } catch (NumberFormatException e) {
                                 d.setActualc2(0);
                                 d.setVerified(false);
@@ -139,9 +146,18 @@ public class ShpmtV2Adapter extends ArrayAdapter<ShpmtV2data> {
                         } else {
                             try {
                                 int val = Integer.parseInt(input); // strips leading zeros
-                                d.setActualc2(val);
+                                /*d.setActualc2(val);
                                 d.setVerified(!d.ji.isAlps ? (val > 0) : (val >= d.expectedc));
-                                v.txtactual.setText(String.valueOf(val));
+                                v.txtactual.setText(String.valueOf(val));*/
+                                if (d.verified) {
+                                    d.setActualc2(val);
+                                    d.setVerified(!d.ji.isAlps ? (val > 0) : (val >= d.expectedc));
+                                    v.txtactual.setText(String.valueOf(val));
+                                } else {
+                                    d.setActualc2(val);
+                                    d.setVerified(false);
+                                    v.txtactual.setText(String.valueOf(val));
+                                }
                             } catch (NumberFormatException e) {
                                 d.setActualc2(0);
                                 d.setVerified(false);
@@ -150,6 +166,13 @@ public class ShpmtV2Adapter extends ArrayAdapter<ShpmtV2data> {
                         }
                         applyBackground(v, d);
                         v.lblactual.setText(String.valueOf(d.getActualc())); // keep lblactual synced
+                    } else {
+                        String input = v.txtactual.getText().toString().trim();
+                        if (input.equals("0")) {
+                            d.setActualc2(0);
+                            d.setVerified(false);
+                            v.txtactual.setText("");
+                        }
                     }
                 } catch (Exception e) {
                     String sss = JobsHandler.getStackTraceString(e);

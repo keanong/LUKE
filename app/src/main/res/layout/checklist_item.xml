@@ -397,9 +397,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text=""
                         android:gravity="right"
                         android:paddingRight="10dp"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -432,7 +432,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -456,6 +455,99 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LLUpdatePieces"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="3dp"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:weightSum="4">
+
+                <EditText
+                    android:id="@+id/txtLabelUpdatePiecesVal"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/txtbox_def"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:imeOptions="actionGo"
+                    android:inputType="number"
+                    android:longClickable="false"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LLArticleTag"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="3dp"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/btnScanTag"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_normal_style"
+                    android:gravity="center"
+                    android:text="@string/buttontext_scanLabelTag"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtLabelTagVal"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/txtbox_def"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:imeOptions="actionGo"
+                    android:inputType="textCapCharacters"
+                    android:longClickable="false"
+                    android:singleLine="true"
+                    android:textAllCaps="true"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnUpdateLabelTag"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_normal_style"
+                    android:gravity="center"
+                    android:text="@string/buttontext_updateLabelTag"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btnOTP"
@@ -493,8 +585,6 @@
 
                 <EditText
                     android:id="@+id/txtValue"
-                    android:minWidth="100dp"
-                    android:minHeight="48dp"
                     android:layout_width="fill_parent"
                     android:layout_height="48dp"
                     android:layout_marginRight="3dp"
@@ -503,6 +593,8 @@
                     android:gravity="center"
                     android:imeOptions="actionDone"
                     android:inputType="textCapCharacters"
+                    android:minWidth="100dp"
+                    android:minHeight="48dp"
                     android:singleLine="true"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -510,8 +602,6 @@
 
                 <EditText
                     android:id="@+id/txtValue2"
-                    android:minWidth="100dp"
-                    android:minHeight="48dp"
                     android:layout_width="fill_parent"
                     android:layout_height="48dp"
                     android:layout_marginRight="3dp"
@@ -520,6 +610,8 @@
                     android:gravity="center"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
+                    android:minWidth="100dp"
+                    android:minHeight="48dp"
                     android:singleLine="true"
                     android:textColor="#000000"
                     android:textSize="16sp"
@@ -529,29 +621,29 @@
                     android:id="@+id/lbldegc"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/degc"
-                    android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginBottom="2dp"
-                    android:visibility="gone"
+                    android:gravity="center"
+                    android:text="@string/degc"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/lbltempTS"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text=""
-                    android:gravity="center"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginBottom="2dp"
-                    android:visibility="gone"
+                    android:gravity="center"
+                    android:text=""
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

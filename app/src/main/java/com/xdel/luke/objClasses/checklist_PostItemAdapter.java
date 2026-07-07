@@ -32,6 +32,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.xdel.luke.BackendRun_BroadcastReceiver;
 import com.xdel.luke.BottomSheet.tempLoggerEntryDialog;
 import com.xdel.luke.Camera5Activity;
 import com.xdel.luke.CheckListActivity;
@@ -43,6 +45,7 @@ import com.xdel.luke.JobsHandler;
 import com.xdel.luke.JobsHandler2;
 import com.xdel.luke.MainActivity;
 import com.xdel.luke.OtpActivity;
+import com.xdel.luke.QRBarcodeReader;
 import com.xdel.luke.R;
 import com.xdel.luke.SlideDateTimePicker.SlideDateListener;
 import com.xdel.luke.SlideDateTimePicker.SlideDateTimeListener;
@@ -973,8 +976,7 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
                     if (d.HierarchyCode > 0) {
                         //hidden[i] = (d.IsChild && dirpar.IsChecked && dirparIsYNRD && !dirparYNRD_isOV_YES);
                         hidden[i] = (dirpar.IsChecked && dirparIsYNRD && !dirparYNRD_isOV_YES) || (!dirpar.IsChild && dirparIsYNRD && !dirparYNRD_isOV_YES);
-                    }
-                    else {
+                    } else {
                         hidden[i] = (d.IsChild && dirpar.IsChecked && dirparIsYNRD && dirparYNRD_isOV_YES && !hidden[d.ParentIDX]) || (d.IsChild && dirpar.IsChecked && dirparIsYNRD && !dirparYNRD_isOV_YES && hidden[d.ParentIDX]);
                     }
 
@@ -1457,6 +1459,8 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
         LinearLayout LLPhoto;
         LinearLayout LLIDVerification;
         LinearLayout LLIMEIVerification;
+        LinearLayout LLArticleTag;
+        LinearLayout LLUpdatePieces;
         Switch yesno;
         Switch yesnoIDVerificationSkip;
 
@@ -1472,6 +1476,10 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
         EditText txtIMEIVerification;
         ImageView imgIMVCVerification;
         Button btnVerificationIMEI;
+        EditText txtLabelTagVal;
+        EditText txtLabelUpdatePiecesVal;
+        Button btnScanTag;
+        Button btnUpdateLabelTag;
 
         EditText txtdd;
         EditText txtmm;
@@ -1489,6 +1497,7 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
 
         TextWatcher txtValueTextWatcher;
         TextWatcher txtValueTextWatcher2;
+        TextWatcher txtLabelUpdatePiecesValTextWatcher;
         InputFilter inputFilter;
         ROtxtValueTextChangeListener rotxtValueTextChangeListener;
         CompoundButton.OnCheckedChangeListener cbMDOnCheckedChangeListener;
@@ -1502,6 +1511,8 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
         View.OnClickListener BtnV3VerificationOnClickListener;
         View.OnClickListener BtnV4VerificationOnClickListener;
         View.OnClickListener BtnV5VerificationOnClickListener;
+        View.OnClickListener btnScanTagOnClickListener;
+        View.OnClickListener btnUpdateLabelTagOnClickListener;
         SlideDateListener slideDateListener;
         SlideDateTimeListener slideDateTimeListener;
         View.OnClickListener lblDateTimeTimeOnClickListener;
@@ -1586,6 +1597,15 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
                 childViewHolder.txtIMEIVerification = (EditText) convertView.findViewById(R.id.txtIMEIVerification);
                 childViewHolder.imgIMVCVerification = (ImageView) convertView.findViewById(R.id.imgIMVCVerification);
                 childViewHolder.btnVerificationIMEI = (Button) convertView.findViewById(R.id.btnVerificationIMEI);
+
+                childViewHolder.LLArticleTag = (LinearLayout) convertView.findViewById(R.id.LLArticleTag);
+                childViewHolder.txtLabelTagVal = (EditText) convertView.findViewById(R.id.txtLabelTagVal);
+                childViewHolder.btnScanTag = (Button) convertView.findViewById(R.id.btnScanTag);
+                childViewHolder.btnUpdateLabelTag = (Button) convertView.findViewById(R.id.btnUpdateLabelTag);
+
+                childViewHolder.LLUpdatePieces = (LinearLayout) convertView.findViewById(R.id.LLUpdatePieces);
+                childViewHolder.txtLabelUpdatePiecesVal = (EditText) convertView.findViewById(R.id.txtLabelUpdatePiecesVal);
+
 
                 childViewHolder.btnOTP = (Button) convertView.findViewById(R.id.btnOTP);
 
@@ -1747,6 +1767,14 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
 
             if (data.ControlCode.equals("V5")) {
                 handleV5Verification(childViewHolder, data, position);
+            }
+
+            if (data.ControlCode.equals("AT")) {
+                handleArticleTag(childViewHolder, data, position);
+            }
+
+            if (data.ControlCode.equals("QT")) {
+                handleUpdatePieces(childViewHolder, data, position);
             }
 
         } catch (Exception e) {
@@ -1953,6 +1981,16 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handleTempLogger. Exception: " + e.getMessage().toString(), "", "", "", "");
         }
@@ -2053,6 +2091,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
         } catch (Exception e) {
             //String stack = JobsHandler.getStackTraceString(e);
             //objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handleLabel. Exception: " + e.getMessage().toString() + "\nStack: " + stack, "", "", "", "");
@@ -2124,6 +2173,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
         } catch (Exception e) {
             //String stack = JobsHandler.getStackTraceString(e);
             //objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handleCheckBox. Exception: " + e.getMessage().toString() + "\nStack: " + stack, "", "", "", "");
@@ -2187,7 +2247,7 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.txtValue.addTextChangedListener(childViewHolder.txtValueTextWatcher);
 
             if (data.IsParent && !data.IsChild) {
-                childViewHolder.cbMD.setVisibility(View.GONE);
+                /*childViewHolder.cbMD.setVisibility(View.GONE);
                 childViewHolder.cbMD2.setVisibility(View.VISIBLE);
 
                 childViewHolder.cbMD2.setOnCheckedChangeListener(null);
@@ -2197,14 +2257,25 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
                 childViewHolder.cbMD2.setOnCheckedChangeListener(childViewHolder.cbMDOnCheckedChangeListener);
 
                 childViewHolder.lblValue.setVisibility(View.VISIBLE);
-                //childViewHolder.lblValue.setText(data.DisplayText);
                 childViewHolder.lblValue.setText(data.DisplayTextCN);
                 childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
                 childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
 
-                childViewHolder.cb.setVisibility(View.GONE);
-            } else if (data.IsChild) {
+                childViewHolder.cb.setVisibility(View.GONE);*/
+
+
                 childViewHolder.cbMD.setVisibility(View.GONE);
+                childViewHolder.cbMD2.setVisibility(View.GONE);
+                childViewHolder.cbMD2.setOnCheckedChangeListener(null);
+                childViewHolder.cb.setVisibility(View.GONE);
+
+                childViewHolder.lblValue.setVisibility(View.VISIBLE);
+                childViewHolder.lblValue.setText(data.DisplayTextCN);
+                childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
+                childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
+
+            } else if (data.IsChild) {
+                /*childViewHolder.cbMD.setVisibility(View.GONE);
                 childViewHolder.cbMD2.setVisibility(View.GONE);
 
                 childViewHolder.cb.setVisibility(View.VISIBLE);
@@ -2217,7 +2288,19 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
                 childViewHolder.cbForCheckboxOnCheckedChangeListener = cbForTextboxOnCheckedChangeListener(data, childViewHolder);
                 childViewHolder.cb.setOnCheckedChangeListener(childViewHolder.cbForCheckboxOnCheckedChangeListener);
 
-                childViewHolder.lblValue.setVisibility(View.GONE);
+                childViewHolder.lblValue.setVisibility(View.GONE);*/
+
+                childViewHolder.cbMD.setVisibility(View.GONE);
+                childViewHolder.cbMD2.setVisibility(View.GONE);
+                childViewHolder.cbMD.setOnCheckedChangeListener(null);
+                childViewHolder.cbMD2.setOnCheckedChangeListener(null);
+                childViewHolder.cb.setOnCheckedChangeListener(null);
+                childViewHolder.cb.setVisibility(View.GONE);
+
+                childViewHolder.lblValue.setVisibility(View.VISIBLE);
+                childViewHolder.lblValue.setText(data.DisplayTextCN);
+                childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
+                childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
             }
 
             childViewHolder.LLDisplayText.setVisibility(View.GONE);
@@ -2225,7 +2308,8 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.txtValue.setVisibility(View.VISIBLE);
             childViewHolder.txtValue2.setVisibility(View.GONE);
             childViewHolder.LLtxtValue.setVisibility(childViewHolder.txtValue.getVisibility());
-            childViewHolder.txtValue.setEnabled((data.FinalManOptCode.equals("MD") && data.IsChecked) ? true : (data.FinalManOptCode.equals("MD") && !data.IsChecked) ? false : true);
+            //childViewHolder.txtValue.setEnabled((data.FinalManOptCode.equals("MD") && data.IsChecked) ? true : (data.FinalManOptCode.equals("MD") && !data.IsChecked) ? false : true);
+            childViewHolder.txtValue.setEnabled(true);
             childViewHolder.rg1.setVisibility(View.GONE);
             childViewHolder.LLCheckbox.setVisibility(View.GONE);
             childViewHolder.LLDateTxtB.setVisibility(View.GONE);
@@ -2244,6 +2328,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText("");
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
         } catch (Exception e) {
             //String stack = JobsHandler.getStackTraceString(e);
@@ -2302,6 +2397,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
 
             if (childViewHolder.BtnVerificationOnClickListener != null) {
                 childViewHolder.BtnVerificationOnClickListener = null;
@@ -2320,6 +2426,195 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
             objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter handleIDVerification. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
+        }
+    }
+
+    private void handleUpdatePieces(final ChildViewHolder childViewHolder, final checklist_PostData data, final int position) {
+        try {
+            if (childViewHolder.txtLabelUpdatePiecesValTextWatcher != null) {
+                childViewHolder.txtLabelUpdatePiecesVal.removeTextChangedListener(childViewHolder.txtLabelUpdatePiecesValTextWatcher);
+                childViewHolder.txtLabelUpdatePiecesValTextWatcher = null;
+            }
+            Context ctx = myApp.getAppContext();
+
+            if (data.IsParent && !data.IsChild) {
+                childViewHolder.cbMD2.setVisibility(View.GONE);
+                childViewHolder.lblValue.setVisibility(View.VISIBLE);
+                childViewHolder.lblValue.setText(data.DisplayTextCN);
+                childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
+                childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
+                childViewHolder.cb.setVisibility(View.GONE);
+            } else if (data.IsChild) {
+                childViewHolder.cbMD2.setVisibility(View.GONE);
+                childViewHolder.lblValue.setVisibility(View.VISIBLE);
+                childViewHolder.lblValue.setText(data.DisplayTextCN);
+                childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
+                childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
+                childViewHolder.cb.setVisibility(View.GONE);
+            }
+
+            SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+            childViewHolder.LLIMEIVerification.setVisibility(View.GONE);
+            childViewHolder.lblIMVCFirstFewChar.setText("");
+            childViewHolder.lblIMEIVerificationVal.setText("");
+            childViewHolder.txtIMEIVerification.setText("");
+            childViewHolder.btnVerificationIMEI.setOnClickListener(null);
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.VISIBLE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
+            childViewHolder.btnVerification.setOnClickListener(null);
+            childViewHolder.LLDisplayText.setVisibility(View.GONE);
+            childViewHolder.LLOthers.setVisibility(View.VISIBLE);
+            childViewHolder.LLPhoto.setVisibility(View.GONE);
+            childViewHolder.cbMD.setVisibility(View.GONE);
+            childViewHolder.txtValue.setVisibility(View.GONE);
+            childViewHolder.txtValue2.setVisibility(View.GONE);
+            childViewHolder.LLtxtValue.setVisibility(childViewHolder.txtValue.getVisibility());
+            childViewHolder.rg1.setVisibility(View.GONE);
+            childViewHolder.LLCheckbox.setVisibility(View.GONE);
+            childViewHolder.LLDateTxtB.setVisibility(View.GONE);
+            childViewHolder.LLDate.setVisibility(View.GONE);
+            childViewHolder.LLDateTime.setVisibility(View.GONE);
+            childViewHolder.yesno.setVisibility(View.GONE);
+            childViewHolder.LLIDVerification.setVisibility(View.GONE);
+            childViewHolder.btnOTP.setVisibility(View.GONE);
+
+            childViewHolder.BtnV2VerificationOnClickListener = null;
+            childViewHolder.BtnV3VerificationOnClickListener = null;
+            childViewHolder.BtnV4VerificationOnClickListener = null;
+            childViewHolder.BtnV5VerificationOnClickListener = null;
+
+
+            childViewHolder.txtLabelUpdatePiecesVal.setText(data.OptionValue != null && data.OptionValue.size() > 0 ? data.OptionValue.get(0) : "");
+
+            childViewHolder.txtLabelUpdatePiecesValTextWatcher = new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String value = s.toString();
+                    if (value.length() > 0) {
+                        if (data.OptionValue != null && data.OptionValue.size() > 0) {
+                            data.OptionValue.clear();
+                            data.OptionValue.add(value);
+                        } else if (data.OptionValue != null && data.OptionValue.size() == 0) {
+                            data.OptionValue.clear();
+                            data.OptionValue.add(value);
+                        } else if (data.OptionValue == null) {
+                            data.OptionValue = new ArrayList<>();
+                            data.OptionValue.add(value);
+                        }
+                    } else {
+                        if (data.FinalManOptCode.equals("OP")) {
+                            data.OptionValue.clear();
+                            data.OptionValue.add(value);
+                        } else {
+                            data.OptionValue = null;
+                        }
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            };
+            childViewHolder.txtLabelUpdatePiecesVal.addTextChangedListener(childViewHolder.txtLabelUpdatePiecesValTextWatcher);
+
+        } catch (Exception e) {
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter handleUpdatePieces. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
+        }
+    }
+
+    private void handleArticleTag(final ChildViewHolder childViewHolder, final checklist_PostData data, final int position) {
+        try {
+            Context ctx = myApp.getAppContext();
+
+            if (data.IsParent && !data.IsChild) {
+                childViewHolder.cbMD2.setVisibility(View.GONE);
+                childViewHolder.lblValue.setVisibility(View.VISIBLE);
+                childViewHolder.lblValue.setText(data.DisplayTextCN);
+                childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
+                childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
+                childViewHolder.cb.setVisibility(View.GONE);
+            } else if (data.IsChild) {
+                childViewHolder.cbMD2.setVisibility(View.GONE);
+                childViewHolder.lblValue.setVisibility(View.VISIBLE);
+                childViewHolder.lblValue.setText(data.DisplayTextCN);
+                childViewHolder.lblValue.setTextColor(data.FinalManOptCode.equals("MD") ? Color.RED : Color.BLACK);
+                childViewHolder.lblValue.setTypeface(null, data.FinalManOptCode.equals("MD") ? Typeface.BOLD : Typeface.NORMAL);
+                childViewHolder.cb.setVisibility(View.GONE);
+            }
+
+            SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+            childViewHolder.LLIMEIVerification.setVisibility(View.GONE);
+            childViewHolder.lblIMVCFirstFewChar.setText("");
+            childViewHolder.lblIMEIVerificationVal.setText("");
+            childViewHolder.txtIMEIVerification.setText("");
+            childViewHolder.btnVerificationIMEI.setOnClickListener(null);
+
+            childViewHolder.LLArticleTag.setVisibility(View.VISIBLE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.btnVerification.setOnClickListener(null);
+            childViewHolder.LLDisplayText.setVisibility(View.GONE);
+            childViewHolder.LLOthers.setVisibility(View.VISIBLE);
+            childViewHolder.LLPhoto.setVisibility(View.GONE);
+            childViewHolder.cbMD.setVisibility(View.GONE);
+            childViewHolder.txtValue.setVisibility(View.GONE);
+            childViewHolder.txtValue2.setVisibility(View.GONE);
+            childViewHolder.LLtxtValue.setVisibility(childViewHolder.txtValue.getVisibility());
+            childViewHolder.rg1.setVisibility(View.GONE);
+            childViewHolder.LLCheckbox.setVisibility(View.GONE);
+            childViewHolder.LLDateTxtB.setVisibility(View.GONE);
+            childViewHolder.LLDate.setVisibility(View.GONE);
+            childViewHolder.LLDateTime.setVisibility(View.GONE);
+            childViewHolder.yesno.setVisibility(View.GONE);
+            childViewHolder.LLIDVerification.setVisibility(View.GONE);
+            childViewHolder.btnOTP.setVisibility(View.GONE);
+
+            childViewHolder.BtnV2VerificationOnClickListener = null;
+            childViewHolder.BtnV3VerificationOnClickListener = null;
+            childViewHolder.BtnV4VerificationOnClickListener = null;
+            childViewHolder.BtnV5VerificationOnClickListener = null;
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
+
+            childViewHolder.txtLabelTagVal.setText(data.OptionValue != null && data.OptionValue.size() > 0 ? data.OptionValue.get(0) : "");
+            EnableDisableCtrlsNew(data.OptionValue2 != null && data.OptionValue2.size() > 0 ? false : true, childViewHolder, data);
+
+            childViewHolder.btnScanTagOnClickListener = rtnbtnScanTagOnClickListener(position, childViewHolder, data);
+            childViewHolder.btnUpdateLabelTagOnClickListener = rtnbtnUpdateLabelTagOnClickListenerNew(position, childViewHolder, data);
+
+            childViewHolder.btnScanTag.setOnClickListener(childViewHolder.btnScanTagOnClickListener);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(childViewHolder.btnUpdateLabelTagOnClickListener);
+
+        } catch (Exception e) {
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter handleArticleTag. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
         }
     }
 
@@ -2350,6 +2645,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText(IMEIv1);
             childViewHolder.lblIMEIVerificationVal.setText(IMEIv2);
             childViewHolder.btnVerificationIMEI.setOnClickListener(null);
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
             childViewHolder.btnVerification.setOnClickListener(null);
             childViewHolder.LLDisplayText.setVisibility(View.GONE);
@@ -2422,6 +2728,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText(IMEIv2);
             childViewHolder.btnVerificationIMEI.setOnClickListener(null);
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
             childViewHolder.btnVerification.setOnClickListener(null);
             childViewHolder.LLDisplayText.setVisibility(View.GONE);
             childViewHolder.LLOthers.setVisibility(View.VISIBLE);
@@ -2492,6 +2809,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText(VoucherNumVal1);
             childViewHolder.lblIMEIVerificationVal.setText(VoucherNumVal2);
             childViewHolder.btnVerificationIMEI.setOnClickListener(null);
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
             childViewHolder.btnVerification.setOnClickListener(null);
             childViewHolder.LLDisplayText.setVisibility(View.GONE);
@@ -2576,6 +2904,9 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.yesno.setVisibility(View.GONE);
             childViewHolder.LLIDVerification.setVisibility(View.VISIBLE);
             childViewHolder.btnOTP.setVisibility(View.GONE);
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
             if (childViewHolder.BtnVerificationOnClickListener != null) {
                 childViewHolder.BtnVerificationOnClickListener = null;
@@ -2706,6 +3037,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
 
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
@@ -2823,6 +3165,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
 
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
@@ -2901,6 +3254,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
             objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter handleOTP. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
@@ -2968,6 +3332,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText("");
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
 
             if (childViewHolder.OTPOnClickListener != null) {
@@ -3074,6 +3449,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
         } catch (Exception e) {
             //String stack = JobsHandler.getStackTraceString(e);
             //objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handleDate. Exception: " + e.getMessage().toString() + "\nStack: " + stack, "", "", "", "");
@@ -3158,6 +3544,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText("");
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
         } catch (Exception e) {
             //String stack = JobsHandler.getStackTraceString(e);
@@ -3263,6 +3660,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
             objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handleYesNo. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
@@ -3342,6 +3750,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText("");
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
         } catch (Exception e) {
             String s = JobsHandler.getStackTraceString(e);
@@ -3428,6 +3847,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText("");
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handleFAFYFN. Exception: " + e.getMessage().toString(), "", "", "", "");
@@ -3518,6 +3948,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
 
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter handlePhoto. Exception: " + e.getMessage().toString(), "", "", "", "");
@@ -3586,6 +4027,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMEIVerificationVal.setText("");
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
+
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
 
 
             final int childcount = childViewHolder.LLCheckbox.getChildCount();
@@ -3766,6 +4218,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             childViewHolder.lblIMVCFirstFewChar.setText("");
             childViewHolder.txtIMEIVerification.setText("");
 
+            childViewHolder.LLArticleTag.setVisibility(View.GONE);
+            childViewHolder.btnScanTag.setOnClickListener(null);
+            childViewHolder.btnUpdateLabelTag.setOnClickListener(null);
+            childViewHolder.txtLabelTagVal.setText("");
+
+            childViewHolder.btnUpdateLabelTagOnClickListener = null;
+            childViewHolder.btnScanTagOnClickListener = null;
+
+            childViewHolder.LLUpdatePieces.setVisibility(View.GONE);
+            childViewHolder.txtLabelUpdatePiecesVal.setText("");
+
 
             final int rg1childcount = childViewHolder.rg1.getChildCount();
             if (rg1childcount == 0) {
@@ -3925,6 +4388,17 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
             ch.lblIMEIVerificationVal.setText("");
             ch.lblIMVCFirstFewChar.setText("");
             ch.txtIMEIVerification.setText("");
+
+            ch.LLArticleTag.setVisibility(View.GONE);
+            ch.btnScanTag.setOnClickListener(null);
+            ch.btnUpdateLabelTag.setOnClickListener(null);
+            ch.txtLabelTagVal.setText("");
+
+            ch.btnUpdateLabelTagOnClickListener = null;
+            ch.btnScanTagOnClickListener = null;
+
+            ch.LLUpdatePieces.setVisibility(View.GONE);
+            ch.txtLabelUpdatePiecesVal.setText("");
 
 
             final int rg1childcount = ch.rg1.getChildCount();
@@ -4909,6 +5383,323 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
         };
     }
 
+    private View.OnClickListener rtnbtnScanTagOnClickListener(final int position, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+                    Intent parentIntent;
+                    String[] prefName = new String[]{"QRScanRequestIntent", "cameraScannedCode"};
+                    String[] prefvalue = new String[]{"chklist", ""};
+                    objGlobalMethods.setGCMPrefsMass(GcmPreferences, prefName, prefvalue);
+
+                    CheckListActivity.itemIndex = position;
+                    parentIntent = new Intent(myApp.currentActivity, QRBarcodeReader.class);
+                    JobInfoActivity.accessFromDirection = 0;
+                    myApp.currentActivity.startActivity(parentIntent);
+                } catch (Exception e) {
+                    objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter rtnbtnScanTagOnClickListener. Exception: " + e.getMessage().toString(), "", "", "", "");
+                    objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_errorperformoperation)).show();
+                }
+            }
+        };
+    }
+
+    private View.OnClickListener rtnbtnUpdatePiecesOnClickListenerNew(final int position, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    final String val = childViewHolder.txtLabelTagVal != null ? childViewHolder.txtLabelTagVal.getText().toString().toUpperCase() : "";
+                    if (!objGlobalMethods.IsEmptyString(val)) {
+                        SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+                        long jidx = 0;
+                        String JobsIDXstr = objGlobalMethods.getGCMPrefs(GcmPreferences, objGlobalVariables.currJobInfoIDX);
+                        if (!JobsIDXstr.equals("")) {
+                            try {
+                                jidx = Long.parseLong(JobsIDXstr);
+                            } catch (Exception e) {
+                                objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter rtnbtnUpdatePiecesOnClickListenerNew convert JobsIDXstr to Long value.", "", "", "", "");
+                                jidx = 0;
+                            }
+                        }
+                        final long JobsIDX = jidx;
+                        if (JobsIDX > 0) {
+                            objGlobalMethods.writeToFile("Attempt to update PIECES value in checklist. JobsIDX: " + String.valueOf(JobsIDX) + ", PIECES value: " + val.toUpperCase(), "", "", "", "");
+
+                            String fulldladdress = "";
+                            String dladdress = objGlobalMethods.getGCMPrefs(GcmPreferences, "dladdress");
+                            if (!objGlobalMethods.IsEmptyString(dladdress))
+                                fulldladdress = "\n\n" + myApp.getAppContext().getString(R.string.tobedeliveredto) + "\n\n" + dladdress.toUpperCase();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(myApp.currentActivity);
+                            builder.setCancelable(false);
+                            builder.setMessage(myApp.getAppContext().getString(R.string.alert_cfmupdateJobPieces) + fulldladdress);
+                            builder.setPositiveButton(myApp.getAppContext().getString(R.string.buttontext_ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //if user pressed "yes", update job status
+                                    updateChecklistWithNumberOfPieces(position, val, JobsIDX, childViewHolder, data);
+                                }
+                            });
+                            builder.setNegativeButton(myApp.getAppContext().getString(R.string.buttontext_NO), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //if user select "No", just cancel this dialog and continue with app
+                                    dialog.cancel();
+                                }
+                            });
+                            final AlertDialog alert = builder.create();
+                            alert.show();
+                        } else
+                            objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorUpdatePiecesJobsIDX)).show();
+                    } else
+                        objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_plsenterpieces)).show();
+                } catch (Exception e) {
+                    objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter rtnbtnUpdatePiecesOnClickListenerNew. Exception: " + e.getMessage().toString(), "", "", "", "");
+                    objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_errorperformoperation)).show();
+                }
+            }
+        };
+    }
+
+    private void updateChecklistWithNumberOfPieces(final int position, String val, long JobsIDX, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        boolean succ = false;
+        try {
+            objGlobalMethods.writeToFile("updateChecklistWithNumberOfPieces Update PIECES value in checklist. JobsIDX: " + String.valueOf(JobsIDX) + ", PIECES value: " + val.toUpperCase() + ".", "", "", "", "");
+            if (list != null && list.size() > 0 && position <= list.size() - 1) {
+                list.get(position).OptionValue = new ArrayList<String>() {{
+                    add(val);
+                }};
+                list.get(position).OptionValue2 = new ArrayList<String>() {{
+                    add(val);
+                }};
+                succ = true;
+            } else {
+                list.get(position).OptionValue = null;
+                list.get(position).OptionValue2 = null;
+            }
+
+            if (succ) {
+                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_Piecesdatasubmitted)).show();
+                EnableDisableCtrlsNew(false, childViewHolder, data);
+            } else {
+                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorUpdatePieces)).show();
+                EnableDisableCtrlsNew(true, childViewHolder, data);
+            }
+
+        } catch (Exception e) {
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter updateChecklistWithNumberOfPieces. Exception: " + e.getMessage().toString() + "\nStack: " + s, "", "", "", "");
+            objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorUpdatePieces)).show();
+        }
+    }
+
+    private View.OnClickListener rtnbtnUpdateLabelTagOnClickListenerNew(final int position, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    final String val = childViewHolder.txtLabelTagVal != null ? childViewHolder.txtLabelTagVal.getText().toString().toUpperCase() : "";
+                    if (!objGlobalMethods.IsEmptyString(val)) {
+                        if (objGlobalMethods.verifyBarcode(val)) {
+                            SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+                            long jidx = 0;
+                            String JobsIDXstr = objGlobalMethods.getGCMPrefs(GcmPreferences, objGlobalVariables.currJobInfoIDX);
+                            if (!JobsIDXstr.equals("")) {
+                                try {
+                                    jidx = Long.parseLong(JobsIDXstr);
+                                } catch (Exception e) {
+                                    objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter rtnbtnUpdateLabelTagOnClickListener convert JobsIDXstr to Long value.", "", "", "", "");
+                                    jidx = 0;
+                                }
+                            }
+                            final long JobsIDX = jidx;
+                            if (JobsIDX > 0) {
+                                objGlobalMethods.writeToFile("Attempt to update BarcodeTag value in checklist. JobsIDX: " + String.valueOf(JobsIDX) + ", BarcodeTag value: " + val.toUpperCase(), "", "", "", "");
+
+                                String fulldladdress = "";
+                                String dladdress = objGlobalMethods.getGCMPrefs(GcmPreferences, "dladdress");
+                                if (!objGlobalMethods.IsEmptyString(dladdress))
+                                    fulldladdress = "\n\n" + myApp.getAppContext().getString(R.string.tobedeliveredto) + "\n\n" + dladdress.toUpperCase();
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(myApp.currentActivity);
+                                builder.setCancelable(false);
+                                builder.setMessage(myApp.getAppContext().getString(R.string.alert_cfmupdateBarcodeLabel) + fulldladdress);
+                                builder.setPositiveButton(myApp.getAppContext().getString(R.string.buttontext_ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //if user pressed "yes", update job status
+                                        updateChecklistWithArticleTag(position, val, JobsIDX, childViewHolder, data);
+                                    }
+                                });
+                                builder.setNegativeButton(myApp.getAppContext().getString(R.string.buttontext_NO), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //if user select "No", just cancel this dialog and continue with app
+                                        dialog.cancel();
+                                    }
+                                });
+                                final AlertDialog alert = builder.create();
+                                alert.show();
+
+
+                            } else
+                                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorJobsIDXupdate)).show();
+                        } else
+                            objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_InvalidBarcode)).show();
+                    } else
+                        objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_plsenterBarcode)).show();
+                } catch (Exception e) {
+                    objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter rtnbtnUpdateLabelTagOnClickListener. Exception: " + e.getMessage().toString(), "", "", "", "");
+                    objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_errorperformoperation)).show();
+                }
+            }
+        };
+    }
+
+    private View.OnClickListener rtnbtnUpdateLabelTagOnClickListener(final int position, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    final String val = childViewHolder.txtLabelTagVal != null ? childViewHolder.txtLabelTagVal.getText().toString().toUpperCase() : "";
+                    if (!objGlobalMethods.IsEmptyString(val)) {
+                        if (objGlobalMethods.verifyBarcode(val)) {
+                            SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+                            long jidx = 0;
+                            String JobsIDXstr = objGlobalMethods.getGCMPrefs(GcmPreferences, objGlobalVariables.currJobInfoIDX);
+                            if (!JobsIDXstr.equals("")) {
+                                try {
+                                    jidx = Long.parseLong(JobsIDXstr);
+                                } catch (Exception e) {
+                                    objGlobalMethods.writeToFile("Exception caught at checklist_PostItemAdapter rtnbtnUpdateLabelTagOnClickListener convert JobsIDXstr to Long value.", "", "", "", "");
+                                    jidx = 0;
+                                }
+                            }
+                            final long JobsIDX = jidx;
+                            if (JobsIDX > 0) {
+                                objGlobalMethods.writeToFile("Attempt to update BarcodeTag value in checklist. JobsIDX: " + String.valueOf(JobsIDX) + ", BarcodeTag value: " + val.toUpperCase(), "", "", "", "");
+
+                                String fulldladdress = "";
+                                String dladdress = objGlobalMethods.getGCMPrefs(GcmPreferences, "dladdress");
+                                if (!objGlobalMethods.IsEmptyString(dladdress))
+                                    fulldladdress = "\n\n" + myApp.getAppContext().getString(R.string.tobedeliveredto) + "\n\n" + dladdress.toUpperCase();
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(myApp.currentActivity);
+                                builder.setCancelable(false);
+                                builder.setMessage(myApp.getAppContext().getString(R.string.alert_cfmupdateBarcodeLabel) + fulldladdress);
+                                builder.setPositiveButton(myApp.getAppContext().getString(R.string.buttontext_ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //if user pressed "yes", update job status
+                                        updateBarcodeVal(position, val, JobsIDX, childViewHolder, data);
+                                    }
+                                });
+                                builder.setNegativeButton(myApp.getAppContext().getString(R.string.buttontext_NO), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //if user select "No", just cancel this dialog and continue with app
+                                        dialog.cancel();
+                                    }
+                                });
+                                final AlertDialog alert = builder.create();
+                                alert.show();
+
+
+                            } else
+                                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorJobsIDX)).show();
+                        } else
+                            objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_InvalidBarcode)).show();
+                    } else
+                        objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_plsenterBarcode)).show();
+                } catch (Exception e) {
+                    objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter rtnbtnUpdateLabelTagOnClickListener. Exception: " + e.getMessage().toString(), "", "", "", "");
+                    objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_errorperformoperation)).show();
+                }
+            }
+        };
+    }
+
+    private void updateChecklistWithArticleTag(final int position, String val, long JobsIDX, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        boolean succ = false;
+        try {
+            objGlobalMethods.writeToFile("updateChecklistWithArticleTag Update BarcodeTag value in checklist. JobsIDX: " + String.valueOf(JobsIDX) + ", BarcodeTag value: " + val.toUpperCase() + ".", "", "", "", "");
+            if (list != null && list.size() > 0 && position <= list.size() - 1) {
+                list.get(position).OptionValue = new ArrayList<String>() {{
+                    add(val);
+                }};
+                list.get(position).OptionValue2 = new ArrayList<String>() {{
+                    add(val);
+                }};
+                succ = true;
+            } else {
+                list.get(position).OptionValue = null;
+                list.get(position).OptionValue2 = null;
+            }
+
+            if (succ) {
+                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_Taggingdataupdated)).show();
+                EnableDisableCtrlsNew(false, childViewHolder, data);
+            } else {
+                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorBarcodeUpdate)).show();
+                EnableDisableCtrlsNew(true, childViewHolder, data);
+            }
+
+        } catch (Exception e) {
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter updateChecklistWithArticleTag. Exception: " + e.getMessage().toString() + "\nStack: " + s, "", "", "", "");
+            objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorBarcodeUpdate)).show();
+        }
+    }
+
+    private void updateBarcodeVal(final int position, String val, long JobsIDX, final ChildViewHolder childViewHolder, final checklist_PostData data) {
+        try {
+            objGlobalMethods.writeToFile("Update BarcodeTag value in checklist. JobsIDX: " + String.valueOf(JobsIDX) + ", BarcodeTag value: " + val.toUpperCase() + ".", "", "", "", "");
+            SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
+
+            objJobInfo currJobInfo = new Gson().fromJson(GcmPreferences.getString("hfJobInfoJsonStr", ""), objJobInfo.class);
+
+            Boolean succ = JobsHandler.processBarcodeTagUpdate(currJobInfo, val);
+
+            if (succ) {
+                Context ctx = myApp.getAppContext();
+                ctx.sendBroadcast(new Intent(ctx, BackendRun_BroadcastReceiver.class));
+            }
+
+            if (succ)
+                objGlobalMethods.writeToFile("checklist_PostItemAdapter updateBarcodeVal ended successfully.", "", "", "", "");
+            else
+                objGlobalMethods.writeToFile("checklist_PostItemAdapter updateBarcodeVal ended with error.", "", "", "", "");
+
+            if (succ)
+                EnableDisableCtrlsNew(false, childViewHolder, data);
+            else
+                EnableDisableCtrlsNew(true, childViewHolder, data);
+
+            if (succ && list != null && list.size() > 0 && position <= list.size() - 1) {
+                list.get(position).OptionValue = new ArrayList<String>() {{
+                    add(val);
+                }};
+                list.get(position).OptionValue2 = new ArrayList<String>() {{
+                    add(val);
+                }};
+            } else if (!succ) {
+                list.get(position).OptionValue = null;
+                list.get(position).OptionValue2 = null;
+            }
+
+            if (succ)
+                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_Taggingdatasubmitted)).show();
+            else
+                objGlobalMethods.showDialog(myApp.currentActivity, ctx.getString(R.string.buttontext_ok), ctx.getString(R.string.alert_ErrorBarcode)).show();
+        } catch (Exception e) {
+            String stack = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Exception at checklist_PostItemAdapter updateBarcodeVal. Exception: " + e.getMessage().toString() + "\nStack: " + stack, "", "", "", "");
+        }
+    }
+
     private View.OnClickListener rtnBtnMultiVerificationOnClickListener(final int position, final ChildViewHolder childViewHolder, final checklist_PostData data) {
         return new View.OnClickListener() {
             @Override
@@ -5891,9 +6682,9 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
 
             txt = TypeOfPinVerification.equals("1") ? ctx.getString(R.string.buttontext_otp_verified) :
                     TypeOfPinVerification.equals("2") && ((FLAG & 8192) == 8192) ? ctx.getString(R.string.buttontext_otp_not_verified3) :
-                    TypeOfPinVerification.equals("2") ? ctx.getString(R.string.buttontext_otp_not_verified2) :
-                            TypeOfPinVerification.equals("3") ? ctx.getString(R.string.buttontext_otp_skipped) :
-                                    ctx.getString(R.string.buttontext_otp_not_verified);
+                            TypeOfPinVerification.equals("2") ? ctx.getString(R.string.buttontext_otp_not_verified2) :
+                                    TypeOfPinVerification.equals("3") ? ctx.getString(R.string.buttontext_otp_skipped) :
+                                            ctx.getString(R.string.buttontext_otp_not_verified);
 
             childViewHolder.btnOTP.setText(txt);
             ctrlSettings.enableDisableSubmitButtonWithStyles(b_enabled, childViewHolder.btnOTP);
@@ -5916,6 +6707,12 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
 
                 } else if (data.ControlCode.equals("CB")) {
 
+                } else if (data.ControlCode.equals("AT")) {
+                    childViewHolder.txtLabelTagVal.setEnabled(true);
+                    childViewHolder.btnScanTag.setEnabled(true);
+                    childViewHolder.btnUpdateLabelTag.setEnabled(true);
+                    ctrlSettings.enableDisableCommonButtonWithStyles(true, childViewHolder.btnScanTag);
+                    ctrlSettings.enableDisableCommonButtonWithStyles(true, childViewHolder.btnUpdateLabelTag);
                 } else if (data.ControlCode.equals("TB")) {
                     childViewHolder.txtValue.setEnabled(true);
                     childViewHolder.txtValue2.setEnabled(true);
@@ -5989,6 +6786,12 @@ public class checklist_PostItemAdapter extends ArrayAdapter<checklist_PostData> 
                         }
                     }
                     ctrlSettings.enableDisableSubmitButtonWithStyles(false, childViewHolder.btnVerification);
+                } else if (data.ControlCode.equals("AT")) {
+                    childViewHolder.txtLabelTagVal.setEnabled(false);
+                    childViewHolder.btnScanTag.setEnabled(false);
+                    childViewHolder.btnUpdateLabelTag.setEnabled(false);
+                    ctrlSettings.enableDisableCommonButtonWithStyles(false, childViewHolder.btnScanTag);
+                    ctrlSettings.enableDisableCommonButtonWithStyles(false, childViewHolder.btnUpdateLabelTag);
                 } else if (data.ControlCode.equals("OT")) {
                     EnableDisableOTPbtnNew(childViewHolder, data);
                 } else if (data.ControlCode.equals("V2")) {

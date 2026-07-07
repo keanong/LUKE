@@ -2781,7 +2781,7 @@ public class JobsHandler2 {
                     }
                 }
 
-                if (removedList != null && removedList.size() > 0 && SaveAmended4Ques.size() > 1) {
+                if (removedList != null && removedList.size() > 0 && SaveAmended4Ques != null && SaveAmended4Ques.size() > 1) {
                     for (int i = SaveAmended4Ques.size() - 1; i >= 0; i--) {
                         if (removedList.contains(SaveAmended4Ques.get(i).PostalCode))
                             SaveAmended4Ques.remove(i);

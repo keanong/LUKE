@@ -1256,6 +1256,10 @@ public class JobsListGroupActivity extends AppCompatActivity {
             if (i > 0) {
                 Boolean PromptScanBarcode = false;
                 Boolean isSecurityBag = false;
+                boolean isCollectionJob = false;
+                boolean hasArticleTagCtrl = false;
+                boolean hasCheckList = false;
+
                 for (int q = 0; q <= objCheckedItemsAL.length - 1; q++) {
                     ji = objCheckedItemsAL[q].jobinfo;
                     if (JobsHandler.PromptScanBarcodeUponPU(ji)) {
@@ -1263,6 +1267,19 @@ public class JobsListGroupActivity extends AppCompatActivity {
                         isSecurityBag = JobsHandler.reqSecurityTag(ji);
                         break;
                     }
+
+                    if (!PromptScanBarcode) {
+                        isCollectionJob = JobsHandler.isCollectionJob(ji);
+                        hasCheckList = isCollectionJob ? JobsHandler.HasCheckList(ji.CheckList, "CS") : JobsHandler.HasCheckList(ji.CheckList, "PS");
+                        if (isCollectionJob && hasCheckList)
+                            hasArticleTagCtrl = JobsHandler.CheckListHasCtrl(ji.CheckList, "CS", "AT");
+                        if (hasArticleTagCtrl) {
+                            PromptScanBarcode = true;
+                            isSecurityBag = JobsHandler.reqSecurityTag(ji);
+                            break;
+                        }
+                    }
+
                     if (ji.i_have_arrived_timestamp == 0) {
                         not_ihavearrive = true;
                         break;
@@ -2656,6 +2673,10 @@ public class JobsListGroupActivity extends AppCompatActivity {
             JobListGroupSortedSQLite_PostData postdata;
             int headerALselectedIDX = 0;
             Boolean CbIsEnabled = false;
+            Boolean CbIsEnabled2 = false;
+            boolean hasArticleTagCtrl = false;
+            boolean hasCheckList = false;
+            boolean isCollectionJob = false;
             if (catType == 0 || catType == 1 || catType == 2) {
                 //CbIsEnabled = true;
                 if ((objGlobalMethods.IsDefaultVRPpage()) && (catType == 0 || catType == 2)) {
@@ -2671,6 +2692,10 @@ public class JobsListGroupActivity extends AppCompatActivity {
             //new code with sqlite
             if (dbObjJobsAL != null) {
                 for (int i = 0; i <= dbObjJobsAL.size() - 1; i++) {
+                    hasArticleTagCtrl = false;
+                    hasCheckList = false;
+                    isCollectionJob = false;
+
                     dbObjJobs obj = dbObjJobsAL.get(i);
                     ji = null;
                     JobInfoJsonStr = "";
@@ -2678,6 +2703,23 @@ public class JobsListGroupActivity extends AppCompatActivity {
                     if (JobInfoJsonStr != "") {
                         ji = gson.fromJson(JobInfoJsonStr, objJobInfo.class);
                     }
+
+                    CbIsEnabled2 = CbIsEnabled;
+
+                    /*if (catType == 0 && ji != null && !JobsHandler.isStandardRunJob(ji) && (JobsHandler.isCollectionJob(ji) || JobsHandler.checkForCODwithCatType(ji, 0)))
+                        CbIsEnabled2 = false;*/
+
+                    /*if (catType == 0 && ji != null)
+                        isCollectionJob = JobsHandler.isCollectionJob(ji);
+                    if (catType == 0 && ji != null && isCollectionJob)
+                        hasCheckList = JobsHandler.HasCheckList(ji.CheckList, "CS");
+                    else
+                        hasCheckList = JobsHandler.HasCheckList(ji.CheckList, "PS");
+                    if (catType == 0 && ji != null && isCollectionJob && hasCheckList)
+                        hasArticleTagCtrl = JobsHandler.CheckListHasCtrl(ji.CheckList, "CS", "AT");
+
+                    if (catType == 0 && isCollectionJob && JobsHandler.PromptScanBarcodeUponPU(ji) && hasCheckList && hasArticleTagCtrl)*/
+
 
                     /*//to test for different CLientIDX, comment off after use
                     if (ji.JobsIDX == 5828415 || ji.JobsIDX == 5884684 || ji.JobsIDX == 3765749 || ji.JobsIDX == 3660219 || ji.JobsIDX == 5879125 || ji.JobsIDX == 3365101) {
@@ -2706,7 +2748,7 @@ public class JobsListGroupActivity extends AppCompatActivity {
                         headerAl.add(obj.AddressWithoutPostal);
                         subGroupItemSqliteAL = new ArrayList<JobListGroupSortedSQLite_PostData>();
                         postdata = new JobListGroupSortedSQLite_PostData(obj.ExpTypeDesc, obj.CompanyName, obj.ContactName, obj.AddressWithoutPostal, obj.JobInfoJsonStr, (obj.CNNo == null || obj.CNNo.isEmpty()) ? obj.JobNo : obj.CNNo, obj.PartDesc,
-                                String.valueOf(obj.JobsIDX), false, CbIsEnabled, (obj.FLAG & 8) == 8 ? true : false, ((obj.FLAG & 512) == 512) && !objGlobalMethods.IsEmptyString(ji.PIN) ? true : false, (obj.FLAG & 1024) == 1024 ? true : false,
+                                String.valueOf(obj.JobsIDX), false, CbIsEnabled2, (obj.FLAG & 8) == 8 ? true : false, ((obj.FLAG & 512) == 512) && !objGlobalMethods.IsEmptyString(ji.PIN) ? true : false, (obj.FLAG & 1024) == 1024 ? true : false,
                                 obj.FLAG, obj.IsPartOne, obj.IsDunning, obj.TimingTxt, obj.PCS, ji, obj.HasDOCOD, obj.HasTradeIn,
                                 isDelivery, obj.NetsVisaTi, obj.isPickAndSendCount, obj.JobChangesCount, subGroupItemSqliteAL.size(), ji.FLAG2);
                         postdata.setCatTypeID(catType);
@@ -2719,7 +2761,7 @@ public class JobsListGroupActivity extends AppCompatActivity {
                         headerALselectedIDX = headerAl.indexOf(obj.AddressWithoutPostal);
                         subGroupItemSqliteAL = (List<JobListGroupSortedSQLite_PostData>) itemAL.get(headerALselectedIDX);
                         postdata = new JobListGroupSortedSQLite_PostData(obj.ExpTypeDesc, obj.CompanyName, obj.ContactName, obj.AddressWithoutPostal, obj.JobInfoJsonStr, (obj.CNNo == null || obj.CNNo.isEmpty()) ? obj.JobNo : obj.CNNo, obj.PartDesc,
-                                String.valueOf(obj.JobsIDX), false, CbIsEnabled, (obj.FLAG & 8) == 8 ? true : false, ((obj.FLAG & 512) == 512) && !objGlobalMethods.IsEmptyString(ji.PIN) ? true : false, (obj.FLAG & 1024) == 1024 ? true : false,
+                                String.valueOf(obj.JobsIDX), false, CbIsEnabled2, (obj.FLAG & 8) == 8 ? true : false, ((obj.FLAG & 512) == 512) && !objGlobalMethods.IsEmptyString(ji.PIN) ? true : false, (obj.FLAG & 1024) == 1024 ? true : false,
                                 obj.FLAG, obj.IsPartOne, obj.IsDunning, obj.TimingTxt, obj.PCS, ji, obj.HasDOCOD, obj.HasTradeIn,
                                 isDelivery, obj.NetsVisaTi, obj.isPickAndSendCount, obj.JobChangesCount, subGroupItemSqliteAL.size(), ji.FLAG2);
                         postdata.setCatTypeID(catType);

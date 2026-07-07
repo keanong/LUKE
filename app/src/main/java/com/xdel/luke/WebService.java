@@ -112,26 +112,8 @@ public class WebService {
     private static String ipURL1_ = "https://ws.xdel.com/lukews/luke.svc/"; //27.54.42.182 //Make sure you changed IP address
     private static String ipURL2_ = "https://ws2.xdel.com/lukews/luke.svc/"; //27.54.42.185
     private static String ipURL3_ = "https://www.xdel.com/lukews/luke.svc/"; //27.54.42.189
-    private static String ipURL4_ = "https://223.25.70.6/lukews/luke.svc/"; //
-    private static String ipURL5_ = "https://223.25.70.9/lukews/luke.svc/"; //
     private static String localURL = "https://192.168.0.20/lukews/luke.svc/"; //when connected to XDEl WIFI
     private static String SOAP_ACTION = "https://www.xdel.com/lukews/";
-
-    /*private static String NAMESPACE = "http://www.xdel.com/lukews/";
-    private static String ipURL = "http://ws.xdel.com/lukews/luke.svc/"; //27.54.42.182 //Make sure you changed IP address
-    private static String ipURL1_ = "http://ws.xdel.com/lukews/luke.svc/"; //27.54.42.182 //Make sure you changed IP address
-    private static String ipURL2_ = "http://ws2.xdel.com/lukews/luke.svc/"; //27.54.42.185
-    private static String ipURL3_ = "http://www.xdel.com/lukews/luke.svc/"; //27.54.42.189
-    private static String ipURL4_ = "http://223.25.70.6/lukews/luke.svc/"; //
-    private static String ipURL5_ = "http://223.25.70.9/lukews/luke.svc/"; //
-    private static String localURL = "http://192.168.0.20/lukews/luke.svc/"; //when connected to XDEl WIFI
-    private static String SOAP_ACTION = "http://www.xdel.com/lukews/";*/
-
-    private static String url4ip = "223.25.70.6/*";
-    private static String url5ip = "223.25.70.9/*";
-    private static String url6ip = "223.25.70.4/*";
-
-    /*private static JSONObject jobj;*/
 
     static String SOAP_ACTION2 = "http://tempuri.org/";
     static String WSDL_TARGET_NAMESPACE = "http://tempuri.org/";
@@ -168,28 +150,12 @@ public class WebService {
         } else if (ipURL == ipURL2_) {
             changedURL = ipURL3_;
         } else if (ipURL == ipURL3_) {
-            changedURL = ipURL4_;
-        } else if (ipURL == ipURL4_) {
-            changedURL = ipURL5_;
-        } else if (ipURL == ipURL5_) {
             changedURL = ipURL1_;
         } else if (ipURL == localURL) {
             changedURL = ipURL1_;
         } else {
             changedURL = ipURL;
         }
-
-        /*if (ipURL == ipURL1_) {
-            changedURL = ipURL2_;
-        } else if (ipURL == ipURL2_) {
-            changedURL = ipURL3_;
-        } else if (ipURL == ipURL3_) {
-            changedURL = ipURL1_;
-        } else if (ipURL == localURL) {
-            changedURL = ipURL1_;
-        } else {
-            changedURL = ipURL;
-        }*/
 
         ipURL = changedURL;
         objGlobalMethods.writeToFile("ipURL changed from " + initialURL + " to " + changedURL, "", "", "", "");

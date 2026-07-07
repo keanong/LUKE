@@ -39,8 +39,8 @@ android {
         minSdkVersion 26
         targetSdkVersion 28
         /*targetSdkVersion 33*/
-        versionCode 503
-        versionName "5.0.3"
+        versionCode 506
+        versionName "5.0.6"
         multiDexEnabled true
         resConfigs supportedLocales
         buildConfigField "String[]", "LOCALES", '{"' + supportedLocales.collect {

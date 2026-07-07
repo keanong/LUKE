@@ -2346,7 +2346,10 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
 
                 if (catType == 0 || catType == 1 || catType == 4) {
                     //pip/pu/fp
-                    LLupdateTag.setVisibility(View.VISIBLE);
+                    Boolean isCollectionJob = JobsHandler.isCollectionJob(currJobInfo);
+                    boolean hasCheckList = isCollectionJob ? JobsHandler.HasCheckList(currJobInfo.CheckList, "CS") : JobsHandler.HasCheckList(currJobInfo.CheckList, "PS");
+                    boolean hasArticleTagCtrl = JobsHandler.CheckListHasCtrl(currJobInfo.CheckList, "CS", "AT");
+                    LLupdateTag.setVisibility((isCollectionJob && hasCheckList && hasArticleTagCtrl) ? View.GONE : View.VISIBLE);
                     LLrdyDateTime.setVisibility(View.VISIBLE);
 
                     if (currJobInfo.CODCollectAt == null) {
@@ -3629,7 +3632,9 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                     btnRtnCallActivity.setVisibility(View.GONE);
 
                     btnFail.setText(ctx.getString(R.string.action_massFail));
-                    boolean hasCheckList = JobsHandler.HasCheckList(currJobInfo.CheckList, "PS");
+
+                    Boolean isCollectionJob = JobsHandler.isCollectionJob(currJobInfo);
+                    boolean hasCheckList = isCollectionJob ? JobsHandler.HasCheckList(currJobInfo.CheckList, "CS") : JobsHandler.HasCheckList(currJobInfo.CheckList, "PS");
                     btnsubmit.setText(hasCheckList ? ctx.getString(R.string.buttontext_checklist) : ctx.getString(R.string.action_massPU));
                 } else if (acatType == 1) {
                     //pu
@@ -4611,6 +4616,9 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
             final int getLockerAllianceJobProceedStatus = isLockerJob ? JobsHandler.getLockerAllianceJobProceedStatus(res, lockerparcelid) : 0;
 
             if (catType == 0) {
+                Boolean isCollectionJob = JobsHandler.isCollectionJob(currJobInfo);
+                boolean hasArticleTagCtrl = false;
+
                 //pu
                 boolean hasCheckList = false;
                 jidx = currJobInfo != null ? currJobInfo.JobsIDX : 0;
@@ -4618,10 +4626,14 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                     currJobInfo.CheckList = new String[]{"0.PS.PH.MD|TAKE PHOTO OF SHIPMENT(S) COLLECTED.[ZH]将所有该取的货物, 拍摄几张清晰的照片."};
                 }*/
                 if (jidx > 0) {
-                    hasCheckList = JobsHandler.HasCheckList(currJobInfo.CheckList, "PS");
+                    //hasCheckList = JobsHandler.HasCheckList(currJobInfo.CheckList, "PS");
+                    hasCheckList = isCollectionJob ? JobsHandler.HasCheckList(currJobInfo.CheckList, "CS") : JobsHandler.HasCheckList(currJobInfo.CheckList, "PS");
                     String log = hasCheckList ? "CHECKLIST button clicked for JobsIDX: " : "PU button clicked for JobsIDX: ";
                     objGlobalMethods.writeToFile(log + String.valueOf(jidx), "", "", "", "");
                 }
+
+                if (isCollectionJob && hasCheckList)
+                    hasArticleTagCtrl = JobsHandler.CheckListHasCtrl(currJobInfo.CheckList, "CS", "AT");
 
                 boolean canProceed = false;
                 //boolean isLockerJob = JobsHandler.isLockerJob(currJobInfo);
@@ -4704,7 +4716,9 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                                 startActivity(authIntent);
                                 finish(); //newly inserted
                             }
-                        } else if (JobsHandler.PromptScanBarcodeUponPU(currJobInfo)) {
+                        }
+                        //else if (JobsHandler.PromptScanBarcodeUponPU(currJobInfo)) {
+                        else if (isCollectionJob && !hasArticleTagCtrl && JobsHandler.PromptScanBarcodeUponPU(currJobInfo)) {
                             Boolean isSecurityBag = JobsHandler.reqSecurityTag(currJobInfo);
                             if (isSecurityBag) {
                                 objGlobalMethods.writeToFile("JobIDX " + JobsIDX + " require security seal number.", "", "", "", "");
@@ -4747,7 +4761,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                                 AlertDialog alert = builder.create();
                                 alert.show();
                             } else {
-                                updatePU_w_Checklist(0, 0, "");
+                                updatePU_w_Checklist(0, 0, "", isCollectionJob);
                             }
                         }
                     } else {
@@ -5315,7 +5329,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
         return super.onOptionsItemSelected(item);
     }
 
-    private void updatePU_w_Checklist(int updatemode, int scannedtype, String scannedval) {
+    private void updatePU_w_Checklist(int updatemode, int scannedtype, String scannedval, boolean isCollectionJob) {
         try {
             String[] prefName = null;
             String[] prefvalue = null;
@@ -5326,9 +5340,9 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
             List<objJobInfo> objJobInfoBringtoUpdateCODList = null;
             String objJobInfoBringtoUpdateCODListJsonStr = "";
             GcmPreferences = objGlobalMethods.getGcmPreferences();
-            if (currJobInfo == null) {
+            if (currJobInfo == null)
                 currJobInfo = gson.fromJson(GcmPreferences.getString("hfJobInfoJsonStr", ""), objJobInfo.class);
-            }
+
             ////update COD portion
             if (currJobInfo.CODCollected == null || !currJobInfo.CODCollected) {
                 JobhasCOD = JobsHandler.checkForCODwithCatType(currJobInfo, catType);
@@ -5388,10 +5402,12 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                         objGlobalMethods.setGCMPrefsMass(GcmPreferences, prefName, prefvalue);
                     }
 
-                    CheckListActivity.ActionCode = "PS";
+                    //CheckListActivity.ActionCode = "PS";
+                    CheckListActivity.ActionCode = isCollectionJob ? "CS" : "PS";
                     CheckListActivity.nextActivtyIntent = new Intent(myApp.getAppContext(), UpdateCOD_List.class);
                     CheckListActivity.fromPage = "JobInfoActivity";
-                    String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, "PS") : null;
+                    //String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, "PS") : null;
+                    String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, CheckListActivity.ActionCode) : null;
                     String DIPChecklistJsonStr = checklist != null && checklist.length > 0 ? gson.toJson(checklist) : "";
                     //objGlobalMethods.setGCMPrefs(GcmPreferences, "DIPChecklist", DIPChecklistJsonStr);
                     objGlobalMethods.saveChecklistSP(DIPChecklistJsonStr);
@@ -5429,11 +5445,12 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                         objGlobalMethods.setGCMPrefsMass(GcmPreferences, prefName, prefvalue);
                     }
 
-                    CheckListActivity.ActionCode = "PS";
+                    //CheckListActivity.ActionCode = "PS";
+                    CheckListActivity.ActionCode = isCollectionJob ? "CS" : "PS";
                     CheckListActivity.fromPage = "JobInfoActivity";
                     String CurrJobInfoStatusCodeIDX = "103"; //String CurrJobInfoStatusCodeIDX = "";
-                    //CurrJobInfoStatusCodeIDX = String.valueOf(currJobInfo.StatusCodeIDX);
-                    String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, "PS") : null;
+                    //String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, "PS") : null;
+                    String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, CheckListActivity.ActionCode) : null;
                     String DIPChecklistJsonStr = checklist != null && checklist.length > 0 ? gson.toJson(checklist) : "";
 
                     /*prefName = new String[]{"DIPChecklist", "CurrJobInfoStatusCodeIDX"};
@@ -5480,18 +5497,21 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                     objGlobalMethods.setGCMPrefsMass(GcmPreferences, prefName, prefvalue);
                 }
 
-                CheckListActivity.ActionCode = "PS";
+                //CheckListActivity.ActionCode = "PS";
+                CheckListActivity.ActionCode = isCollectionJob ? "CS" : "PS";
                 CheckListActivity.fromPage = "JobInfoActivity";
                 String CurrJobInfoStatusCodeIDX = "103"; //String CurrJobInfoStatusCodeIDX = "";
-                //CurrJobInfoStatusCodeIDX = String.valueOf(currJobInfo.StatusCodeIDX);
-                String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, "PS") : null;
+                //String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, "PS") : null;
+                String[] checklist = currJobInfo.CheckList != null && currJobInfo.CheckList.length > 0 ? JobsHandler2.getSpecificChecklist(currJobInfo.CheckList, CheckListActivity.ActionCode) : null;
                 String DIPChecklistJsonStr = checklist != null && checklist.length > 0 ? gson.toJson(checklist) : "";
 
-                /*prefName = new String[]{"DIPChecklist", "CurrJobInfoStatusCodeIDX"};
-                prefvalue = new String[]{DIPChecklistJsonStr, CurrJobInfoStatusCodeIDX};
-                objGlobalMethods.setGCMPrefsMass(GcmPreferences, prefName, prefvalue);*/
+                String dladdress = JobsHandler.getJobAddress(ji);
 
-                objGlobalMethods.setGCMPrefs(GcmPreferences, "CurrJobInfoStatusCodeIDX", CurrJobInfoStatusCodeIDX);
+                prefName = new String[]{"dladdress", "CurrJobInfoStatusCodeIDX"};
+                prefvalue = new String[]{dladdress, CurrJobInfoStatusCodeIDX};
+                objGlobalMethods.setGCMPrefsMass(GcmPreferences, prefName, prefvalue);
+
+                //objGlobalMethods.setGCMPrefs(GcmPreferences, "CurrJobInfoStatusCodeIDX", CurrJobInfoStatusCodeIDX);
                 objGlobalMethods.saveChecklistSP(DIPChecklistJsonStr);
 
                 Intent intent = new Intent(myApp.currentActivity, CheckListActivity.class);
