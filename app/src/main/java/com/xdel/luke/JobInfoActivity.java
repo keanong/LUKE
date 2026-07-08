@@ -8667,7 +8667,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 accCfg.getRegConfig().setRegistrarUri("sip:27.54.42.188:5060");*/
                 accCfg.setIdUri("sip:" + ext + "@v.xdel.com:5060");
                 accCfg.getRegConfig().setRegistrarUri("sip:v.xdel.com:5060");
-                accCfg.getNatConfig().setIceEnabled(true);
+                accCfg.getNatConfig().setIceEnabled(false);
                 accCfg.getVideoConfig().setAutoTransmitOutgoing(true);
                 accCfg.getVideoConfig().setAutoShowIncoming(true);
                 account = app.addAcc(accCfg);
@@ -8679,11 +8679,10 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 accCfg.getRegConfig().setRegistrarUri("sip:27.54.42.188:5060");*/
                 accCfg.setIdUri("sip:" + ext + "@v.xdel.com:5060");
                 accCfg.getRegConfig().setRegistrarUri("sip:v.xdel.com:5060");
-                //newly added to test
-                accCfg.getNatConfig().setIceEnabled(true);
+
+                accCfg.getNatConfig().setIceEnabled(false);
                 accCfg.getVideoConfig().setAutoTransmitOutgoing(true);
                 accCfg.getVideoConfig().setAutoShowIncoming(true);
-                //newly added to test
             }
 
             AuthCredInfoVector creds = accCfg.getSipConfig().

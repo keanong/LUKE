@@ -121,20 +121,6 @@ public class VoipApp {
             return;
         }
 
-        /* Load config */
-        /*String configPath = appDir + "/" + configName;
-        File f = new File(configPath);
-        if (f.exists()) {
-            loadConfig(configPath);
-        } else {
-             //Set 'default' values
-            //sipTpConfig.setPort(SIP_PORT);
-            sipTpConfig.setPort(-1); //use random available port to prevent using port tat is being used by other app
-            objGlobalMethods.writeToFile("Register voip using port: " + String.valueOf(sipTpConfig.getPort()),"","","","");
-        }*/
-        //commented the above chunk to c can eliminate PJ_ETOOBIG issue
-
-        //sipTpConfig.setPort(-1); //use random available port to prevent using port tat is being used by other app
         sipTpConfig.setPort(0); // OS assigns a free port, or else use 5060
 
         objGlobalMethods.writeToFile("Register voip using port: " + String.valueOf(sipTpConfig.getPort()),"","","","");
@@ -147,9 +133,6 @@ public class VoipApp {
         LogConfig log_cfg = epConfig.getLogConfig();
         logWriter = new MyLogWriter();
         log_cfg.setWriter(logWriter);
-        /*log_cfg.setDecor(log_cfg.getDecor() &
-                ~(pj_log_decoration.PJ_LOG_HAS_CR.swigValue() |
-                        pj_log_decoration.PJ_LOG_HAS_NEWLINE.swigValue()));*/
         log_cfg.setDecor(log_cfg.getDecor() &
                 ~(pj_log_decoration.PJ_LOG_HAS_CR |
                         pj_log_decoration.PJ_LOG_HAS_NEWLINE));
@@ -157,11 +140,8 @@ public class VoipApp {
         /* Set ua config. */
         UaConfig ua_cfg = epConfig.getUaConfig();
         ua_cfg.setUserAgent("Pjsua2 Android " + ep.libVersion().getFull());
+        // No endpoint STUN servers configured — intentional. See addAcc() NAT comment.
         StringVector stun_servers = new StringVector();
-        //stun_servers.add("stun.pjsip.org"); //Do not use stun.pjsip.org in production — it's a community server with no uptime guarantee.
-        stun_servers.add("stun.l.google.com:19302");  // Google's STUN, very reliable
-        stun_servers.add("stun1.l.google.com:19302"); // fallback
-        ua_cfg.setStunServer(stun_servers);           // ← UNCOMMENT AND FIX THIS
         if (own_worker_thread) {
             ua_cfg.setThreadCnt(0);
             ua_cfg.setMainThreadOnly(true);
@@ -184,19 +164,12 @@ public class VoipApp {
             //System.out.println(e);
         }
 
-	/*try {
-	    ep.transportCreate(pjsip_transport_type_e.PJSIP_TRANSPORT_TCP,
-			       sipTpConfig);
-	} catch (Exception e) {
-	    System.out.println(e);
-	}*/
-
         /* Create accounts. */
         for (int i = 0; i < accCfgs.size(); i++) {
             MyAccountConfig my_cfg = accCfgs.get(i);
 
             /* Customize account config */
-            my_cfg.accCfg.getNatConfig().setIceEnabled(true);
+            my_cfg.accCfg.getNatConfig().setIceEnabled(false);
             my_cfg.accCfg.getVideoConfig().setAutoTransmitOutgoing(true);
             my_cfg.accCfg.getVideoConfig().setAutoShowIncoming(true);
 
@@ -222,10 +195,13 @@ public class VoipApp {
     }
 
     public MyAccount addAcc(AccountConfig cfg) {
-        // Force NAT config before creating account
-        cfg.getNatConfig().setIceEnabled(true);
-        cfg.getNatConfig().setSipStunUse(pjsua_stun_use.PJSUA_STUN_USE_DEFAULT);
-        cfg.getNatConfig().setMediaStunUse(pjsua_stun_use.PJSUA_STUN_USE_DEFAULT);
+        // NAT strategy: no STUN, no ICE. The carrier's symmetric CGNAT makes
+        // STUN-discovered addresses invalid toward the PBX; we rely on the
+        // server's rport + symmetric-RTP latching instead. Verified working
+        // on mobile data 2026-07. Do NOT re-enable without re-testing on SIM data.
+        cfg.getNatConfig().setIceEnabled(false);
+        cfg.getNatConfig().setSipStunUse(pjsua_stun_use.PJSUA_STUN_USE_DISABLED);
+        cfg.getNatConfig().setMediaStunUse(pjsua_stun_use.PJSUA_STUN_USE_DISABLED);
 
         MyAccount acc = new MyAccount(cfg);
         try {
