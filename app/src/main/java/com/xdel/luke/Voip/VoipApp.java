@@ -8,6 +8,7 @@ import com.xdel.luke.objClasses.objGlobalMethods;
 
 import org.pjsip.pjsua2.AccountConfig;
 import org.pjsip.pjsua2.BuddyConfig;
+import org.pjsip.pjsua2.CodecInfoVector2;
 import org.pjsip.pjsua2.ContainerNode;
 import org.pjsip.pjsua2.Endpoint;
 import org.pjsip.pjsua2.EpConfig;
@@ -209,6 +210,28 @@ public class VoipApp {
             String s = e.getMessage().toString();
             objGlobalMethods.writeToFile("Exception at VoipApp init ep.libStart(). Exception: " + e.getMessage().toString(),"","","","");
             return;
+        }
+
+        /* Prune codecs: a smaller SDP keeps the INVITE in a single UDP packet
+         * (unfragmented), which materially reduces lost-INVITE/late-ringback
+         * on lossy mobile links. Keep only what the PBX actually uses. */
+        try {
+            CodecInfoVector2 codecs = ep.codecEnum2();
+            for (int i = 0; i < codecs.size(); i++) {
+                String id = codecs.get(i).getCodecId();
+                //objGlobalMethods.writeToFile("Codec available: " + id, "", "", "", "");
+                if (id.startsWith("opus")) {
+                    ep.codecSetPriority(id, (short) 255);   // 1st choice: loss-tolerant, low bandwidth
+                } else if (id.startsWith("PCMU")) {
+                    ep.codecSetPriority(id, (short) 200);   // universal fallback
+                } else if (id.startsWith("PCMA")) {
+                    ep.codecSetPriority(id, (short) 199);
+                } else {
+                    ep.codecSetPriority(id, (short) 0);     // disabled, removed from SDP
+                }
+            }
+        } catch (Exception e) {
+            objGlobalMethods.writeToFile("Exception pruning codecs. Exception: " + e.getMessage(), "", "", "", "");
         }
     }
 

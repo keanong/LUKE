@@ -10,6 +10,7 @@ import org.pjsip.pjsua2.CallMediaInfoVector;
 import org.pjsip.pjsua2.Media;
 import org.pjsip.pjsua2.OnCallMediaStateParam;
 import org.pjsip.pjsua2.OnCallStateParam;
+import org.pjsip.pjsua2.StreamInfo;
 import org.pjsip.pjsua2.VideoPreview;
 import org.pjsip.pjsua2.VideoWindow;
 import org.pjsip.pjsua2.pjmedia_type;
@@ -64,6 +65,13 @@ public class MyCall extends Call
                             cmi.getStatus() ==
                                     pjsua_call_media_status.PJSUA_CALL_MEDIA_REMOTE_HOLD))
             {
+                try {
+                    StreamInfo si = getStreamInfo(i);
+                    objGlobalMethods.writeToFile("Codec in use: " + si.getCodecName() + "/" + si.getCodecClockRate(), "", "", "", "");
+                } catch (Exception e) {
+                    // stats unavailable; not critical
+                }
+
                 // unfortunately, on Java too, the returned Media cannot be
                 // downcasted to AudioMedia
                 Media m = getMedia(i);
