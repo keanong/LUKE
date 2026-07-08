@@ -262,8 +262,9 @@ public class CallActivity extends Activity
         super.onPause();
         try {
             JobInfoActivity.mSensorManager.unregisterListener(this);
-            if (bluetooth_Device_Detector_BC != null) {
+            if (btReceiverRegistered && bluetooth_Device_Detector_BC != null) {
                 unregisterReceiver(bluetooth_Device_Detector_BC);
+                btReceiverRegistered = false;
             }
             try {
                 if (screenShotContentObserver != null)
@@ -361,8 +362,9 @@ public class CallActivity extends Activity
         super.onDestroy();
         handler_ = null;
         try {
-            if (bluetooth_Device_Detector_BC != null) {
+            if (btReceiverRegistered && bluetooth_Device_Detector_BC != null) {
                 unregisterReceiver(bluetooth_Device_Detector_BC);
+                btReceiverRegistered = false;
             }
             try {
                 if (screenShotContentObserver != null)

@@ -8692,12 +8692,6 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 accCfg.getVideoConfig().setAutoShowIncoming(true);
             }
 
-            AuthCredInfoVector creds = accCfg.getSipConfig().
-                    getAuthCreds();
-            creds.clear();
-            creds.add(new AuthCredInfo("Digest", "*", ext, 0,
-                    "XD3xtpa$$"));
-
             try {
                 account.modify(accCfg);
             } catch (Exception e) {
