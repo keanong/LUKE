@@ -1,6 +1,5 @@
 package com.xdel.luke.Voip;
 
-import android.net.Uri;
 import android.util.Log;
 
 import com.xdel.luke.JobInfoActivity;
@@ -14,14 +13,12 @@ import org.pjsip.pjsua2.Endpoint;
 import org.pjsip.pjsua2.EpConfig;
 import org.pjsip.pjsua2.JsonDocument;
 import org.pjsip.pjsua2.LogConfig;
-import org.pjsip.pjsua2.StringVector;
 import org.pjsip.pjsua2.TransportConfig;
 import org.pjsip.pjsua2.UaConfig;
 import org.pjsip.pjsua2.pj_log_decoration;
 import org.pjsip.pjsua2.pjsip_transport_type_e;
 import org.pjsip.pjsua2.pjsua_stun_use;
 
-import java.io.File;
 import java.util.ArrayList;
 
 
@@ -141,7 +138,7 @@ public class VoipApp {
         UaConfig ua_cfg = epConfig.getUaConfig();
         ua_cfg.setUserAgent("Pjsua2 Android " + ep.libVersion().getFull());
         // No endpoint STUN servers configured — intentional. See addAcc() NAT comment.
-        StringVector stun_servers = new StringVector();
+
         if (own_worker_thread) {
             ua_cfg.setThreadCnt(0);
             ua_cfg.setMainThreadOnly(true);
