@@ -161,6 +161,20 @@ public class VoipApp {
             //System.out.println(e);
         }
 
+        /* TCP transport. Creating it does NOT move traffic to TCP —
+         * accounts continue to use UDP unless a SIP URI carries
+         * ;transport=tcp. This only makes TCP available as an option.
+         * Uses its own TransportConfig (not sipTpConfig) so UDP and TCP
+         * each get their own OS-assigned port. */
+        /*try {
+            TransportConfig tcpTpConfig = new TransportConfig();
+            tcpTpConfig.setPort(0); // OS-assigned port, same policy as UDP
+            ep.transportCreate(pjsip_transport_type_e.PJSIP_TRANSPORT_TCP,
+                    tcpTpConfig);
+        } catch (Exception e) {
+            objGlobalMethods.writeToFile("Exception at VoipApp init ep.transportCreate TCP. Exception: " + e.getMessage().toString() + ". Stack:\n" + JobsHandler.getStackTraceString(e),"","","","");
+        }*/
+
         /* Create accounts. */
         for (int i = 0; i < accCfgs.size(); i++) {
             MyAccountConfig my_cfg = accCfgs.get(i);

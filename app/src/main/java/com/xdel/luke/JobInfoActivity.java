@@ -8670,6 +8670,13 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 accCfg.getNatConfig().setIceEnabled(false);
                 accCfg.getVideoConfig().setAutoTransmitOutgoing(true);
                 accCfg.getVideoConfig().setAutoShowIncoming(true);
+
+                // Credentials BEFORE account creation, so the first REGISTER
+                // can answer the 401 challenge internally.
+                AuthCredInfoVector creds = accCfg.getSipConfig().getAuthCreds();
+                creds.clear();
+                creds.add(new AuthCredInfo("Digest", "*", ext, 0, "XD3xtpa$$"));
+
                 account = app.addAcc(accCfg);
             } else {
                 //objGlobalMethods.writeToFile("app.accList.size() is > 0 at JobInfoActivity at regVOIP.", "", "", "", "");
@@ -8755,7 +8762,15 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
             objGlobalMethods.writeToFile("Exception at JobInfoActivity returnCallActivity. Exception: " + s, "", "", "", "");
         }
     }
-
+    // ---- Pending-call gating: call is placed only after SIP registration succeeds ----
+    private String pendingCallTel = null;
+    private String pendingCallJobsIDX = null;
+    private String pendingCallExt = null;
+    private boolean pendingCallOfc = false;
+    private View pendingCallView = null;
+    private final Handler regTimeoutHandler = new Handler(Looper.getMainLooper());
+    private Runnable regTimeoutRunnable = null;
+    private static final int REG_TIMEOUT_MS = 15000;
     public final Handler handlerVoip = new Handler(this);
 
     public class MSG_TYPE {
@@ -8790,8 +8805,17 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                     m2.sendToTarget();
                 }
             } else if (m.what == MSG_TYPE.REG_STATE) {
+                /*String msg_str = (String) m.obj;
+                lastRegStatus = msg_str;*/
+
                 String msg_str = (String) m.obj;
                 lastRegStatus = msg_str;
+                objGlobalMethods.writeToFile("RegState: " + msg_str + " (code " + m.arg1 + ", exp " + m.arg2 + ")", "", "", "", "");
+                if (m.arg1 / 100 == 2 && m.arg2 > 0) {
+                    // 2xx AND not an unregistration -> account is registered
+                    placePendingCall();
+                }
+                // Non-2xx: do nothing here; the 15s timeout is the terminal failure path.
             } else if (m.what == MSG_TYPE.INCOMING_CALL) {
                 /* Incoming call */
                 final MyCall call = (MyCall) m.obj;
@@ -8840,7 +8864,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
         }
     }
 
-    /*public void notifyRegState(pjsip_status_code code, String reason, int expiration) {
+    /*public void notifyRegState(int code, String reason, long expiration) {
         try {
             String msg_str = "";
             if (expiration == 0)
@@ -8848,7 +8872,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
             else
                 msg_str += "Registration";
 
-            if (code.swigValue() / 100 == 2)
+            if (code / 100 == 2)
                 msg_str += " successful";
             else
                 msg_str += " failed: " + reason;
@@ -8874,6 +8898,8 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 msg_str += " failed: " + reason;
 
             Message m = Message.obtain(handlerVoip, MSG_TYPE.REG_STATE, msg_str);
+            m.arg1 = code;                // SIP status code (e.g. 200, 401, 408)
+            m.arg2 = (int) expiration;    // 0 = unregistration
             m.sendToTarget();
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception at JobInfoActivity notifyRegState. Exception: " + e.getMessage().toString(), "", "", "", "");
@@ -9126,6 +9152,119 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
         }
     }
 
+    private void handleVoipCallFailure(String JobsIDX, String tel, String ext,
+                                       boolean callOfc, View v, String allpinglog) {
+        try {
+            GcmPreferences = objGlobalMethods.getGcmPreferences();
+            UpdateJobInfoPreferences = objGlobalMethods.getUpdateJobInfoPreferences();
+
+            String timestampstr = objGlobalMethods.rtntimestampstr();
+            Location lastknownlocation = objGlobalMethods.getLastKnownLocationForJobUpdate();
+            int Accuracy = Math.round(lastknownlocation.getAccuracy() * 100);
+            String RegID = objGlobalMethods.getRegistrationIdOnly();
+            String callLog = objGlobalMethods.composeCallLog(allpinglog, "Unable to call out to " + tel + " using ext" + ext + ". Connection issue.");
+
+            if (!callOfc) {
+                JobsHandler.addUpdateJobInfoCallLogsQueALPrefs(UpdateJobInfoPreferences, RegID, Long.parseLong(JobsIDX), 388, timestampstr, callLog, "",
+                        lastknownlocation.getLatitude(), lastknownlocation.getLongitude(), Accuracy, "");
+                objGlobalMethods.writeToFile(callLog, "JobsIDX: " + String.valueOf(JobsIDX), "Submitted StatusCodeIDX: " + String.valueOf(388), "", "");
+                submitSQLite(Long.parseLong(JobsIDX), 388, GcmPreferences, UpdateJobInfoPreferences);
+                catType = objGlobalMethods.getDashboard2ActivityCategoryType(GcmPreferences);
+                DAO_Jobs.insertCallLog(tel, new Date().getTime(), catType, true, false);
+                String AllValidTelNums = objGlobalMethods.getGCMPrefs(GcmPreferences, "AllValidTelNums");
+                if (!objGlobalMethods.IsEmptyString(AllValidTelNums)) {
+                    setFailStatusActivity.CheckReqCallLogImg2(AllValidTelNums);
+                } else {
+                    setFailStatusActivity.CheckReqCallLogImg2(tel);
+                }
+                JobInfoActivity.maskContactNum = !JobsHandler2.canShowFullContactNumber(GcmPreferences);
+                if (!(new ConnectionDetector(null).isConnectingToInternet()))
+                    JobInfoActivity.maskContactNum = false;
+                JobInfoActivity.maskContactNum = false; // forcefully added here until further notice (by boss)
+                //unmaskTelInJobInfoActivity();
+                JobsHandler.AddRemoveClearObjCallback(GcmPreferences, lblJobNoVal.getText().toString(), AllValidTelNums, false);
+            }
+
+            try {
+                TextView lbl = (TextView) v;
+                lbl.setTextColor(getResources().getColor(R.color.black));
+            } catch (Exception e) {
+                objGlobalMethods.writeToFile("Exception at JobInfoActivity ConnectingVOIP onPostExecute change textcolor. Exception: " + e.getMessage().toString(), "", "", "", "");
+            }
+            showDialog(myApp.getAppContext().getString(R.string.nonetworknocall2));
+        } catch (Exception e) {
+            objGlobalMethods.writeToFile("Exception at handleVoipCallFailure. Exception: " + e.getMessage() + "\nStack:\n" + JobsHandler.getStackTraceString(e), "", "", "", "");
+        }
+    }
+
+    private void placePendingCall() {
+        try {
+            if (pendingCallTel == null) return;   // no call waiting (e.g. periodic re-registration)
+            if (regTimeoutRunnable != null) {
+                regTimeoutHandler.removeCallbacks(regTimeoutRunnable);
+                regTimeoutRunnable = null;
+            }
+            final String tel = pendingCallTel;
+            final String JobsIDX = pendingCallJobsIDX;
+            final String ext = pendingCallExt;
+            final boolean callOfc = pendingCallOfc;
+            final View v = pendingCallView;
+            pendingCallTel = null;
+            pendingCallJobsIDX = null;
+            pendingCallExt = null;
+            pendingCallView = null;
+
+            if (pdvoip != null) {
+                pdvoip.dismiss();
+            }
+
+            String buddy_uri = "sip:" + tel + "@v.xdel.com:5060";
+            MyCall call = new MyCall(account, -1);
+            CallOpParam prm = new CallOpParam(true);
+            try {
+                call.makeCall(buddy_uri, prm);
+            } catch (Exception e) {
+                call.delete();
+                objGlobalMethods.writeToFile("Exception at placePendingCall call.makeCall. Exception: " + e.getMessage() + "\nStack:\n" + JobsHandler.getStackTraceString(e), "", "", "", "");
+                handleVoipCallFailure(JobsIDX, tel, ext, callOfc, v, "");
+                return;
+            }
+
+            currentCall = call;
+            GcmPreferences = objGlobalMethods.getGcmPreferences();
+            String AllValidTelNums = objGlobalMethods.getGCMPrefs(GcmPreferences, "AllValidTelNums");
+            JobsHandler.AddRemoveClearObjCallback(GcmPreferences, lblJobNoVal.getText().toString(), AllValidTelNums, false);
+            objGlobalMethods.setGCMPrefs(GcmPreferences, "callOfc", callOfc ? "y" : "");
+            showCallActivity(JobsIDX, tel, ext);
+        } catch (Exception e) {
+            objGlobalMethods.writeToFile("Exception at placePendingCall. Exception: " + e.getMessage() + "\nStack:\n" + JobsHandler.getStackTraceString(e), "", "", "", "");
+        }
+    }
+
+    private void onRegTimeout(String allpinglog) {
+        try {
+            if (pendingCallTel == null) return;   // call already placed; nothing to do
+            objGlobalMethods.writeToFile("SIP registration timed out after " + REG_TIMEOUT_MS + "ms. Last reg status: " + lastRegStatus, "", "", "", "");
+            final String tel = pendingCallTel;
+            final String JobsIDX = pendingCallJobsIDX;
+            final String ext = pendingCallExt;
+            final boolean callOfc = pendingCallOfc;
+            final View v = pendingCallView;
+            pendingCallTel = null;
+            pendingCallJobsIDX = null;
+            pendingCallExt = null;
+            pendingCallView = null;
+            regTimeoutRunnable = null;
+
+            if (pdvoip != null) {
+                pdvoip.dismiss();
+            }
+            handleVoipCallFailure(JobsIDX, tel, ext, callOfc, v, allpinglog);
+        } catch (Exception e) {
+            objGlobalMethods.writeToFile("Exception at onRegTimeout. Exception: " + e.getMessage(), "", "", "", "");
+        }
+    }
+
     private class ConnectingVOIP extends AsyncTask<Void, Void, String> {
         private final String JobsIDX;
         private final String tel;
@@ -9217,7 +9356,47 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
         @Override
         //Once WebService returns response
         protected void onPostExecute(final String ext) {
-            boolean asd = false;
+            GcmPreferences = objGlobalMethods.getGcmPreferences();
+            UpdateJobInfoPreferences = objGlobalMethods.getUpdateJobInfoPreferences();
+            try {
+                if (ext != null && !ext.isEmpty()) {
+                    objGlobalMethods.writeToFile("Attempt to call " + tel + " using ext " + ext + ". Registering SIP account first.", "", "", "", "");
+
+                    // Stash the call; it is placed in placePendingCall() once
+                    // registration succeeds (handleMessage REG_STATE 2xx).
+                    pendingCallTel = tel;
+                    pendingCallJobsIDX = JobsIDX;
+                    pendingCallExt = ext;
+                    pendingCallOfc = callOfc;
+                    pendingCallView = v;
+
+                    regVOIP(ext);   // async: result arrives via notifyRegState
+
+                    regTimeoutRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            onRegTimeout(allpinglog);
+                        }
+                    };
+                    regTimeoutHandler.postDelayed(regTimeoutRunnable, REG_TIMEOUT_MS);
+                    // NOTE: pdvoip is intentionally NOT dismissed here — the spinner
+                    // stays up until placePendingCall() or onRegTimeout().
+                } else {
+                    if (pdvoip != null) {
+                        pdvoip.dismiss();
+                    }
+                    objGlobalMethods.writeToFile("GetVoIPExtension return null or empty. Unable to call out.", "", "", "", "");
+                    handleVoipCallFailure(JobsIDX, tel, ext, callOfc, v, allpinglog);
+                }
+            } catch (Exception e) {
+                String s = JobsHandler.getStackTraceString(e);
+                objGlobalMethods.writeToFile("Exception at JobInfoActivity ConnectingVOIP onPostExecute. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
+                if (pdvoip != null) {
+                    pdvoip.dismiss();
+                }
+                handleVoipCallFailure(JobsIDX, tel, ext, callOfc, v, allpinglog);
+            }
+            /*boolean asd = false;
             boolean asd2 = false;
             GcmPreferences = objGlobalMethods.getGcmPreferences();
             UpdateJobInfoPreferences = objGlobalMethods.getUpdateJobInfoPreferences();
@@ -9251,7 +9430,6 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 }
 
                 if (asd) {
-                    //cc += 1;
                     String AllValidTelNums = objGlobalMethods.getGCMPrefs(GcmPreferences, "AllValidTelNums");
                     JobsHandler.AddRemoveClearObjCallback(GcmPreferences, lblJobNoVal.getText().toString(), AllValidTelNums, false);
                     objGlobalMethods.setGCMPrefs(GcmPreferences, "callOfc", callOfc ? "y" : "");
@@ -9279,8 +9457,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                         JobInfoActivity.maskContactNum = !JobsHandler2.canShowFullContactNumber(GcmPreferences);
                         if (!(new ConnectionDetector(null).isConnectingToInternet()))
                             JobInfoActivity.maskContactNum = false;
-                        JobInfoActivity.maskContactNum = false; // forcefully added here until further notice (by boss)
-                        //unmaskTelInJobInfoActivity();
+                        JobInfoActivity.maskContactNum = false;
                         JobsHandler.AddRemoveClearObjCallback(GcmPreferences, lblJobNoVal.getText().toString(), AllValidTelNums, false);
                     }
 
@@ -9317,8 +9494,7 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                         JobInfoActivity.maskContactNum = !JobsHandler2.canShowFullContactNumber(GcmPreferences);
                         if (!(new ConnectionDetector(null).isConnectingToInternet()))
                             JobInfoActivity.maskContactNum = false;
-                        JobInfoActivity.maskContactNum = false; // forcefully added here until further notice (by boss)
-                        //unmaskTelInJobInfoActivity();
+                        JobInfoActivity.maskContactNum = false;
                         JobsHandler.AddRemoveClearObjCallback(GcmPreferences, lblJobNoVal.getText().toString(), AllValidTelNums, false);
                     } catch (Exception ex) {
                         String ss = JobsHandler.getStackTraceString(ex);
@@ -9327,9 +9503,8 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 }
                 DAO_Jobs.insertCallLog(tel, new Date().getTime(), catType, true, false);
                 setFailStatusActivity.CheckReqCallLogImg2(tel);
-                //JobInfoActivity.maskContactNum = !JobsHandler2.canShowFullContactNumber(GcmPreferences);
                 showDialog(myApp.getAppContext().getString(R.string.voiperr_restart));
-            }
+            }*/
         }
 
     }

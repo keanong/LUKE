@@ -149,6 +149,7 @@ public class CallActivity extends Activity
     objCallStatusHashmapList CallStatusHashmapList;
     private WindowManager wm;
     private PowerManager pm;
+    private boolean btReceiverRegistered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -405,8 +406,9 @@ public class CallActivity extends Activity
     protected void onStop() {
         super.onStop();
         try {
-            if (bluetooth_Device_Detector_BC != null) {
+            if (btReceiverRegistered && bluetooth_Device_Detector_BC != null) {
                 unregisterReceiver(bluetooth_Device_Detector_BC);
+                btReceiverRegistered = false;
             }
         } catch (Exception e) {
             bluetooth_Device_Detector_BC = null;
@@ -1131,6 +1133,7 @@ public class CallActivity extends Activity
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED);
             registerReceiver(bluetooth_Device_Detector_BC, intentFilter);
+            btReceiverRegistered = true;
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception at CallActivity init_bluetooth_device_detection. Exception: " + e.getMessage(), "", "", "", "");
         }
