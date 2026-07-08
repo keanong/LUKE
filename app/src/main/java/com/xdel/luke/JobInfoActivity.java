@@ -8690,16 +8690,21 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
                 accCfg.getNatConfig().setIceEnabled(false);
                 accCfg.getVideoConfig().setAutoTransmitOutgoing(true);
                 accCfg.getVideoConfig().setAutoShowIncoming(true);
-            }
 
-            try {
-                account.modify(accCfg);
-            } catch (Exception e) {
-                String s = e.getMessage().toString();
-                objGlobalMethods.writeToFile("Unable to register sip account. Exception: " + e.getMessage().toString(), "", "", "", "");
+                AuthCredInfoVector creds = accCfg.getSipConfig().getAuthCreds();
+                creds.clear();
+                creds.add(new AuthCredInfo("Digest", "*", ext, 0, "XD3xtpa$$"));
+
+                try {
+                    account.modify(accCfg);
+                } catch (Exception e) {
+                    String s = e.getMessage().toString();
+                    objGlobalMethods.writeToFile("Unable to register sip account. Exception: " + e.getMessage().toString(), "", "", "", "");
+                }
             }
         } catch (Exception e) {
-            String s = e.getMessage().toString();
+            String s = JobsHandler.getStackTraceString(e);
+            objGlobalMethods.writeToFile("Unable to register sip account. Exception: " + e.getMessage().toString() + "\nStack: " + s, "", "", "", "");
         }
     }
 

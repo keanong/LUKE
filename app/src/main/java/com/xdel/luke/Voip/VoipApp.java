@@ -161,11 +161,18 @@ public class VoipApp {
             //System.out.println(e);
         }
 
+        /* Do NOT create a TCP transport here. pjsip auto-switches any request
+         * larger than ~1300 bytes (i.e. every INVITE with SDP) to TCP per
+         * RFC 3261 sec 18.1.1 when a TCP transport exists — and the PBX does not
+         * accept TCP on 5060. Tested 2026-07-08: with TCP created, REGISTER (small,
+         * stays UDP) succeeded but INVITEs vanished and calls never rang. UDP only. */
+
         /* TCP transport. Creating it does NOT move traffic to TCP —
          * accounts continue to use UDP unless a SIP URI carries
          * ;transport=tcp. This only makes TCP available as an option.
          * Uses its own TransportConfig (not sipTpConfig) so UDP and TCP
          * each get their own OS-assigned port. */
+
         /*try {
             TransportConfig tcpTpConfig = new TransportConfig();
             tcpTpConfig.setPort(0); // OS-assigned port, same policy as UDP
