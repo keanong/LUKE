@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xdel.luke"
-    android:versionCode="506"
-    android:versionName="5.0.6">
+    android:versionCode="507"
+    android:versionName="5.0.7">
     <!-- <uses-sdk android:targetSdkVersion="28" /> -->
     <!--
         <uses-sdk

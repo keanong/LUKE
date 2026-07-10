@@ -233,6 +233,16 @@ public class VoipApp {
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception pruning codecs. Exception: " + e.getMessage(), "", "", "", "");
         }
+
+        /* Audio-only app: disable all video codecs globally. */
+        try {
+            CodecInfoVector2 vcodecs = ep.videoCodecEnum2();
+            for (int i = 0; i < vcodecs.size(); i++) {
+                ep.videoCodecSetPriority(vcodecs.get(i).getCodecId(), (short) 0);
+            }
+        } catch (Exception e) {
+            objGlobalMethods.writeToFile("Exception disabling video codecs. Exception: " + e.getMessage(), "", "", "", "");
+        }
     }
 
     public MyAccount addAcc(AccountConfig cfg) {

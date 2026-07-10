@@ -9220,6 +9220,16 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
             String buddy_uri = "sip:" + tel + "@v.xdel.com:5060";
             MyCall call = new MyCall(account, -1);
             CallOpParam prm = new CallOpParam(true);
+            // Audio-only: no video m-line in the SDP. Prevents PJ_ETOOBIG when a
+            // device's H.264 hardware-encoder fmtp exceeds pjmedia's 160-byte
+            // buffer (seen 2026-07-09), and further shrinks the INVITE.
+            prm.getOpt().setAudioCount(1);
+            prm.getOpt().setVideoCount(0);
+            try {
+                java.io.File[] fdList = new java.io.File("/proc/self/fd").listFiles();
+                objGlobalMethods.writeToFile("Open FD count before makeCall: " + (fdList == null ? -1 : fdList.length), "", "", "", "");
+            } catch (Exception ignore) { }
+
             try {
                 call.makeCall(buddy_uri, prm);
             } catch (Exception e) {
