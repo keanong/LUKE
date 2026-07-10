@@ -9220,9 +9220,11 @@ public class JobInfoActivity extends AppCompatActivity implements Handler.Callba
             String buddy_uri = "sip:" + tel + "@v.xdel.com:5060";
             MyCall call = new MyCall(account, -1);
             CallOpParam prm = new CallOpParam(true);
-            // Audio-only: no video m-line in the SDP. Prevents PJ_ETOOBIG when a
-            // device's H.264 hardware-encoder fmtp exceeds pjmedia's 160-byte
-            // buffer (seen 2026-07-09), and further shrinks the INVITE.
+            // Audio-only: no video m-line in the SDP. Halves the media sockets
+            // created at makeCall (2 instead of 4), which mitigates PJ_ETOOBIG
+            // when the process is near the select() FD_SETSIZE=1024 limit
+            // (root cause of intermittent makeCall failures, dx 2026-07-09),
+            // and shrinks the INVITE.
             prm.getOpt().setAudioCount(1);
             prm.getOpt().setVideoCount(0);
             try {
