@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public static int uponLogin;
     private String prevLoginUserName = "";
     private String prevLoginUserIDX = "";
-    private String akinori_download_link = "http://akinori.xdel.com/app-debug.apk";
+    private String akinori_download_link = "https://akinori.xdel.com/app-debug.apk";
     private ImageView imgLogo;
     private String imgLogoLongClickPwd = "XDel9911";
 
