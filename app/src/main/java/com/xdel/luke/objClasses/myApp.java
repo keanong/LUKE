@@ -39,6 +39,8 @@ import com.xdel.luke.MapsAllActivity;
 import com.xdel.luke.Messaging;
 import com.xdel.luke.Messaginglist;
 import com.xdel.luke.R;
+import com.xdel.luke.Rooting.RootActivityGuard;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.messagingClasses.NativeLoader;
 
 import java.security.KeyManagementException;
@@ -70,6 +72,11 @@ public class myApp extends Application {
         myApp.context = getApplicationContext(); // this is activity context, tied to lifecycle of the activity , replace in all activities' onCreate/onResume using setAppContext
         myApp.appContext = getApplicationContext(); // this is tied to lifecycle of the application
         Instance = this;
+        RootGuard.init(this);
+        if (!RootActivityGuard.register(this)) {
+            //fail closed: a blocked process without the activity guard must not start normally
+            throw new IllegalStateException("RootGuard: process is blocked but the activity guard could not be registered.");
+        }
         applicationHandler = new Handler(getInstance().getMainLooper());
         createNotificationChannel();
         createNotificationChannelPIP();
@@ -110,6 +117,7 @@ public class myApp extends Application {
             String s = JobsHandler.getStackTraceString(e);
             objGlobalMethods.writeToFile("Exception at myApp onCreate OpenSSL. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
         }
+        com.xdel.luke.debugtools.DebugTestHooks.install(this);
     }
 
     private void createNotificationChannel() {

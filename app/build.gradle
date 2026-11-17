@@ -46,6 +46,10 @@ android {
         buildConfigField "String[]", "LOCALES", '{"' + supportedLocales.collect {
             resToLoc(it)
         }.join('","') + '"}'
+        //root detection enforcement, see Rooting/RootGuard.java
+        //false = logging-only pilot: root indicators are logged, the app is not blocked
+        //set to "true" only for the approved enforcement release
+        buildConfigField "boolean", "ROOT_ENFORCE", "false"
 
         /*jackOptions {
             enabled true
@@ -156,6 +160,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    testImplementation 'junit:junit:4.12'
 
     //passport reader section
     implementation 'org.jmrtd:jmrtd:0.7.18'
@@ -164,6 +169,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.0.0'
 
     //passport reader section
+
+    //root detection, see Rooting/RootGuard.java
+    implementation 'com.scottyab:rootbeer-lib:0.1.2'
 
 }
 

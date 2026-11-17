@@ -14,6 +14,7 @@ import android.os.IBinder;
 import com.google.gson.Gson;
 import com.xdel.luke.BackendRun_BroadcastReceiver;
 import com.xdel.luke.JobsHandler;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.WebService;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
@@ -94,6 +95,10 @@ public class WifiService extends Service {
 
         @Override
         protected Void doInBackground(Void... params) {
+            //R6: no HQ Wi-Fi check while RootGuard blocks this process, so no ReportHQ/LeaveHQ is queued and wifistate is unchanged
+            if (RootGuard.blockOperation("WifiService.updateHQasync", null)) {
+                return null;
+            }
             Boolean isConnectedToXDelWifi = false;
             SharedPreferences gcmp = objGlobalMethods.getGcmPreferences();
             String bssidorMac = "";

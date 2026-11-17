@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
 
@@ -19,6 +20,11 @@ public class changeOfJobInfoDetails_IntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        //R6: keep storededitedJobsIDXJsonStr and the running flag untouched while RootGuard blocks this process
+        if (RootGuard.blockOperation("changeOfJobInfoDetails_IntentService.onHandleIntent", null)) {
+            changeOfJobInfoDetails_BroadcastReceiver.completeWakefulIntent(intent);
+            return;
+        }
         Date dt = new Date();
         Long[] storededitedJobsIDXAL = null;
         SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();

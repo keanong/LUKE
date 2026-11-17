@@ -43,6 +43,7 @@ import com.xdel.luke.JobScheduler.objLeaveHQ;
 import com.xdel.luke.JobScheduler.objReportHQ;
 import com.xdel.luke.Locker.L2_LA_GetUserResult;
 import com.xdel.luke.PieceByPiecePU.SQItem;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.ShpmtVerification.ShpmtVActivity;
 import com.xdel.luke.Voip.CallActivity;
 import com.xdel.luke.Vrp.JobQueue;
@@ -6520,6 +6521,10 @@ public class JobsHandler {
         //17. processUpdateDO2
         //18. ResyncWholeListOrNot
         //19. End of Resync
+        //R6: return before the connectivity check, so a blocked process neither processes queues nor re-arms the 15s retry counter
+        if (RootGuard.blockOperation("JobsHandler.backendRun", null)) {
+            return;
+        }
         try {
             //cd = new ConnectionDetector(myApp.getAppContext());
             cd = new ConnectionDetector(null);
@@ -8856,6 +8861,10 @@ public class JobsHandler {
 
     public static void doubleCheckUpdatePIPSQLiteNew(SharedPreferences gcmPref, SharedPreferences aUpdateJobInfoPreferences,
                                                      String aregid, String ausername, String auseridx) {
+        //R6: prevent local job-status queue updates while RootGuard blocks this process
+        if (RootGuard.blockOperation("JobsHandler.doubleCheckUpdatePIPSQLiteNew", null)) {
+            return;
+        }
         Gson gson = new Gson();
         objJobInfo[] JobInfoPIPAL = null;
         objJobInfo jobinfo;
@@ -9625,7 +9634,7 @@ public class JobsHandler {
                 if (attachment.exists()) {
                     attachmentfilename = attachment.getAbsolutePath().toString();
                     if (!attachmentfilename.equals("")) {
-                        //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
                         Mail m = new Mail("luke@xdel.com", "XDel2015");
                         objGlobalMethods.sendEmail sendmail = new objGlobalMethods.sendEmail(m, attachmentfilename, "", "Luke report from " + username + ".", attachment);
                         sendmail.execute();
@@ -13105,7 +13114,7 @@ public class JobsHandler {
                 if (attachment.exists()) {
                     attachmentfilename = attachment.getAbsolutePath().toString();
                     if (!attachmentfilename.equals("")) {
-                        //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
                         Mail m = new Mail("luke@xdel.com", "XDel2015");
                         objGlobalMethods.sendEmail3(m, attachmentfilename, "Luke report from " + username + ", Version: " + versionname, "", attachment);
                     }
@@ -13630,7 +13639,7 @@ public class JobsHandler {
     }
 
     public static void sendErrorEmail(String mailbody) {
-        //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
         Mail m = new Mail("luke@xdel.com", "XDel2015");
         Date dt = new Date();
         //SimpleDateFormat formatter2 = new SimpleDateFormat("ddMMyyyy h:mm:ss a");
@@ -13641,7 +13650,7 @@ public class JobsHandler {
     }
 
     public static void sendShuttingDownEmail(String mailbody) {
-        //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
         Mail m = new Mail("luke@xdel.com", "XDel2015");
         Date dt = new Date();
         //SimpleDateFormat formatter2 = new SimpleDateFormat("ddMMyyyy h:mm:ss a");
@@ -13652,7 +13661,7 @@ public class JobsHandler {
     }
 
     public static void sendExceptionEmail(String mailbody) {
-        //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
         Mail m = new Mail("luke@xdel.com", "XDel2015");
         Date dt = new Date();
         //SimpleDateFormat formatter2 = new SimpleDateFormat("ddMMyyyy h:mm:ss a");
@@ -13664,7 +13673,7 @@ public class JobsHandler {
 
     public static void sendNormalEmailWithAttachments(String subj, String mailbody, File amyFile) {
         try {
-            //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
             Mail m = new Mail("luke@xdel.com", "XDel2015");
             Date dt = new Date();
             //SimpleDateFormat formatter2 = new SimpleDateFormat("ddMMyyyy h:mm:ss a");
@@ -14238,6 +14247,10 @@ public class JobsHandler {
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     public static void processCODJobs() {
+        //R6: no COD refresh while RootGuard blocks this process, so the stored COD list and total are not cleared
+        if (RootGuard.blockOperation("JobsHandler.processCODJobs", null)) {
+            return;
+        }
         Date dt = new Date();
         SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
         String regid = objGlobalMethods.getRegistrationId(null, GcmPreferences);
@@ -15093,6 +15106,10 @@ public class JobsHandler {
     }
 
     public static String getThrowableStackTraceString(Throwable ex) {
+        //R6: a null Throwable, such as the cause of an exception without one, must not throw here
+        if (ex == null) {
+            return "";
+        }
         StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw));
         String exceptionAsString = "";

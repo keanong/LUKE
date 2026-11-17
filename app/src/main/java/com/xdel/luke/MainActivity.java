@@ -69,6 +69,7 @@ import com.xdel.luke.FileReader.fileReader;
 import com.xdel.luke.HRM.ChangePwdActivity;
 import com.xdel.luke.HRM.ProfileActivity;
 import com.xdel.luke.JobScheduler.Util;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.Screenshot.ScreenShotContentObserver;
 import com.xdel.luke.objClasses.HendersonLocationCustom;
 import com.xdel.luke.objClasses.LocaleHelper;
@@ -618,6 +619,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     protected void onResume() {
         super.onResume();
+        //R6: R5 may have redirected this screen inside super.onResume(); nothing below may run on a finishing activity
+        if (isFinishing()) {
+            if (RootGuard.isBlocked()) {
+                //keep a blocked process idle, as Util.cancelAllJobs below did on this path before
+                Util.cancelAllJobs(myApp.getAppContext());
+            }
+            return;
+        }
         synchronized (FCMservice.CURRENTACTIVIYLOCK) {
             /*testAsync ta = new testAsync();
             ta.execute();*/
@@ -1037,10 +1046,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     location = locationManager.getLastKnownLocation(provider);
                 }
 
-                //location = new Location("test");
+                location = new Location("test");
                 //henderson
-                /*location.setLatitude(1.28152583783);
-                location.setLongitude(103.819958272);*/
+                location.setLatitude(1.28152583783);
+                location.setLongitude(103.819958272);
                 //toh guan
                 /*location.setLatitude(1.340438);
                 location.setLongitude(103.746472);*/
@@ -2004,6 +2013,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         private final String aQRCode;
         private final Location aalocation;
         private final boolean hasXDelCommunalDeviceFile_;
+        private int applyLeaveFlag; //R6: read on the main thread in onPreExecute, the views may be gone by doInBackground
 
         GCLogin(String aaLoginName, String aaPassword, String aaRegID, String aaQRCode, Location aaalocation, boolean ahasXDelCommunalDeviceFile_) {
             this.aLoginName = aaLoginName;
@@ -2018,7 +2028,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //Make Progress Bar visible
         protected void onPreExecute() {
             //webservicePG.setVisibility(View.VISIBLE);
-            pd.show();
+            applyLeaveFlag = (cbApplyLeave != null && cbApplyLeave.isChecked()) ? 1 : 0;
+            if (pd != null) {
+                pd.show();
+            }
         }
 
         @Override
@@ -2035,7 +2048,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         lastknownlocation == null ? 0 : lastknownlocation.getLatitude(), lastknownlocation == null ? 0 : lastknownlocation.getLongitude(), Accuracy, aQRCode);
 
                 req.setCommunalDevice(hasXDelCommunalDeviceFile_);
-                req.setFlag(cbApplyLeave.isChecked() ? 1 : 0); //<Flag>Regular or AdministrativeMode or Unused1 or Unused2</Flag>
+                req.setFlag(applyLeaveFlag); //<Flag>Regular or AdministrativeMode or Unused1 or Unused2</Flag>
                 res = WebService.getGCLoginStatus(req);
             } catch (Exception e) {
                 objGlobalMethods.writeToFile("Exception caught at MainActivity GCLogin doInBackground. " + e.getMessage().toString(), "", "", "", "");
@@ -2047,6 +2060,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         @Override
         //Once WebService returns response
         protected void onPostExecute(final objAuthDriverResult res) {
+            //R6: the screen can be closed during login, for example by the R5 redirect; its views and dialogs are null then
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
             try {
                 pd.dismiss();
 

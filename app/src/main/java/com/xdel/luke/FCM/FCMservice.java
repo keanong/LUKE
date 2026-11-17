@@ -47,6 +47,7 @@ import com.xdel.luke.Messaging;
 import com.xdel.luke.Messaginglist;
 import com.xdel.luke.PieceByPiecePU.PipPcs;
 import com.xdel.luke.R;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.UpdateCOD_List;
 import com.xdel.luke.WebService;
 import com.xdel.luke.changeOfJobInfoDetails_BroadcastReceiver;
@@ -133,6 +134,10 @@ public class FCMservice extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        //R6: ignore every push while RootGuard blocks this process, so no server-driven sync, settings change or log pull runs
+        if (RootGuard.blockOperation("FCMservice.onMessageReceived", null)) {
+            return;
+        }
         synchronized (CURRENTACTIVIYLOCK) {
             try {
                 //if this is called, there is working internet connection, check to send data back

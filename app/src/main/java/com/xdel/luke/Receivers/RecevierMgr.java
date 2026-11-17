@@ -6,6 +6,7 @@ import com.xdel.luke.BattLvl_Receiver;
 import com.xdel.luke.Common_BroadcastReceiver;
 import com.xdel.luke.JobsHandler;
 import com.xdel.luke.NetworkChanged_BroadcastReceiver;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.objClasses.WifiBroadcastReceiver;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
@@ -43,6 +44,10 @@ public class RecevierMgr {
     }
 
     public static void regScreenOnOffReceiverNew() {
+        //R6: no screen-on BLE trigger while RootGuard blocks this process
+        if (RootGuard.blockOperation("RecevierMgr.regScreenOnOffReceiverNew", null)) {
+            return;
+        }
         try {
             if (soor == null)
                 soor = new ScreenOnOffReceiver();

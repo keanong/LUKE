@@ -26,6 +26,7 @@ import com.xdel.luke.BackendRun_BroadcastReceiver;
 import com.xdel.luke.JobInfoActivity;
 import com.xdel.luke.JobsHandler;
 import com.xdel.luke.R;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.WebService;
 import com.xdel.luke.mpd.MPDMainActivity;
 import com.xdel.luke.objClasses.myApp;
@@ -85,6 +86,10 @@ public class btReportGeneratorIntentService extends IntentService {
                 if (scan == null)
                     return;
 
+                //R6: no logger connection, read or clear while RootGuard blocks this process
+                if (RootGuard.blockOperation("btReportGeneratorIntentService.onHandleIntent", null))
+                    return;
+
                 ////new code here
                 if (myApp.currentActivity != null && myApp.currentActivity.getClass() == JobInfoActivity.class) {
                     final JobInfoActivity act = (JobInfoActivity) myApp.currentActivity;
@@ -110,6 +115,11 @@ public class btReportGeneratorIntentService extends IntentService {
         if (_BleDevice == null)
             return;
         try {
+            //R6: no unlock, read or clear while RootGuard blocks this process; close a connection that reached this point
+            if (RootGuard.blockOperation("btReportGeneratorIntentService.InitDataManager", null)) {
+                BleManager.getInstance().disconnect(_BleDevice);
+                return;
+            }
             if (_DataManager == null) {
                 if (_Device.getDeviceType() == DeviceType.TempU06L60)
                     _DataManager = new com.tzone.devices.u06L60.DataManager();

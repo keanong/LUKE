@@ -1566,4 +1566,8 @@
 
     <string name="cfm_do_collection_01">确认已收回所有</string>
     <string name="cfm_do_collection_02">份订单或发票?</string>
+
+    <string name="root_blocked_title">设备安全检查未通过</string>
+    <string name="root_blocked_message">此设备似乎已取得 root 权限或经过修改。为保护公司及客户数据，LUKE 已限制此设备的访问权限。请联系您的主管或 IT 支持人员寻求协助。您的本地数据尚未被删除。</string>
+    <string name="root_blocked_close">关闭</string>
 </resources>

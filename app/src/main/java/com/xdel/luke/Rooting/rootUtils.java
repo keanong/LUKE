@@ -1,15 +1,16 @@
 package com.xdel.luke.Rooting;
 
-import android.content.Context;
-import android.os.AsyncTask;
-
-import com.xdel.luke.R;
 import com.xdel.luke.objClasses.objGlobalMethods;
 
 import java.io.File;
 
+/**
+ * Compatibility wrapper. Root detection and enforcement are handled by RootGuard.
+ * The old warning-only CheckIsRooted dialog task had no callers and has been retired.
+ */
 public class rootUtils {
 
+    /** Legacy su-path check, kept for API compatibility. Not used by RootGuard. */
     public static boolean findBinary(String binaryName) {
         boolean found = false;
         try {
@@ -27,38 +28,12 @@ public class rootUtils {
             }
         } catch (Exception e) {
             objGlobalMethods.writeToFile("Exception at rootUtils findBinary. Exception: " + e.getMessage(),"","","","");
-        } finally {
-            return found;
         }
+        return found;
     }
 
     public static boolean isRooted() {
-        return findBinary("su");
-    }
-
-    public static class CheckIsRooted extends AsyncTask<Void, Void, Boolean> {
-        private final Context ctx;
-        public CheckIsRooted(Context actx) {
-            this.ctx = actx;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return isRooted();
-        }
-
-        @Override
-        //Once WebService returns response
-        protected void onPostExecute(final Boolean b) {
-            try {
-                if (b) {
-                    objGlobalMethods.showDialog(ctx, ctx.getString(R.string.buttontext_ok), "This device is ROOTED.").show();
-                }
-            } catch (Exception e) {
-                objGlobalMethods.writeToFile("Exception at rootUtils CheckIsRooted onPostExecute. Exception: " + e.getMessage(),"","","","");
-            }
-        }
-
+        return RootGuard.isRooted();
     }
 
 }

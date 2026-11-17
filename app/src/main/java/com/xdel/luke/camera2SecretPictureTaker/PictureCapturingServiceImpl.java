@@ -42,7 +42,6 @@ import java.util.UUID;
  * The aim of this service is to secretly take pictures (without preview or opening device's camera app)
  * from all available cameras using Android Camera 2 API
  *
- * @author hzitoun (zitoun.hamed@gmail.com)
  */
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP) //NOTE: camera 2 api was added in API level 21

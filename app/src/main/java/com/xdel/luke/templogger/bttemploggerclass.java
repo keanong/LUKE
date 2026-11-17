@@ -19,6 +19,7 @@ import com.tzone.bluetooth.scan.BleScanRuleConfig;
 import com.tzone.devices.BaseDevice;
 import com.tzone.devices.DeviceType;
 import com.xdel.luke.JobsHandler;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
 
@@ -65,6 +66,11 @@ public class bttemploggerclass {
 
     public void scan() {
         try {
+            //R6: no logger scan while RootGuard blocks this process
+            if (RootGuard.blockOperation("bttemploggerclass.scan", null)) {
+                StopScan(); //same cleanup as the screen-off branch: clears bttemploggerclassStarted, cancels any scan
+                return;
+            }
             if (BleManager.getInstance().getScanSate() == BleScanState.STATE_SCANNING) {
                 BleManager.getInstance().cancelScan();
                 objGlobalMethods.writeToFile("BleManager.getInstance().cancelScan() due BleManager.getInstance().getScanSate() == BleScanState.STATE_SCANNING", "", "", "", "");

@@ -63,7 +63,7 @@ public class DigitalAgreementActivity extends AppCompatActivity {
     private boolean DeAuthDriverResult;
     private ProgressDialog pd;
     Button btnDAContinue, btnDAReject, btnDAAccept;
-    String url = "https://www.xdel.com/0190492854056041KDKCX/doku.php";
+    String url = "https://ws2.xdel.com/0190492854056041KDKCX/doku.php";
 
     public void BackToLoginPage2() {
         GcmPreferences = objGlobalMethods.getGcmPreferences();

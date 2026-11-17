@@ -71,6 +71,7 @@ import com.xdel.luke.Locker.L2_LA_GetUserResult;
 import com.xdel.luke.PieceByPiecePU.PipPcs;
 import com.xdel.luke.PieceByPiecePU.StartQueryActivity;
 import com.xdel.luke.Receivers.RecevierMgr;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.Screenshot.ScreenShotContentObserver;
 import com.xdel.luke.Voip.VoipApp;
 import com.xdel.luke.Vrp.JobQueue;
@@ -1180,6 +1181,10 @@ public class DrawerMain2Activity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //R6: R5 may have redirected this screen inside super.onResume(); nothing below may run on a finishing activity
+        if (isFinishing()) {
+            return;
+        }
         synchronized (FCMservice.CURRENTACTIVIYLOCK) {
             try {
                 GcmPreferences = objGlobalMethods.getGcmPreferences();
@@ -2541,6 +2546,11 @@ public class DrawerMain2Activity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            //R6: skip job loading while RootGuard blocks this process; cancelling makes AsyncTask call onCancelled instead of onPostExecute
+            if (RootGuard.blockOperation("DrawerMain2Activity.GetDriverJobsCountSQLite", null)) {
+                cancel(false);
+                return false;
+            }
             Boolean asd = true;
             int TradeInModelCount = 0;
             dbObjTradeInList[] TradeInList = null;

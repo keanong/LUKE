@@ -14,6 +14,7 @@ import com.xdel.luke.BackendRun_IntentService;
 import com.xdel.luke.FCM.FCMservice;
 import com.xdel.luke.JobsHandler;
 import com.xdel.luke.MainActivity;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.WebService;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objAuthDriverResult;
@@ -71,6 +72,10 @@ public class NetworkSchedulerService extends JobService implements
         SharedPreferences GcmPreferences = objGlobalMethods.getGcmPreferences();
         String message = isConnected ? "Regain Internet Connection @ NetworkSchedulerService." : "Lost Internet Connection @ NetworkSchedulerService.";
         if (isConnected) {
+            //R6: no re-login or backend start while RootGuard blocks this process; connectionState is left as it is
+            if (RootGuard.blockOperation("NetworkSchedulerService.onNetworkConnectionChanged", null)) {
+                return;
+            }
             //objGlobalMethods.writeToFile(message,"","","","");
             String username = "";
             String password = "";

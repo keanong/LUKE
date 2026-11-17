@@ -120,7 +120,7 @@ public class GrabLogFileOnDemand_IntentService extends IntentService {
                 if (att.exists()) {
                     attachmentfilename = att.getAbsolutePath().toString();
                     if (!attachmentfilename.equals("")) {
-                        //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
                         Mail m = new Mail("luke@xdel.com", "XDel2015");
 
                         GcmPref = objGlobalMethods.getGcmPreferences();

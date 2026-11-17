@@ -1072,7 +1072,7 @@ public class OtpActivity extends FragmentActivity {
             } catch (Exception e) {
                 objGlobalMethods.writeToFile("Fail to convert Part 2 Json String to objJobInfo. " + e.getMessage().toString(),
                         "Part 1 JobsIDX: " + String.valueOf(idx), "Submitted Recipient: " + Receiver, "", "");
-                //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
                 UsernamePwd = objGlobalMethods.getLoginUsernamePwd(gcmp);
                 username = UsernamePwd[0];
                 password = UsernamePwd[1];

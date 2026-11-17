@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.xdel.luke.ConnectionDetector;
 import com.xdel.luke.JobsHandler;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.WebService;
 import com.xdel.luke.sqlite.DAO_Jobs;
 import com.xdel.luke.templogger.L2_GetJobTemperatureResult;
@@ -28,6 +29,11 @@ public class UploadGPSIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        //R6: leave GPSarrayQue untouched while RootGuard blocks this process; GPS collection keeps appending to it
+        if (RootGuard.blockOperation("UploadGPSIntentService.onHandleIntent", null)) {
+            UploadGPSReceiver.completeWakefulIntent(intent);
+            return;
+        }
         Context context = myApp.getAppContext();
         Boolean success = false;
         Boolean updateBattSuccess = false;

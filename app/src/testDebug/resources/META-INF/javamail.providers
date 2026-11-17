@@ -1,0 +1,5 @@
+# R7 Stage 1.5 - UNIT TESTS ONLY (src/testDebug/resources). Never package into an APK.
+# Puts FakeSmtpTransport on the JVM unit-test class path for smtp and smtps, so the fake transport tests
+# never reach a real SMTP server. It is not in src/debug: the distributed Debug APK keeps real JavaMail SMTP.
+protocol=smtp; type=transport; class=com.xdel.luke.debugtools.FakeSmtpTransport; vendor=LUKE R7 Debug; version=1.5;
+protocol=smtps; type=transport; class=com.xdel.luke.debugtools.FakeSmtpTransport; vendor=LUKE R7 Debug; version=1.5;

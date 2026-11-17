@@ -23,6 +23,7 @@ import com.tzone.devices.TemperatureUnitType;
 import com.tzone.utils.StringUtil;
 import com.xdel.luke.BackendRun_BroadcastReceiver;
 import com.xdel.luke.JobsHandler;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
 import com.xdel.luke.test.Report;
@@ -84,6 +85,11 @@ public class btReport {
 
     public void scanNew() {
         try {
+            //R6: no logger connection, read or clear while RootGuard blocks this process
+            if (RootGuard.blockOperation("btReport.scanNew", null)) {
+                IsRunning = null; //same state as the screen-off branch, so a later run is not held off
+                return;
+            }
             _Device = bs != null && bs._D != null ? bs._D : null;
             scan = bs != null && bs.scan != null ? bs.scan : null;
             MPDIDX = bs != null ? bs.MPDIDX : 0;
@@ -123,6 +129,11 @@ public class btReport {
         }
 
         try {
+            //R6: no unlock, read or clear while RootGuard blocks this process; close a connection that reached this point
+            if (RootGuard.blockOperation("btReport.InitDataManager", null)) {
+                BleManager.getInstance().disconnect(_BleDevice);
+                return;
+            }
 
             if (objGlobalMethods.isScreenDisplayOn(myApp.getAppContext())) {
                 if (_DataManager == null) {

@@ -15,6 +15,7 @@ import com.xdel.luke.JobsHandler;
 import com.xdel.luke.JobsListGroupActivity;
 import com.xdel.luke.MPD_CheckOutActivity;
 import com.xdel.luke.MapsAllActivity;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
 import com.xdel.luke.objClasses.objMPD_Info;
@@ -41,6 +42,10 @@ public class MpdRefreshIntentService extends IntentService {
 
         @Override
     protected void onHandleIntent(Intent intent) {
+        //R6: no MPD refresh while RootGuard blocks this process, so stored MPD preferences are not overwritten
+        if (RootGuard.blockOperation("MpdRefreshIntentService.onHandleIntent", null)) {
+            return;
+        }
         if (intent != null) {
             Context ctx = myApp.getAppContext();
             try {

@@ -26,6 +26,7 @@ import com.xdel.luke.HRM_Leave.objLeaveRecordSubmit;
 import com.xdel.luke.HRM_Leave.objLeaveType;
 import com.xdel.luke.HandTakeOver.HOTO;
 import com.xdel.luke.HandTakeOver.L2_Get_WorkScheduleResult;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.Locker.L2_LA_GetUserResult;
 import com.xdel.luke.Locker.L2_LA_UpdateMobileResult;
 import com.xdel.luke.Vrp.JobQueue;
@@ -107,13 +108,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 public class WebService {
-    private static String NAMESPACE = "https://www.xdel.com/lukews/";
     private static String ipURL = "https://ws.xdel.com/lukews/luke.svc/"; //27.54.42.182 //Make sure you changed IP address
     private static String ipURL1_ = "https://ws.xdel.com/lukews/luke.svc/"; //27.54.42.182 //Make sure you changed IP address
     private static String ipURL2_ = "https://ws2.xdel.com/lukews/luke.svc/"; //27.54.42.185
-    private static String ipURL3_ = "https://www.xdel.com/lukews/luke.svc/"; //27.54.42.189
-    private static String localURL = "https://192.168.0.20/lukews/luke.svc/"; //when connected to XDEl WIFI
-    private static String SOAP_ACTION = "https://www.xdel.com/lukews/";
+    private static String ipURL3_ = "https://ws.xdel.com/lukews/luke.svc/"; //27.54.42.189
+    //private static String localURL = "https://192.168.0.20/lukews/luke.svc/"; //when connected to XDEl WIFI
+    private static String localURL = "https://ws.xdel.com/lukews/luke.svc/"; //when connected to XDEl WIFI
 
     static String SOAP_ACTION2 = "http://tempuri.org/";
     static String WSDL_TARGET_NAMESPACE = "http://tempuri.org/";
@@ -284,6 +284,10 @@ public class WebService {
     }
 
     public static JSONObject getJSONObj00(String webMethName, String jsonParameters) {
+        //R6: no server call while RootGuard blocks this process. Returns the normal failure value without changing ipURL.
+        if (RootGuard.blockOperation("WebService.getJSONObj00", webMethName)) {
+            return null;
+        }
         HttpURLConnection urlConnection;
         String result = null;
         JSONObject jobj = null;
@@ -340,6 +344,10 @@ public class WebService {
     }
 
     public static JSONObject getJSONObj0(String webMethName, String jsonParameters) {
+        //R6: no server call while RootGuard blocks this process. Returns the normal failure value without changing ipURL.
+        if (RootGuard.blockOperation("WebService.getJSONObj0", webMethName)) {
+            return null;
+        }
         HttpURLConnection urlConnection;
         //HttpsURLConnection urlConnection;
         String result = null;
@@ -392,7 +400,7 @@ public class WebService {
                 disableSSLCertificateChecking();
             }*/
 
-            disableSSLCertificateChecking();
+            //disableSSLCertificateChecking();
 
             //urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection = (HttpsURLConnection) url.openConnection();
@@ -461,6 +469,10 @@ public class WebService {
     }
 
     public static JSONObject getRoutingJSONObj(String webMethName, String jsonParameters) {
+        //R6: no server call while RootGuard blocks this process. Returns the normal failure value.
+        if (RootGuard.blockOperation("WebService.getRoutingJSONObj", webMethName)) {
+            return null;
+        }
         String jsonstr = "";
         HttpURLConnection urlConnection;
         String result = null;

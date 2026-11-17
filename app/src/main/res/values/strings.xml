@@ -1567,4 +1567,8 @@
 
     <string name="cfm_do_collection_01">Confirm all</string>
     <string name="cfm_do_collection_02">DO/INVOICES collected?</string>
+
+    <string name="root_blocked_title">Device security check failed</string>
+    <string name="root_blocked_message">This device appears to be rooted or modified. To protect company and customer data, LUKE access has been restricted. Please contact your supervisor or IT support for assistance. Your local data has not been deleted.</string>
+    <string name="root_blocked_close">Close</string>
 </resources>

@@ -19,39 +19,86 @@ import com.xdel.luke.objClasses.objGlobalMethods;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
     Activity activity;
+
+    //R6: crash-loop protection, the time of the last crash is kept in SystemRelatedSharedPreferences
+    private static final String LAST_CRASH_KEY = "crashHandlerLastCrashTimeLong";
+    private static final long CRASH_LOOP_WINDOW_MS = 60 * 1000L;
+    private static final Object CRASH_LOCK = new Object();
+    private static final AtomicBoolean handling = new AtomicBoolean(false);
 
     public DefaultExceptionHandler(Activity activity) {
         this.activity = activity;
     }
 
+    /**
+     * Only the first crashing thread handles the crash and ends the process.
+     * Every step is isolated, so a failing step cannot skip the others, and the finally block always ends the process.
+     * A handler that throws would otherwise leave the process alive with a dead main thread.
+     */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        String s = JobsHandler.getThrowableStackTraceString(ex);
-        Throwable cause = ex.getCause();
-        String cs = JobsHandler.getThrowableStackTraceString(cause);
-        objGlobalMethods.writeToFile("DefaultExceptionHandler uncaughtException. \nThrowable ex:\n" + ex.getMessage() +
-                "\nStack:\n" + s +
-                "\nCause:\n" + cs, "", "", "", "");
+        if (!handling.compareAndSet(false, true)) {
+            //another thread is already handling a crash and will end the process; return without exiting
+            return;
+        }
 
-        getLogFiles();
+        try {
+            boolean allowRestart = false;
+            try {
+                allowRestart = recordCrashAndCheckRestartAllowed();
+            } catch (Throwable t) {
+                allowRestart = false;
+            }
 
-        Intent intent = new Intent(activity, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                String s = JobsHandler.getThrowableStackTraceString(ex);
+                Throwable cause = ex != null ? ex.getCause() : null;
+                String cs = JobsHandler.getThrowableStackTraceString(cause);
+                objGlobalMethods.writeToFile("DefaultExceptionHandler uncaughtException. \nThrowable ex:\n" + (ex != null ? ex.getMessage() : "null") +
+                        "\nStack:\n" + s +
+                        "\nCause:\n" + cs, "", "", "", "");
+            } catch (Throwable t) {
+            }
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                myApp.getInstance().getBaseContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            if (allowRestart) {
+                try {
+                    getLogFiles();
+                } catch (Throwable t) {
+                }
 
-        //Restart your app after 2 seconds
-        AlarmManager mgr = (AlarmManager) myApp.getInstance().getBaseContext().getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
-        //finishing the activity.
-        activity.finish();
-        //Stopping application
-        //System.exit(2);
-        System.exit(1);
+                try {
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    PendingIntent pendingIntent = PendingIntent.getActivity(
+                            myApp.getInstance().getBaseContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+                    //Restart your app after 2 seconds
+                    AlarmManager mgr = (AlarmManager) myApp.getInstance().getBaseContext().getSystemService(Context.ALARM_SERVICE);
+                    mgr.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
+                } catch (Throwable t) {
+                }
+            } else {
+                try {
+                    objGlobalMethods.writeToFile("DefaultExceptionHandler repeated crash within 60s or crash time not stored. Error report and restart skipped.", "", "", "", "");
+                } catch (Throwable t) {
+                }
+            }
+
+            try {
+                //finishing the activity.
+                activity.finish();
+            } catch (Throwable t) {
+            }
+        } finally {
+            //Stopping application, also when any step above failed; reached only by the thread that owns the handling flag
+            //System.exit(2);
+            System.exit(1);
+        }
 
 
         /*Intent intenta = new Intent (myApp.getAppContext(), MainActivity.class);
@@ -68,6 +115,51 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
         //System.exit(2);
         System.exit(1);*/
 
+    }
+
+    /**
+     * Stores the time of this crash in SystemRelatedSharedPreferences with a synchronous commit, and decides whether
+     * an automatic restart and error report are allowed.
+     * True only if the previous crash was at least CRASH_LOOP_WINDOW_MS ago and the new time was committed.
+     * Fails safe: false if the preferences cannot be opened, the stored value cannot be read, or the commit fails,
+     * so that a crash loop can never restart the app or queue repeated error reports.
+     */
+    private static boolean recordCrashAndCheckRestartAllowed() {
+        synchronized (CRASH_LOCK) {
+            long now = System.currentTimeMillis();
+
+            SharedPreferences sp = null;
+            try {
+                sp = objGlobalMethods.getSystemRelatedSharedPreferences();
+            } catch (Throwable t) {
+                sp = null;
+            }
+            if (sp == null) {
+                return false;
+            }
+
+            long last = 0;
+            boolean readOk = true;
+            try {
+                last = sp.getLong(LAST_CRASH_KEY, 0); //0 when the key does not exist yet, the first crash
+            } catch (Throwable t) {
+                readOk = false;
+            }
+
+            boolean committed = false;
+            try {
+                //also overwrites an unreadable value, so a damaged entry cannot disable restarts permanently
+                committed = sp.edit().putLong(LAST_CRASH_KEY, now).commit();
+            } catch (Throwable t) {
+                committed = false;
+            }
+
+            if (!readOk || !committed) {
+                return false;
+            }
+            boolean repeated = last > 0 && now >= last && now - last < CRASH_LOOP_WINDOW_MS;
+            return !repeated;
+        }
     }
 
     public static void getLogFiles() {

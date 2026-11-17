@@ -132,6 +132,7 @@ import com.xdel.luke.OtpActivity;
 import com.xdel.luke.PerMinuteRun_BroadcastReceiver;
 import com.xdel.luke.QRReaderActivity;
 import com.xdel.luke.R;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.Screenshot.ScreenShotContentObserver;
 import com.xdel.luke.SecuritySealActivity;
 import com.xdel.luke.SettingsActivity;
@@ -1927,6 +1928,10 @@ public class objGlobalMethods {
     }
 
     public static ArrayList<objMPD_Info> grabMPDFromServer() {
+        //R6: no MPD fetch while RootGuard blocks this process, so MPD and BT logger preferences are not cleared
+        if (RootGuard.blockOperation("objGlobalMethods.grabMPDFromServer", null)) {
+            return null;
+        }
         SharedPreferences gcmp = getGcmPreferences();
         String regid = getRegistrationId(null, gcmp);
         String[] MPD_Check_HoldingResult;
@@ -2018,6 +2023,10 @@ public class objGlobalMethods {
     }
 
     public static void setMPDsPrefStrNew(ArrayList<objMPD_Info> mpds) {
+        //R6: keep the stored MPD list while RootGuard blocks this process; callers pass the blocked server result
+        if (RootGuard.blockOperation("objGlobalMethods.setMPDsPrefStrNew", null)) {
+            return;
+        }
         String mpdsPrefStr = "";
         try {
             if (mpds != null && mpds.size() > 0) {
@@ -2046,6 +2055,10 @@ public class objGlobalMethods {
     }
 
     public static void grabSettingsFromServer() {
+        //R6: no settings fetch while RootGuard blocks this process, so stored settings are not reset to defaults
+        if (RootGuard.blockOperation("objGlobalMethods.grabSettingsFromServer", null)) {
+            return;
+        }
         SharedPreferences gcmp = getGcmPreferences();
         String regid = getRegistrationId(null, gcmp);
         try {

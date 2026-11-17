@@ -11,6 +11,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xdel.luke.PieceByPiecePU.PipPcs;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.Vrp.JobQueue;
 import com.xdel.luke.checklist.ChecklistVariables;
 import com.xdel.luke.credits.credit;
@@ -414,7 +415,10 @@ public class JobsHandler2 {
     }
 
     public static void backendRun(SharedPreferences g, SharedPreferences u) {
-
+        //R6: return before the connectivity check, so a blocked process does not touch the warehouse temperature queue
+        if (RootGuard.blockOperation("JobsHandler2.backendRun", null)) {
+            return;
+        }
         try {
             //cd = new ConnectionDetector(myApp.getAppContext());
             cd = new ConnectionDetector(null);

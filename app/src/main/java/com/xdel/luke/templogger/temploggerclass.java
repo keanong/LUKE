@@ -56,6 +56,7 @@ import com.xdel.luke.Messaginglist;
 import com.xdel.luke.OtpActivity;
 import com.xdel.luke.QRBarcodeReader;
 import com.xdel.luke.R;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.SecuritySealActivity;
 import com.xdel.luke.SignatureNameActivity;
 import com.xdel.luke.UpdateCOD_List;
@@ -244,6 +245,11 @@ public class temploggerclass {
     }
 
     public static void startTimer(long fastLeftTimeMS) {
+        //R6: no BLE timer, and no re-arming of it, while RootGuard blocks this process
+        if (RootGuard.blockOperation("temploggerclass.startTimer", null)) {
+            disposeTimer();
+            return;
+        }
         long cTimeMS = new Date().getTime();
         long leftTimeMS = 960000; //purposely put 16min instead of 15min to cater 1min buffer for ScreenOnOffReceiver side to scan BTTL
         //long leftTimeMS = 180000; //purposely put 3min instead of 5min to cater 1min buffer for ScreenOnOffReceiver side to scan BTTL

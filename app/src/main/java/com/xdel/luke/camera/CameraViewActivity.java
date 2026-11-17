@@ -838,7 +838,7 @@ public class CameraViewActivity extends AppCompatActivity {
                 username = UsernamePwd[0];
                 useridx = UsernamePwd[2];
                 String stack = JobsHandler.getStackTraceString(e);
-                //Mail m = new Mail("xdelsingapore66@gmail.com", "12321qwE");
+
                 Mail m = new Mail("luke@xdel.com", "XDel2015");
                 objGlobalMethods.sendEmail sendmail = new objGlobalMethods.sendEmail(m, "",
                         "There was a problem grabbing the photo : " + e.getMessage() + "\n\nStack: " + stack + (!objGlobalMethods.IsEmptyString(doInbackgroundExceptionMsg) ? "\n\ndoInbackgroundExceptionMsg: " + doInbackgroundExceptionMsg : "")

@@ -19,6 +19,7 @@ import com.xdel.luke.BottomSheet.ProgressBarDialog;
 import com.xdel.luke.JobInfoActivity;
 import com.xdel.luke.JobsHandler;
 import com.xdel.luke.R;
+import com.xdel.luke.Rooting.RootGuard;
 import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
 
@@ -57,6 +58,10 @@ public class RegBTLscanClass {
 
     public void scan() {
         try {
+            //R6: no registration scan or registry change while RootGuard blocks this process
+            if (RootGuard.blockOperation("RegBTLscanClass.scan", null)) {
+                return;
+            }
             if (BleManager.getInstance().getScanSate() == BleScanState.STATE_SCANNING)
                 BleManager.getInstance().cancelScan();
             BleScanRuleConfig scanRuleConfig = new BleScanRuleConfig.Builder()
