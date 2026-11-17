@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Environment;
 
 import com.xdel.luke.BCnSVC.GrabUncaughtErrorLogFileOnDemand_BroadcastReceiver;
@@ -17,8 +18,10 @@ import com.xdel.luke.objClasses.myApp;
 import com.xdel.luke.objClasses.objGlobalMethods;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler {
@@ -29,6 +32,8 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
     private static final long CRASH_LOOP_WINDOW_MS = 60 * 1000L;
     private static final Object CRASH_LOCK = new Object();
     private static final AtomicBoolean handling = new AtomicBoolean(false);
+    //R7 A7: longest wait for the crash counter lock; on a timeout the report gets seq=unknown
+    private static final long R7_LOCK_TIMEOUT_MS = 2000L;
 
     public DefaultExceptionHandler(Activity activity) {
         this.activity = activity;
@@ -65,24 +70,46 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
             }
 
             if (allowRestart) {
+                //R7 A7 C1/C2: durable crash report; replaces the getLogFiles() email queue (D1)
                 try {
-                    getLogFiles();
+                    recordCrashReport(ex);
                 } catch (Throwable t) {
+                    try {
+                        objGlobalMethods.writeToFile("DefaultExceptionHandler crash report not saved: " + t, "", "", "", "");
+                    } catch (Throwable ignored) {
+                    }
                 }
 
-                try {
-                    Intent intent = new Intent(activity, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    try {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                    PendingIntent pendingIntent = PendingIntent.getActivity(
-                            myApp.getInstance().getBaseContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(
+                                myApp.getInstance().getBaseContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-                    //Restart your app after 2 seconds
-                    AlarmManager mgr = (AlarmManager) myApp.getInstance().getBaseContext().getSystemService(Context.ALARM_SERVICE);
-                    mgr.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
-                } catch (Throwable t) {
+                        //Restart your app after 2 seconds
+                        AlarmManager mgr = (AlarmManager) myApp.getInstance().getBaseContext().getSystemService(Context.ALARM_SERVICE);
+                        mgr.set(AlarmManager.RTC, System.currentTimeMillis(), pendingIntent);
+                    } catch (Throwable t) {
+                    }
+                } else {
+                    //R7 A7 C3: API 29+ blocks background activity starts; offer a reopen notification
+                    try {
+                        String skipped = CrashRecoveryNotifier.showReopenPrompt(myApp.getInstance());
+                        if (skipped != null) {
+                            objGlobalMethods.writeToFile("DefaultExceptionHandler reopen prompt skipped: " + skipped, "", "", "", "");
+                        }
+                    } catch (Throwable t) {
+                    }
                 }
             } else {
+                //R7 A7: count the crash suppressed by the 60-second rule; no report is written
+                try {
+                    r7Store().incrementSuppressed(R7_LOCK_TIMEOUT_MS);
+                } catch (Throwable t) {
+                }
+
                 try {
                     objGlobalMethods.writeToFile("DefaultExceptionHandler repeated crash within 60s or crash time not stored. Error report and restart skipped.", "", "", "", "");
                 } catch (Throwable t) {
@@ -160,6 +187,66 @@ public class DefaultExceptionHandler implements Thread.UncaughtExceptionHandler 
             boolean repeated = last > 0 && now >= last && now - last < CRASH_LOOP_WINDOW_MS;
             return !repeated;
         }
+    }
+
+    /**
+     * R7 A7 C1/C2: reserves the next crash sequence number (the counter is saved first), then saves
+     * pending_<id>.rec atomically. Only CrashReportStore is used: no SharedPreferences, no
+     * JobsHandler.mutex and no network. The counter lock waits at most R7_LOCK_TIMEOUT_MS; on a
+     * timeout the report is still saved, with seq=unknown. Debug test points W0, W1 and W3 (D3).
+     */
+    private static void recordCrashReport(Throwable ex) throws IOException {
+        long now = System.currentTimeMillis();
+        CrashReportStore store = r7Store();
+        CrashReportStore.SeqAllocation a = store.allocateSeq(R7_LOCK_TIMEOUT_MS);
+        R7CrashTestPoints.at("W0");
+        CrashReportStore.Report r = CrashReportStore.Report.newReport(UUID.randomUUID().toString(),
+                a.seq, a.note, a.suppressedBefore, now, versionName(), crashDayLogPath(now),
+                excSummary(ex));
+        R7CrashTestPoints.at("W1");
+        store.savePending(r);
+        R7CrashTestPoints.at("W3");
+        objGlobalMethods.writeToFile("DefaultExceptionHandler crash report " + r.id + " saved, seq "
+                + CrashReportStore.seqText(r.seq), "", "", "", "");
+    }
+
+    /** The R7 store in getNoBackupFilesDir()/r7_crash, the same folder recovery uses. */
+    private static CrashReportStore r7Store() {
+        return new CrashReportStore(
+                CrashReportStore.storeDir(myApp.getInstance().getNoBackupFilesDir()));
+    }
+
+    /** The version at crash time, from PackageManager; "" if it cannot be read. */
+    private static String versionName() {
+        try {
+            Context c = myApp.getInstance();
+            String v = c.getPackageManager().getPackageInfo(c.getPackageName(), 0).versionName;
+            return v == null ? "" : v;
+        } catch (Throwable t) {
+            return "";
+        }
+    }
+
+    /** The crash-day log, named exactly as objGlobalMethods.writeToFile names it. */
+    private static String crashDayLogPath(long now) {
+        String day = new SimpleDateFormat("ddMMyyyy").format(new Date(now));
+        return new File(Environment.getExternalStorageDirectory(), day + "_log.txt").getAbsolutePath();
+    }
+
+    /** Exception class and message, first stack frame and cause; the store keeps 1024 chars. */
+    private static String excSummary(Throwable ex) {
+        if (ex == null) {
+            return "null";
+        }
+        StringBuilder b = new StringBuilder(ex.toString());
+        StackTraceElement[] st = ex.getStackTrace();
+        if (st != null && st.length > 0) {
+            b.append(" at ").append(st[0]);
+        }
+        if (ex.getCause() != null) {
+            b.append("; cause: ").append(ex.getCause());
+        }
+        return b.toString();
     }
 
     public static void getLogFiles() {

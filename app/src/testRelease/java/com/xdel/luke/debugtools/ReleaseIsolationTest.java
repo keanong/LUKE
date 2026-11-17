@@ -2,14 +2,19 @@ package com.xdel.luke.debugtools;
 
 import android.app.Application;
 
+import com.xdel.luke.ExceptionHandler.R7CrashTestPoints;
+
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +39,8 @@ import static org.junit.Assert.fail;
  * R7 Stage 1.5: also proves the fake SMTP transport, its isolation guard and the Debug JavaMail provider file
  * are absent, and that Release JavaMail resolves smtp and smtps to its own com.sun.mail.smtp transports.
  * Those checks read provider metadata only: no Transport is created or connected, so nothing touches the network.
+ * R7 A7 Stage 2: also proves the Release R7CrashTestPoints is a stateless, empty at(String) whose
+ * compiled class names no marker file, process kill, Android type or Debug-only class.
  */
 public class ReleaseIsolationTest {
 
@@ -169,6 +176,63 @@ public class ReleaseIsolationTest {
         }
     }
 
+    // ---------------- R7 A7 Stage 2: crash test points ----------------
+
+    @Test
+    public void releaseCrashTestPointsIsFinalAndDeclaresOnlyAt() throws NoSuchMethodException {
+        Class<?> c = R7CrashTestPoints.class;
+        assertTrue(Modifier.isPublic(c.getModifiers()));
+        assertTrue(Modifier.isFinal(c.getModifiers()));
+        List<Method> declared = new ArrayList<>();
+        for (Method m : c.getDeclaredMethods()) {
+            if (!m.isSynthetic()) {
+                declared.add(m);
+            }
+        }
+        assertEquals("Release R7CrashTestPoints must declare exactly one method", 1, declared.size());
+        Method at = declared.get(0);
+        assertEquals("at", at.getName());
+        assertEquals(void.class, at.getReturnType());
+        assertEquals(1, at.getParameterTypes().length);
+        assertEquals(String.class, at.getParameterTypes()[0]);
+        assertTrue(Modifier.isPublic(at.getModifiers()));
+        assertTrue(Modifier.isStatic(at.getModifiers()));
+        assertEquals(0, at.getExceptionTypes().length);
+        assertEquals(at, c.getMethod("at", String.class));
+    }
+
+    @Test
+    public void releaseCrashTestPointsHoldsNoStateAndCannotBeInstantiated() {
+        assertEquals(0, R7CrashTestPoints.class.getDeclaredFields().length);
+        Constructor<?>[] constructors = R7CrashTestPoints.class.getDeclaredConstructors();
+        assertEquals(1, constructors.length);
+        assertTrue(Modifier.isPrivate(constructors[0].getModifiers()));
+    }
+
+    @Test
+    public void releaseCrashTestPointsAtDoesNothingForEveryPoint() {
+        String[] points = {"W0", "W1", "W3", "S4a", "S5a", "S6a", "", null};
+        for (String p : points) {
+            try {
+                R7CrashTestPoints.at(p);
+            } catch (Throwable t) {
+                fail("Release at(" + p + ") must do nothing, but threw " + t);
+            }
+        }
+    }
+
+    @Test
+    public void releaseCrashTestPointsReferencesNoMarkerKillOrDebugCode() throws IOException {
+        //every class, method and string constant the class uses is named in its constant pool
+        String code = new String(classBytes(R7CrashTestPoints.class), StandardCharsets.ISO_8859_1);
+        String[] forbidden = {"crash_kill_at", "r7_debug", "killProcess", "myPid", "android/",
+                "BuildConfig", "com/xdel/luke/objClasses/myApp", "com/xdel/luke/debugtools/",
+                "java/io/File", "java/nio/file/"};
+        for (String s : forbidden) {
+            assertFalse("Release R7CrashTestPoints refers to " + s, code.contains(s));
+        }
+    }
+
     // ---------------- helpers ----------------
 
     private static ClassLoader loader() {
@@ -216,6 +280,23 @@ public class ReleaseIsolationTest {
     private static void addLoader(List<ClassLoader> loaders, ClassLoader cl) {
         if (cl != null && !loaders.contains(cl)) {
             loaders.add(cl);
+        }
+    }
+
+    /** The compiled class file, read from the test class path; nothing in it is executed. */
+    private static byte[] classBytes(Class<?> c) throws IOException {
+        String name = c.getName().replace('.', '/') + ".class";
+        InputStream in = c.getClassLoader().getResourceAsStream(name);
+        assertNotNull(name + " not found on the class path", in);
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buf = new byte[4096];
+            for (int n; (n = in.read(buf)) != -1; ) {
+                out.write(buf, 0, n);
+            }
+            return out.toByteArray();
+        } finally {
+            in.close();
         }
     }
 }

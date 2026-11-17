@@ -118,6 +118,17 @@ public class myApp extends Application {
             objGlobalMethods.writeToFile("Exception at myApp onCreate OpenSSL. Exception: " + e.getMessage() + "\nStack: " + s, "", "", "", "");
         }
         com.xdel.luke.debugtools.DebugTestHooks.install(this);
+        //R7 A7: crash-report recovery; isolated so a failure cannot stop app startup
+        try {
+            com.xdel.luke.ExceptionHandler.CrashRecoveryNotifier.createChannel(this);
+        } catch (Throwable t) {
+            //createChannel() never throws; this only guards against class-loading errors
+        }
+        try {
+            com.xdel.luke.ExceptionHandler.CrashRecoveryStarter.start(this);
+        } catch (Throwable t) {
+            //start() never throws; this only guards against class-loading errors
+        }
     }
 
     private void createNotificationChannel() {
